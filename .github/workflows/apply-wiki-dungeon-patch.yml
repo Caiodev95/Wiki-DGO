@@ -27,91 +27,89 @@ jobs:
                   raise SystemExit(f'Missing expected block: {label}')
               return source.replace(old, new, 1)
 
-          html = replace_once(
-              html,
-              '''        <p><strong>Recompensas da Dungeon — Modo Hard</strong></p>
-        <div class="images"><img src="Crack_Of_Devimon_Hard.png" data-i18n-attr="alt:alt.devimon_hard" style="width:75%;"></div>''',
-              '''        <p><strong>Modo Hard</strong></p>
-        <p class="notice"><strong>Conteúdo em ajuste:</strong> o conteúdo do modo Hard ainda não está funcional e está sendo revisado.</p>''',
-              'devimon hard notice',
+          devimon_old = (
+              '        <p><strong>Recompensas da Dungeon — Modo Hard</strong></p>\n'
+              '        <div class="images"><img src="Crack_Of_Devimon_Hard.png" data-i18n-attr="alt:alt.devimon_hard" style="width:75%;"></div>'
           )
-
-          html = replace_once(
-              html,
-              '''        <h3>Guia dos Círculos</h3>
-        <p class="notice"><strong>Nota:</strong> Use estas regras como referência para identificar mecânicas visuais de círculos durante as dungeons.</p>
-
-        <p><strong>Círculo Verde = Stackar</strong></p>
-        <p>Todos os membros da party devem se juntar dentro da área para dividir o dano. Quanto mais jogadores estiverem no círculo, menor será o dano recebido por cada um.</p>
-        <div class="images"><img src="Circulo_Verde.png" alt="Círculo verde para stackar" style="width:60%;"></div>
-
-        <p><strong>Círculo Preto = Dispersar</strong></p>
-        <p>Os membros da party devem se afastar uns dos outros. Jogadores próximos podem multiplicar o dano recebido.</p>
-        <div class="images"><img src="Circulo_Preto.png" alt="Círculo preto para dispersar" style="width:60%;"></div>
-
-        <p><strong>Círculo Vermelho = Skill de Esquiva / Debuff</strong></p>
-        <p>Saia da área para evitar o dano e possíveis debuffs aplicados pela skill.</p>
-        <div class="images"><img src="Circulo_Vermelho.png" alt="Círculo vermelho de esquiva ou debuff" style="width:60%;"></div>
-
-        <p><strong>Círculo Amarelo = Morte instantânea (HK)</strong></p>
-        <p>Evite a área imediatamente, pois ser atingido normalmente resulta em morte instantânea.</p>
-        <div class="images"><img src="Circulo_HK.png" alt="Círculo amarelo de morte instantânea" style="width:60%;"></div>
-
-''',
-              '',
-              'skull circle guide',
+          devimon_new = (
+              '        <p><strong>Modo Hard</strong></p>\n'
+              '        <p class="notice"><strong>Conteúdo em ajuste:</strong> o conteúdo do modo Hard ainda não está funcional e está sendo revisado.</p>'
           )
+          html = replace_once(html, devimon_old, devimon_new, 'devimon hard notice')
+
+          skull_circle = (
+              '        <h3>Guia dos Círculos</h3>\n'
+              '        <p class="notice"><strong>Nota:</strong> Use estas regras como referência para identificar mecânicas visuais de círculos durante as dungeons.</p>\n'
+              '\n'
+              '        <p><strong>Círculo Verde = Stackar</strong></p>\n'
+              '        <p>Todos os membros da party devem se juntar dentro da área para dividir o dano. Quanto mais jogadores estiverem no círculo, menor será o dano recebido por cada um.</p>\n'
+              '        <div class="images"><img src="Circulo_Verde.png" alt="Círculo verde para stackar" style="width:60%;"></div>\n'
+              '\n'
+              '        <p><strong>Círculo Preto = Dispersar</strong></p>\n'
+              '        <p>Os membros da party devem se afastar uns dos outros. Jogadores próximos podem multiplicar o dano recebido.</p>\n'
+              '        <div class="images"><img src="Circulo_Preto.png" alt="Círculo preto para dispersar" style="width:60%;"></div>\n'
+              '\n'
+              '        <p><strong>Círculo Vermelho = Skill de Esquiva / Debuff</strong></p>\n'
+              '        <p>Saia da área para evitar o dano e possíveis debuffs aplicados pela skill.</p>\n'
+              '        <div class="images"><img src="Circulo_Vermelho.png" alt="Círculo vermelho de esquiva ou debuff" style="width:60%;"></div>\n'
+              '\n'
+              '        <p><strong>Círculo Amarelo = Morte instantânea (HK)</strong></p>\n'
+              '        <p>Evite a área imediatamente, pois ser atingido normalmente resulta em morte instantânea.</p>\n'
+              '        <div class="images"><img src="Circulo_HK.png" alt="Círculo amarelo de morte instantânea" style="width:60%;"></div>\n'
+              '\n'
+          )
+          html = replace_once(html, skull_circle, '', 'skull circle guide')
 
           html = replace_once(
               html,
-              '''          <li>110x Scar Essence = 1 Pass [Scar of Water Crystal Hard]</li>
-          <li><b>Scar Essence pode ser dropada nos mapas de Snow Village</b></li>''',
-              '''          <li>110x Scar Essence = 1 Pass [Scar of Water Crystal Hard]</li>
-          <li><b>Craft adicional:</b> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</li>
-          <li><b>Scar Essence pode ser dropada nos mapas de Snow Village</b></li>''',
+              '          <li>110x Scar Essence = 1 Pass [Scar of Water Crystal Hard]</li>\n'
+              '          <li><b>Scar Essence pode ser dropada nos mapas de Snow Village</b></li>',
+              '          <li>110x Scar Essence = 1 Pass [Scar of Water Crystal Hard]</li>\n'
+              '          <li><b>Craft adicional:</b> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</li>\n'
+              '          <li><b>Scar Essence pode ser dropada nos mapas de Snow Village</b></li>',
               'water crystal craft note',
           )
 
           html = replace_once(
               html,
-              '''        <p>1 ticket pode ser obtido trocando 100x Energy of Thunder God com Renamon.</p>
-        <p><strong>Como acessar:</strong></p>''',
-              '''        <p>1 ticket pode ser obtido trocando 100x Energy of Thunder God com Renamon.</p>
-        <h3>Craft:</h3>
-        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>
-        <p><strong>Como acessar:</strong></p>''',
+              '        <p>1 ticket pode ser obtido trocando 100x Energy of Thunder God com Renamon.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
+              '        <p>1 ticket pode ser obtido trocando 100x Energy of Thunder God com Renamon.</p>\n'
+              '        <h3>Craft:</h3>\n'
+              '        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
               'descending thunder craft note',
           )
 
           html = replace_once(
               html,
-              '''        <p>As Energy of Steel podem ser obtidas como drop de qualquer Digimon em Server Continent Desert e Server Continent Canyon.</p>
-        <p><strong>Como acessar:</strong></p>''',
-              '''        <p>As Energy of Steel podem ser obtidas como drop de qualquer Digimon em Server Continent Desert e Server Continent Canyon.</p>
-        <h3>Craft:</h3>
-        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>
-        <p><strong>Como acessar:</strong></p>''',
+              '        <p>As Energy of Steel podem ser obtidas como drop de qualquer Digimon em Server Continent Desert e Server Continent Canyon.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
+              '        <p>As Energy of Steel podem ser obtidas como drop de qualquer Digimon em Server Continent Desert e Server Continent Canyon.</p>\n'
+              '        <h3>Craft:</h3>\n'
+              '        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
               'black steel craft note',
           )
 
           html = replace_once(
               html,
-              '''          <li>Fale com o NPC <b>Renamon</b> em D-Terminal e troque <strong>100x Yin and Yang Spirit</strong> por <strong>1x Pass [Fanglongmon Dungeon]</strong>.</li>
-          <li>Yin and Yang Spirit pode ser obtido como drop de qualquer Digimon em Versandi Terminal.</li>''',
-              '''          <li>Fale com o NPC <b>Renamon</b> em D-Terminal e troque <strong>100x Yin and Yang Spirit</strong> por <strong>1x Pass [Fanglongmon Dungeon]</strong>.</li>
-          <li><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</li>
-          <li>Yin and Yang Spirit pode ser obtido como drop de qualquer Digimon em Versandi Terminal.</li>''',
+              '          <li>Fale com o NPC <b>Renamon</b> em D-Terminal e troque <strong>100x Yin and Yang Spirit</strong> por <strong>1x Pass [Fanglongmon Dungeon]</strong>.</li>\n'
+              '          <li>Yin and Yang Spirit pode ser obtido como drop de qualquer Digimon em Versandi Terminal.</li>',
+              '          <li>Fale com o NPC <b>Renamon</b> em D-Terminal e troque <strong>100x Yin and Yang Spirit</strong> por <strong>1x Pass [Fanglongmon Dungeon]</strong>.</li>\n'
+              '          <li><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</li>\n'
+              '          <li>Yin and Yang Spirit pode ser obtido como drop de qualquer Digimon em Versandi Terminal.</li>',
               'fanglongmon craft note',
           )
 
           html = replace_once(
               html,
-              '''        <p>As Piece [Uprising Flame] podem ser obtidas como drop de qualquer Digimon em File Island.</p>
-        <p><strong>Como acessar:</strong></p>''',
-              '''        <p>As Piece [Uprising Flame] podem ser obtidas como drop de qualquer Digimon em File Island.</p>
-        <h3>Craft:</h3>
-        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>
-        <p><strong>Como acessar:</strong></p>''',
+              '        <p>As Piece [Uprising Flame] podem ser obtidas como drop de qualquer Digimon em File Island.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
+              '        <p>As Piece [Uprising Flame] podem ser obtidas como drop de qualquer Digimon em File Island.</p>\n'
+              '        <h3>Craft:</h3>\n'
+              '        <p class="notice"><strong>Craft adicional:</strong> também é possível craftar os passes de SkullMeramon, VenomMyotismon e Myotismon.</p>\n'
+              '        <p><strong>Como acessar:</strong></p>',
               'uprising flame craft note',
           )
 
