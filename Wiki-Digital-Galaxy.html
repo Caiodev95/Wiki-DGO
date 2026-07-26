@@ -314,7 +314,42 @@
       box-shadow:0 0 22px rgba(0,229,255,.12) inset;
     }
     #npcs .npc-block{ display:none; }
-    .npc-hero{ text-align:center; padding:80px 16px; }
+    .npc-hero{
+      position:relative;
+      display:grid;
+      place-items:center;
+      min-height:420px;
+      padding:0;
+      overflow:hidden;
+      border-radius:10px;
+      text-align:center;
+      isolation:isolate;
+    }
+    .npc-hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:0;
+      background:
+        radial-gradient(circle at center, rgba(4,15,34,.12) 0%, rgba(4,15,34,.42) 48%, rgba(4,15,34,.2) 100%),
+        linear-gradient(180deg, rgba(5,17,38,.12), rgba(5,17,38,.46));
+    }
+    .npc-hero-image{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .npc-hero-copy{
+      position:relative;
+      z-index:1;
+      max-width:520px;
+      padding:24px;
+      text-shadow:0 2px 8px #000, 0 0 16px rgba(0,229,255,.45);
+    }
+    .npc-hero-copy h3{ margin:0 0 10px; color:#fff; }
+    .npc-hero-copy p{ margin:0; color:#fff; }
     .babel-intro,
     .npc-profile-intro{
       display:grid;
@@ -737,6 +772,7 @@
       #event-content{ min-height: 280px; }
       #npcs .npc-layout{ grid-template-columns:1fr; }
       #npc-content{ min-height:320px; }
+      .npc-hero{ min-height:280px; }
       .babel-intro,
       .npc-profile-intro{ grid-template-columns:1fr; }
       .babel-ticket-grid{ grid-template-columns:1fr; }
@@ -1138,8 +1174,11 @@
 
         <div id="npc-content">
           <div id="npc-hero" class="npc-hero">
-            <h3>NPCs do Digital Galaxy</h3>
-            <p>Selecione um NPC para ver todos os detalhes.</p>
+            <img class="npc-hero-image" src="NPCs_Lojas_Hero.jpg" alt="" aria-hidden="true">
+            <div class="npc-hero-copy">
+              <h3>NPCs do Digital Galaxy</h3>
+              <p>Selecione um NPC para ver todos os detalhes.</p>
+            </div>
           </div>
         </div>
       </div>
