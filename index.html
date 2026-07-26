@@ -315,14 +315,16 @@
     }
     #npcs .npc-block{ display:none; }
     .npc-hero{ text-align:center; padding:80px 16px; }
-    .babel-intro{
+    .babel-intro,
+    .npc-profile-intro{
       display:grid;
       grid-template-columns:minmax(190px, 260px) 1fr;
       gap:22px;
       align-items:center;
       margin-bottom:22px;
     }
-    .babel-npc-image{
+    .babel-npc-image,
+    .npc-profile-image{
       display:block;
       width:100%;
       max-width:260px;
@@ -735,7 +737,8 @@
       #event-content{ min-height: 280px; }
       #npcs .npc-layout{ grid-template-columns:1fr; }
       #npc-content{ min-height:320px; }
-      .babel-intro{ grid-template-columns:1fr; }
+      .babel-intro,
+      .npc-profile-intro{ grid-template-columns:1fr; }
       .babel-ticket-grid{ grid-template-columns:1fr; }
       .rafflesimon-event-cameo,
       .mamemon-event-cameo,
@@ -1130,6 +1133,7 @@
       <div class="npc-layout">
         <div class="nav npc-nav">
           <div><button onclick="toggleNpc('npc-babel')" data-i18n="npcs.btn.babel">Babel</button></div>
+          <div><button onclick="toggleNpc('npc-hashima')" data-i18n="npcs.btn.hashima">Diretor Hashima</button></div>
         </div>
 
         <div id="npc-content">
@@ -1141,6 +1145,7 @@
       </div>
 
       <div id="npc-babel" class="npc-block"><div data-i18n-html="block.npcs.babel"></div></div>
+      <div id="npc-hashima" class="npc-block"><div data-i18n-html="block.npcs.hashima"></div></div>
     </div>
 
     <div id="eventos" class="section">
@@ -1456,6 +1461,7 @@
       "npcs.h2": "NPCs & Lojas",
       "npcs.p": "Selecione um NPC para consultar seus serviços e informações.",
       "npcs.btn.babel": "Babel",
+      "npcs.btn.hashima": "Diretor Hashima",
       "eventos.h2": "Eventos",
       "eventos.p": "Fique de olho nos eventos atuais e passados para aproveitar ao máximo o jogo.",
       "eventos.btn.namorados2026": "💖 Dia dos Namorados 2026",
@@ -1505,6 +1511,37 @@
         <img class="babel-guide-image image-zoom-trigger" data-image-zoom src="Babel_Taxas_Gacha.jpg" alt="Lista de recompensas e probabilidades do Gacha" tabindex="0" role="button" aria-label="Ampliar lista de recompensas e probabilidades do Gacha">
 
         <p class="notice"><strong>Importante:</strong> os bilhetes não são necessariamente intercambiáveis. Sempre confirme o tipo exigido pelo banner selecionado antes de realizar a invocação.</p>
+      `,
+
+      "block.npcs.hashima": `
+        <div class="npc-profile-intro">
+          <img class="npc-profile-image" src="Diretor_Hashima.png" alt="NPC Diretor Hashima no DATS Center">
+          <div>
+            <h3>Diretor Hashima</h3>
+            <p>O <strong>Diretor Hashima</strong> está localizado no <strong>DATS Center</strong> e reúne dois serviços importantes: o resgate dos passes de dungeon Hard e a venda do item necessário para criar uma guilda.</p>
+          </div>
+        </div>
+
+        <h3>Passes de dungeon Hard</h3>
+        <p>O Diretor Hashima disponibiliza as missões de resgate dos passes Hard das dungeons das Quatro Bestas:</p>
+        <ul>
+          <li><strong>Scar of Water Crystal [Hard]</strong> — Xuanwumon.</li>
+          <li><strong>Uprising Flame [Hard]</strong> — Zhuqiaomon.</li>
+          <li><strong>Trace of Black Steel [Hard]</strong> — Baihumon.</li>
+          <li><strong>Descending Thunder God [Hard]</strong> — Qinglongmon.</li>
+        </ul>
+        <p>O NPC também é responsável pelo resgate relacionado à <strong>Crack of Devimon [Hard]</strong>, conforme a disponibilidade desse conteúdo no servidor.</p>
+        <div class="images">
+          <img class="image-zoom-trigger" data-image-zoom src="Diretor_Hashima_Passes_Hard.jpg" alt="Missões de passes Hard disponíveis no Diretor Hashima" style="width:100%;" tabindex="0" role="button" aria-label="Ampliar missões de passes Hard do Diretor Hashima">
+        </div>
+
+        <h3>Criação de guilda</h3>
+        <p>Na loja do Diretor Hashima é possível adquirir o <strong>Guild Permit</strong>, item necessário para iniciar a criação de uma guilda. Após comprá-lo, siga os requisitos apresentados pelo próprio jogo para concluir o processo.</p>
+        <div class="images">
+          <img class="image-zoom-trigger" data-image-zoom src="Diretor_Hashima_Guild_Permit.jpg" alt="Guild Permit disponível na loja do Diretor Hashima" style="width:100%;" tabindex="0" role="button" aria-label="Ampliar loja de criação de guilda do Diretor Hashima">
+        </div>
+
+        <p class="notice"><strong>Lembrete:</strong> o Ticket Admission resgata somente passes de eventos, Easy e Normal. Os passes Hard devem ser retirados diretamente com o Diretor Hashima ou com o NPC responsável pela dungeon.</p>
       `,
 
       "block.novato.xp": `
