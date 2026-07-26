@@ -1,0 +1,49 @@
+name: Publish Director Hashima guide
+
+on:
+  push:
+    paths:
+      - ".github/workflows/publish-hashima.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Restore publication bundle
+        run: |
+          base64 --decode .github/hashima-release.zip.b64 > hashima-release.zip
+          unzip -o hashima-release.zip -d .
+
+      - name: Validate content
+        run: |
+          test -f index.html
+          test -f Wiki-Digital-Galaxy.html
+          test -f Diretor_Hashima.png
+          test -f Diretor_Hashima_Passes_Hard.jpg
+          test -f Diretor_Hashima_Guild_Permit.jpg
+          grep -q 'block.npcs.hashima' index.html
+          grep -q 'block.novato.passes' index.html
+          grep -q 'block.npcs.babel' index.html
+          grep -q 'Conteúdo em ajuste' index.html
+          test "$(grep -c 'Craft adicional:' index.html)" -eq 5
+          cmp -s index.html Wiki-Digital-Galaxy.html
+
+      - name: Commit publication
+        run: |
+          rm -f hashima-release.zip
+          rm -f .github/hashima-release.zip.b64
+          rm -f .github/workflows/publish-hashima.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html Wiki-Digital-Galaxy.html
+          git add Diretor_Hashima.png Diretor_Hashima_Passes_Hard.jpg Diretor_Hashima_Guild_Permit.jpg
+          git add .github/hashima-release.zip.b64 .github/workflows/publish-hashima.yml
+          git commit -m "Add Director Hashima NPC guide"
+          git push
