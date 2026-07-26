@@ -1018,6 +1018,7 @@
           <div><button onclick="toggleNovato('novato-seals')" data-i18n="novato.tabs.seals">Selos</button></div>
           <div><button onclick="toggleNovato('novato-trans')" data-i18n="novato.tabs.trans">Transcendência de Digimons</button></div>
           <div><button onclick="toggleNovato('novato-buffs')" data-i18n="novato.tabs.buffs">Onde trocar Buffs</button></div>
+          <div><button onclick="toggleNovato('novato-passes')" data-i18n="novato.tabs.passes">Resgate automático de passes</button></div>
         </div>
         <div id="novice-content">
           <figure id="novato-hero">
@@ -1029,6 +1030,7 @@
       <div id="novato-seals" class="novice-block"><div data-i18n-html="block.novato.seals"></div></div>
       <div id="novato-trans" class="novice-block"><div data-i18n-html="block.novato.trans"></div></div>
       <div id="novato-buffs" class="novice-block"><div data-i18n-html="block.novato.buffs"></div></div>
+      <div id="novato-passes" class="novice-block"><div data-i18n-html="block.novato.passes"></div></div>
     </div>
 
     <!-- ===== DIGIMONS ===== -->
@@ -1380,6 +1382,7 @@
       "novato.tabs.seals": "Selos",
       "novato.tabs.trans": "Transcendência de Digimons",
       "novato.tabs.buffs": "Troca de itens",
+      "novato.tabs.passes": "Resgate automático de passes",
 
       // MUDANÇA: título da seção
       "guias_missoes.h2": "Guias de Missões",
@@ -1643,6 +1646,32 @@
           <img src="crude_bracelet.png" alt="Crude bracelet" style="width:75%;">
         </div>
         <p class="notice"><b>Lembre-se de sempre trocar seus buffs</b></p>
+      `,
+
+      "block.novato.passes": `
+        <h3>Resgate automático de passes de dungeon</h3>
+        <p>O sistema <strong>Ticket Admission</strong> permite resgatar e armazenar automaticamente os passes de eventos e de dungeons nas dificuldades <strong>Easy</strong> e <strong>Normal</strong>.</p>
+
+        <h3>Como resgatar</h3>
+        <ol>
+          <li>Localize o botão <strong>Ticket Admission</strong> no canto superior direito da interface.</li>
+          <li>Clique no botão para abrir a janela que reúne todos os passes disponíveis.</li>
+          <li>Use a opção <strong>Collect all</strong> para resgatar todos os passes elegíveis de uma só vez.</li>
+        </ol>
+        <div class="images">
+          <img class="image-zoom-trigger" data-image-zoom src="Guia_Ticket_Admission.jpg" alt="Botão Ticket Admission e janela de armazenamento dos passes" style="width:100%;" tabindex="0" role="button" aria-label="Ampliar guia do Ticket Admission">
+        </div>
+
+        <h3>Armazenamento</h3>
+        <p>Os passes coletados ficam armazenados diretamente na janela do Ticket Admission. Eles <strong>não ocupam espaços no inventário</strong>, facilitando a organização e melhorando a qualidade de vida do jogador.</p>
+
+        <h3>Passes de dungeon Hard</h3>
+        <p>Os passes de dificuldade <strong>Hard</strong> não são resgatados pelo Ticket Admission. Eles devem ser obtidos diretamente com os NPCs responsáveis por cada dungeon, como o <strong>&lt;Guild Marker&gt; Diretor Hashima</strong>.</p>
+        <div class="images">
+          <img class="image-zoom-trigger" data-image-zoom src="Guia_Passes_Hard_Hashima.jpg" alt="Missões de passes Hard com o Diretor Hashima" style="width:100%;" tabindex="0" role="button" aria-label="Ampliar missões de passes Hard com o Diretor Hashima">
+        </div>
+
+        <p class="notice"><strong>Importante:</strong> o Ticket Admission resgata somente passes de eventos e de dungeons Easy ou Normal. Para saber onde obter os passes Hard, consulte a aba <strong>NPCs & Lojas</strong>.</p>
       `,
 
       "block.royalbase": `
@@ -2994,4 +3023,3 @@
 </script>
 </body>
 </html>
-
