@@ -1,0 +1,50 @@
+name: Publish NPC hero characters v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/npc-hero-characters-release-v2.zip.b64"
+      - ".github/workflows/publish-npc-hero-characters-v2.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode and validate release
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/npc-hero-release
+          base64 --decode .github/npc-hero-characters-release-v2.zip.b64 > /tmp/npc-hero-release/release.zip
+          unzip -q /tmp/npc-hero-release/release.zip -d /tmp/npc-hero-release/files
+          cmp /tmp/npc-hero-release/files/index.html /tmp/npc-hero-release/files/Wiki-Digital-Galaxy.html
+          grep -q "NPCs e Lojas do Digital Galaxy" /tmp/npc-hero-release/files/index.html
+          grep -q "Diretor_Hashima_Recorte.png" /tmp/npc-hero-release/files/index.html
+          grep -q "Babel_Recorte.png" /tmp/npc-hero-release/files/index.html
+          grep -q "block.npcs.hashima" /tmp/npc-hero-release/files/index.html
+          grep -q "block.npcs.babel" /tmp/npc-hero-release/files/index.html
+          grep -q "block.novato.passes" /tmp/npc-hero-release/files/index.html
+          grep -q "Conteúdo em ajuste" /tmp/npc-hero-release/files/index.html
+          test "$(grep -o 'Craft adicional:' /tmp/npc-hero-release/files/index.html | wc -l)" -eq 5
+          test -s /tmp/npc-hero-release/files/Diretor_Hashima_Recorte.png
+          test -s /tmp/npc-hero-release/files/Babel_Recorte.png
+      - name: Publish files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/npc-hero-release/files/index.html index.html
+          cp /tmp/npc-hero-release/files/Wiki-Digital-Galaxy.html Wiki-Digital-Galaxy.html
+          cp /tmp/npc-hero-release/files/Diretor_Hashima_Recorte.png Diretor_Hashima_Recorte.png
+          cp /tmp/npc-hero-release/files/Babel_Recorte.png Babel_Recorte.png
+          rm .github/npc-hero-characters-release-v2.zip.b64
+          rm .github/workflows/publish-npc-hero-characters-v2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: add Hashima and Babel to NPC hero"
+          git push
