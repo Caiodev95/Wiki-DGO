@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - ".github/npc-hero-characters-release-v2.zip.b64"
+      - ".github/npc-hero-characters-release-v2.part*.b64"
       - ".github/workflows/publish-npc-hero-characters-v2.yml"
 
 permissions:
@@ -20,7 +20,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/npc-hero-release
-          base64 --decode .github/npc-hero-characters-release-v2.zip.b64 > /tmp/npc-hero-release/release.zip
+          cat .github/npc-hero-characters-release-v2.part{1..4}.b64 > /tmp/npc-hero-release/release.b64
+          base64 --decode /tmp/npc-hero-release/release.b64 > /tmp/npc-hero-release/release.zip
+          echo "9ca0e83e6c5809eb8dd55e9dbb76ad95f8df6422e87d2ceb078308b87adf7ed1  /tmp/npc-hero-release/release.zip" | sha256sum --check
           unzip -q /tmp/npc-hero-release/release.zip -d /tmp/npc-hero-release/files
           cmp /tmp/npc-hero-release/files/index.html /tmp/npc-hero-release/files/Wiki-Digital-Galaxy.html
           grep -q "NPCs e Lojas do Digital Galaxy" /tmp/npc-hero-release/files/index.html
@@ -41,7 +43,8 @@ jobs:
           cp /tmp/npc-hero-release/files/Wiki-Digital-Galaxy.html Wiki-Digital-Galaxy.html
           cp /tmp/npc-hero-release/files/Diretor_Hashima_Recorte.png Diretor_Hashima_Recorte.png
           cp /tmp/npc-hero-release/files/Babel_Recorte.png Babel_Recorte.png
-          rm .github/npc-hero-characters-release-v2.zip.b64
+          rm -f .github/npc-hero-characters-release-v2.zip.b64
+          rm -f .github/npc-hero-characters-release-v2.part{1..4}.b64
           rm .github/workflows/publish-npc-hero-characters-v2.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
