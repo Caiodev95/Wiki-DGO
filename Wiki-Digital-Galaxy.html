@@ -97,6 +97,156 @@
 
     .content { max-width: 1000px; margin: auto; padding: 20px; }
     .top-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .wiki-search {
+      position: fixed;
+      top: 26px;
+      right: clamp(18px, 3vw, 56px);
+      z-index: 1200;
+      width: min(360px, calc(100vw - 36px));
+    }
+    .wiki-search-form {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      border: 1px solid rgba(0,229,255,.72);
+      border-radius: 10px;
+      background: rgba(6,16,34,.94);
+      box-shadow: 0 0 0 1px rgba(0,229,255,.12), 0 10px 28px rgba(0,0,0,.38);
+      overflow: hidden;
+    }
+    .wiki-search-form:focus-within {
+      border-color: var(--cor-destaque-primaria);
+      box-shadow: 0 0 0 2px rgba(255,196,0,.2), 0 0 24px rgba(0,229,255,.3);
+    }
+    .wiki-search-icon {
+      flex: 0 0 auto;
+      width: 19px;
+      height: 19px;
+      margin-left: 13px;
+      color: var(--cor-destaque-secundaria);
+      pointer-events: none;
+    }
+    #wiki-search-input {
+      min-width: 0;
+      flex: 1;
+      padding: 11px 8px;
+      border: 0;
+      outline: 0;
+      color: #fff;
+      background: transparent;
+      font: inherit;
+      cursor: text;
+    }
+    #wiki-search-input::placeholder { color: rgba(234,242,255,.68); }
+    .wiki-search-clear,
+    .wiki-search-submit {
+      flex: 0 0 auto;
+      border: 0;
+      color: #fff;
+      background: transparent;
+      cursor: pointer;
+    }
+    .wiki-search-clear {
+      display: none;
+      padding: 8px 7px;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .wiki-search-clear.visible { display: block; }
+    .wiki-search-submit {
+      align-self: stretch;
+      padding: 0 14px;
+      color: var(--cor-texto-botao);
+      background: linear-gradient(180deg, #ffe26d, var(--cor-destaque-primaria));
+      font-weight: 800;
+    }
+    .wiki-search-results {
+      position: absolute;
+      top: calc(100% + 7px);
+      left: 0;
+      right: 0;
+      max-height: min(62vh, 470px);
+      padding: 7px;
+      overflow-y: auto;
+      border: 1px solid rgba(0,229,255,.58);
+      border-radius: 11px;
+      background: rgba(6,16,34,.98);
+      box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 20px rgba(0,229,255,.12);
+    }
+    .wiki-search-results[hidden] { display: none; }
+    .wiki-search-result {
+      display: block;
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--cor-texto);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    .wiki-search-result + .wiki-search-result { margin-top: 4px; }
+    .wiki-search-result:hover,
+    .wiki-search-result.active {
+      border-color: rgba(0,229,255,.4);
+      background: rgba(0,229,255,.1);
+    }
+    .wiki-search-result-category {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--cor-destaque-secundaria);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .wiki-search-result-title {
+      display: block;
+      color: #ffe27a;
+      font-weight: 800;
+    }
+    .wiki-search-result-snippet {
+      display: -webkit-box;
+      margin-top: 4px;
+      overflow: hidden;
+      color: rgba(234,242,255,.78);
+      font-size: 12px;
+      line-height: 1.35;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    .wiki-search-result mark {
+      padding: 0;
+      color: #fff;
+      background: rgba(255,196,0,.38);
+    }
+    .wiki-search-empty {
+      margin: 0;
+      padding: 18px 12px;
+      color: rgba(234,242,255,.76);
+      text-align: center;
+    }
+    .wiki-search-status {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media (max-width: 1180px) {
+      .wiki-search {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: min(620px, 100%);
+        margin: 14px auto 4px;
+      }
+    }
     .lang-selector { margin: 10px 0; }
     /* MELHORIA: selector desabilitado com estilo visual adequado */
     .lang-selector select {
@@ -801,6 +951,9 @@
     body.portal-open #portal-overlay .glyphs-right{ animation: glyphs-right-open 1.2s ease-in-out forwards; }
 
     @media (max-width: 520px){
+      .wiki-search { width: 100%; }
+      .wiki-search-submit { padding: 0 11px; }
+      .wiki-search-results { max-height: min(58vh, 420px); }
       #dungeons .dungeon-layout{ grid-template-columns: 1fr; }
       #dungeon-content{ min-height: 360px; }
       #novato .novice-layout{ grid-template-columns: 1fr; }
@@ -1075,6 +1228,29 @@
     </div>
 
     <h1 class="centered" data-i18n="site.h1">Digimon Galaxy Wiki</h1>
+
+    <div id="wiki-search" class="wiki-search">
+      <form id="wiki-search-form" class="wiki-search-form" role="search" novalidate>
+        <svg class="wiki-search-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M10 4a6 6 0 1 0 3.87 10.59l4.77 4.77 1.42-1.42-4.77-4.77A6 6 0 0 0 10 4Zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/>
+        </svg>
+        <input
+          id="wiki-search-input"
+          type="search"
+          placeholder="Pesquisar na Wiki..."
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Pesquisar conteúdo na Wiki"
+          aria-autocomplete="list"
+          aria-controls="wiki-search-results"
+          aria-expanded="false"
+        >
+        <button id="wiki-search-clear" class="wiki-search-clear" type="button" aria-label="Limpar pesquisa">×</button>
+        <button class="wiki-search-submit" type="submit">Buscar</button>
+      </form>
+      <div id="wiki-search-results" class="wiki-search-results" role="listbox" hidden></div>
+      <div id="wiki-search-status" class="wiki-search-status" role="status" aria-live="polite"></div>
+    </div>
 
     <div class="top-header">
       <div></div>
@@ -2860,6 +3036,374 @@
     applyTranslations('pt');
   }
 
+  // ===== BUSCA AUTOMATICA =====
+  const SEARCH_SECTION_ALIASES = {
+    inicio: 'inicio home pagina principal wiki',
+    novato: 'area do novato guia iniciante tutorial',
+    digimons: 'digimon database banco de dados',
+    'guias-missoes': 'guias missoes quests',
+    dungeons: 'dg dungeon dungeons masmorra raid boss',
+    mapas: 'mapa mapas localizacao',
+    sistemas: 'sistema sistemas',
+    npcs: 'npc npcs loja lojas',
+    eventos: 'evento eventos',
+    guias: 'change log changelog atualizacoes'
+  };
+
+  const SEARCH_HANDLER_SECTIONS = {
+    toggleDungeonInfo: 'dungeons',
+    toggleNovato: 'novato',
+    toggleEvento: 'eventos',
+    toggleNpc: 'npcs'
+  };
+
+  let wikiSearchIndex = [];
+  let wikiSearchMatches = [];
+  let wikiSearchSelectedIndex = -1;
+  let wikiSearchObserverTimer = null;
+
+  function normalizeSearchText(value) {
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('pt-BR')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function cleanSearchText(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function cloneSearchContent(source, isMainSection) {
+    if (!source) return '';
+    const clone = source.cloneNode(true);
+    const dict = I18N.pt;
+
+    clone.querySelectorAll('[data-i18n-html]').forEach(element => {
+      const key = element.getAttribute('data-i18n-html');
+      if (dict[key] != null) element.innerHTML = dict[key];
+    });
+
+    if (isMainSection) {
+      clone.querySelectorAll(
+        '.nav, .novice-block, .digimon-info, .event-block, .npc-block, ' +
+        '#dungeon-content, #novice-content, #event-content, #npc-content'
+      )
+        .forEach(element => element.remove());
+    }
+
+    clone.querySelectorAll('script, style, button').forEach(element => element.remove());
+    const imageText = Array.from(clone.querySelectorAll('img[alt]'))
+      .map(image => image.alt)
+      .join(' ');
+    return cleanSearchText(`${clone.textContent || ''} ${imageText}`);
+  }
+
+  function getSearchSectionTitle(sectionId) {
+    const section = document.getElementById(sectionId);
+    return cleanSearchText(section?.querySelector('h2')?.textContent || sectionId);
+  }
+
+  function makeSearchSnippet(text) {
+    const cleaned = cleanSearchText(text);
+    if (!cleaned) return 'Abrir este conteúdo na Wiki.';
+    return cleaned.length > 180 ? `${cleaned.slice(0, 177)}...` : cleaned;
+  }
+
+  function buildSearchIndex() {
+    const entries = [];
+    const seen = new Set();
+    const buttons = document.querySelectorAll('button[onclick]');
+
+    buttons.forEach(button => {
+      if (button.closest('[hidden]')) return;
+      const command = button.getAttribute('onclick')?.trim() || '';
+      let handler = '';
+      let targetId = '';
+      let sectionId = '';
+      let externalUrl = '';
+
+      const match = command.match(/^(showSection|toggleDungeonInfo|toggleNovato|toggleEvento|toggleNpc)\(['"]([^'"]+)['"]\)/);
+      if (match) {
+        handler = match[1];
+        targetId = match[2];
+        sectionId = handler === 'showSection' ? targetId : SEARCH_HANDLER_SECTIONS[handler];
+      } else if (command.startsWith('redirectToDigimons')) {
+        handler = 'redirectToDigimons';
+        targetId = 'digimons';
+        sectionId = 'digimons';
+        externalUrl = DIGIMONS_REDIRECT_URL;
+      } else {
+        return;
+      }
+
+      const key = `${handler}:${targetId}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+
+      const source = document.getElementById(targetId);
+      const title = cleanSearchText(button.textContent);
+      const category = getSearchSectionTitle(sectionId);
+      const body = cloneSearchContent(source, handler === 'showSection');
+      const aliases = SEARCH_SECTION_ALIASES[sectionId] || '';
+
+      entries.push({
+        key,
+        handler,
+        targetId,
+        sectionId,
+        externalUrl,
+        title,
+        category,
+        snippet: makeSearchSnippet(body),
+        normalizedTitle: normalizeSearchText(title),
+        normalizedCategory: normalizeSearchText(category),
+        normalizedAliases: normalizeSearchText(aliases),
+        normalizedBody: normalizeSearchText(body)
+      });
+    });
+
+    wikiSearchIndex = entries;
+  }
+
+  function rankSearchResults(query) {
+    const normalizedQuery = normalizeSearchText(query);
+    const tokens = normalizedQuery.split(' ').filter(Boolean);
+    if (normalizedQuery.length < 2 || !tokens.length) return [];
+
+    return wikiSearchIndex
+      .map(entry => {
+        const searchable = [
+          entry.normalizedTitle,
+          entry.normalizedCategory,
+          entry.normalizedAliases,
+          entry.normalizedBody
+        ].join(' ');
+
+        if (!tokens.every(token => searchable.includes(token))) return null;
+
+        let score = 0;
+        if (entry.normalizedTitle === normalizedQuery) score += 140;
+        if (entry.normalizedTitle.startsWith(normalizedQuery)) score += 90;
+        if (entry.normalizedTitle.includes(normalizedQuery)) score += 65;
+        if (entry.normalizedCategory.includes(normalizedQuery)) score += 35;
+        if (entry.normalizedAliases.includes(normalizedQuery)) score += 30;
+        if (entry.normalizedBody.includes(normalizedQuery)) score += 12;
+
+        tokens.forEach(token => {
+          if (entry.normalizedTitle.includes(token)) score += 28;
+          if (entry.normalizedCategory.includes(token)) score += 14;
+          if (entry.normalizedAliases.includes(token)) score += 12;
+          if (entry.normalizedBody.includes(token)) score += 3;
+        });
+
+        return { entry, score };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title, 'pt-BR'))
+      .slice(0, 12)
+      .map(result => result.entry);
+  }
+
+  function appendHighlightedSearchText(container, text, query) {
+    const tokens = cleanSearchText(query)
+      .split(' ')
+      .filter(token => token.length > 1)
+      .map(token => token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+    if (!tokens.length) {
+      container.textContent = text;
+      return;
+    }
+
+    const matcher = new RegExp(`(${tokens.join('|')})`, 'gi');
+    text.split(matcher).forEach(part => {
+      if (!part) return;
+      if (matcher.test(part)) {
+        matcher.lastIndex = 0;
+        const mark = document.createElement('mark');
+        mark.textContent = part;
+        container.appendChild(mark);
+      } else {
+        matcher.lastIndex = 0;
+        container.appendChild(document.createTextNode(part));
+      }
+    });
+  }
+
+  function closeSearchResults() {
+    const input = document.getElementById('wiki-search-input');
+    const results = document.getElementById('wiki-search-results');
+    if (!input || !results) return;
+    results.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
+    wikiSearchSelectedIndex = -1;
+  }
+
+  function selectSearchResult(index) {
+    const results = document.getElementById('wiki-search-results');
+    if (!results || !wikiSearchMatches.length) return;
+    const items = Array.from(results.querySelectorAll('.wiki-search-result'));
+    wikiSearchSelectedIndex = (index + items.length) % items.length;
+
+    items.forEach((item, itemIndex) => {
+      const active = itemIndex === wikiSearchSelectedIndex;
+      item.classList.toggle('active', active);
+      item.setAttribute('aria-selected', String(active));
+    });
+
+    const activeItem = items[wikiSearchSelectedIndex];
+    activeItem?.scrollIntoView({ block: 'nearest' });
+    document.getElementById('wiki-search-input')
+      ?.setAttribute('aria-activedescendant', activeItem?.id || '');
+  }
+
+  function openSearchResult(entry) {
+    const input = document.getElementById('wiki-search-input');
+    if (input) input.value = entry.title;
+    closeSearchResults();
+
+    if (entry.handler === 'redirectToDigimons') {
+      window.location.href = entry.externalUrl;
+      return;
+    }
+
+    if (entry.handler === 'showSection') {
+      showSection(entry.targetId);
+    } else {
+      showSection(entry.sectionId);
+      if (entry.handler === 'toggleDungeonInfo') toggleDungeonInfo(entry.targetId);
+      if (entry.handler === 'toggleNovato') toggleNovato(entry.targetId);
+      if (entry.handler === 'toggleEvento') toggleEvento(entry.targetId);
+      if (entry.handler === 'toggleNpc') toggleNpc(entry.targetId);
+    }
+
+    window.requestAnimationFrame(() => {
+      document.getElementById(entry.sectionId)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+  }
+
+  function renderSearchResults(query) {
+    const input = document.getElementById('wiki-search-input');
+    const results = document.getElementById('wiki-search-results');
+    const status = document.getElementById('wiki-search-status');
+    const clear = document.getElementById('wiki-search-clear');
+    if (!input || !results || !status || !clear) return;
+
+    clear.classList.toggle('visible', Boolean(input.value));
+    wikiSearchMatches = rankSearchResults(query);
+    results.replaceChildren();
+
+    if (normalizeSearchText(query).length < 2) {
+      status.textContent = 'Digite pelo menos dois caracteres para pesquisar.';
+      closeSearchResults();
+      return;
+    }
+
+    if (!wikiSearchMatches.length) {
+      const empty = document.createElement('p');
+      empty.className = 'wiki-search-empty';
+      empty.textContent = 'Nenhum conteúdo compatível foi encontrado.';
+      results.appendChild(empty);
+      status.textContent = 'Nenhum resultado encontrado.';
+      results.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    wikiSearchMatches.forEach((entry, index) => {
+      const result = document.createElement('button');
+      result.type = 'button';
+      result.id = `wiki-search-result-${index}`;
+      result.className = 'wiki-search-result';
+      result.setAttribute('role', 'option');
+      result.setAttribute('aria-selected', 'false');
+
+      const category = document.createElement('span');
+      category.className = 'wiki-search-result-category';
+      category.textContent = entry.category;
+
+      const title = document.createElement('span');
+      title.className = 'wiki-search-result-title';
+      appendHighlightedSearchText(title, entry.title, query);
+
+      const snippet = document.createElement('span');
+      snippet.className = 'wiki-search-result-snippet';
+      appendHighlightedSearchText(snippet, entry.snippet, query);
+
+      result.append(category, title, snippet);
+      result.addEventListener('mouseenter', () => selectSearchResult(index));
+      result.addEventListener('click', () => openSearchResult(entry));
+      results.appendChild(result);
+    });
+
+    status.textContent = `${wikiSearchMatches.length} resultado(s) encontrado(s).`;
+    results.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    selectSearchResult(0);
+  }
+
+  function initWikiSearch() {
+    const search = document.getElementById('wiki-search');
+    const form = document.getElementById('wiki-search-form');
+    const input = document.getElementById('wiki-search-input');
+    const clear = document.getElementById('wiki-search-clear');
+    if (!search || !form || !input || !clear) return;
+
+    input.addEventListener('input', () => renderSearchResults(input.value));
+    input.addEventListener('focus', () => {
+      if (normalizeSearchText(input.value).length >= 2) renderSearchResults(input.value);
+    });
+    input.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        selectSearchResult(wikiSearchSelectedIndex + 1);
+      }
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        selectSearchResult(wikiSearchSelectedIndex - 1);
+      }
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const selected = wikiSearchMatches[wikiSearchSelectedIndex] || wikiSearchMatches[0];
+        if (selected) openSearchResult(selected);
+        else renderSearchResults(input.value);
+      }
+      if (event.key === 'Escape') closeSearchResults();
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      const selected = wikiSearchMatches[wikiSearchSelectedIndex] || wikiSearchMatches[0];
+      if (selected) openSearchResult(selected);
+      else renderSearchResults(input.value);
+    });
+
+    clear.addEventListener('click', () => {
+      input.value = '';
+      clear.classList.remove('visible');
+      closeSearchResults();
+      input.focus();
+    });
+
+    document.addEventListener('click', event => {
+      if (!search.contains(event.target)) closeSearchResults();
+    });
+
+    const observer = new MutationObserver(() => {
+      clearTimeout(wikiSearchObserverTimer);
+      wikiSearchObserverTimer = setTimeout(buildSearchIndex, 120);
+    });
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section, { childList: true, subtree: true });
+    });
+  }
+
   // ===== PORTAL =====
   function firePortal(){
     const overlay = document.getElementById('portal-overlay');
@@ -3153,8 +3697,10 @@
       if (document.getElementById('guias')?.classList.contains('active')) loadDiscordChangeLog();
     }, 60000);
 
-    showSection('inicio');
     applyTranslations('pt');
+    buildSearchIndex();
+    initWikiSearch();
+    showSection('inicio');
   });
 </script>
 </body>
