@@ -756,6 +756,25 @@
     }
     .babel-ticket-card h4{ margin:0 0 8px; color:#ffe27a; }
     .babel-ticket-card p{ margin:0; }
+    .npc-event-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:4px;
+      padding:9px 14px;
+      border:1px solid rgba(255,196,0,.7);
+      border-radius:8px;
+      background:rgba(255,196,0,.1);
+      color:#ffe27a;
+      font-weight:800;
+      text-decoration:none;
+      transition:transform .2s, background-color .2s, box-shadow .2s;
+    }
+    .npc-event-link:hover{
+      transform:translateY(-1px);
+      background:rgba(255,196,0,.18);
+      box-shadow:0 0 18px rgba(0,229,255,.2);
+    }
     .babel-guide-image{
       display:block;
       width:100%;
@@ -1585,6 +1604,7 @@
         <div class="nav npc-nav">
           <div><button onclick="toggleNpc('npc-babel')" data-i18n="npcs.btn.babel">Babel</button></div>
           <div><button onclick="toggleNpc('npc-hashima')" data-i18n="npcs.btn.hashima">Diretor Hashima</button></div>
+          <div><button onclick="toggleNpc('npc-agumon-kizuna')" data-i18n="npcs.btn.agumon_kizuna">Agumon Kizuna</button></div>
         </div>
 
         <div id="npc-content">
@@ -1603,6 +1623,7 @@
 
       <div id="npc-babel" class="npc-block"><div data-i18n-html="block.npcs.babel"></div></div>
       <div id="npc-hashima" class="npc-block"><div data-i18n-html="block.npcs.hashima"></div></div>
+      <div id="npc-agumon-kizuna" class="npc-block"><div data-i18n-html="block.npcs.agumon_kizuna"></div></div>
     </div>
 
     <div id="eventos" class="section">
@@ -1927,6 +1948,7 @@
       "npcs.p": "Selecione um NPC para consultar seus serviços e informações.",
       "npcs.btn.babel": "Babel",
       "npcs.btn.hashima": "Diretor Hashima",
+      "npcs.btn.agumon_kizuna": "Agumon Kizuna",
       "npcs.hero_title": "NPCs e Lojas do Digital Galaxy",
       "npcs.hero_text": "Selecione um NPC para ver todos os detalhes.",
       "eventos.h2": "Eventos",
@@ -2040,6 +2062,21 @@
         </div>
 
         <p class="notice"><strong>Lembrete:</strong> o Ticket Admission resgata somente passes de eventos, Easy e Normal. Os passes Hard devem ser retirados diretamente com o Diretor Hashima ou com o NPC responsável pela dungeon.</p>
+      `,
+      "block.npcs.agumon_kizuna": `
+        <div class="npc-profile-intro">
+          <img class="npc-profile-image" src="Agumon_Kizuna_NPC.png" alt="NPC Agumon Kizuna Craft">
+          <div>
+            <h3>Agumon Kizuna &lt;Craft&gt;</h3>
+            <p>O <strong>Agumon Kizuna &lt;Craft&gt;</strong> é responsável por entregar a missão diária <strong>Last Evolution</strong>. Após concluir a missão durante <strong>3 dias</strong>, o jogador poderá trocar a recompensa pela <strong>Agumon and Gabumon (Kizuna) Selection Box</strong>.</p>
+          </div>
+        </div>
+
+        <h3>Recompensas e sistema de estrelas</h3>
+        <p>A Selection Box permite escolher o item especial de evolução de <strong>Agumon Kizuna</strong> ou <strong>Gabumon Kizuna</strong>.</p>
+        <p>Esse NPC também disponibiliza os itens de evolução necessários para avançar no sistema de estrelas de Agumon Kizuna e Gabumon Kizuna.</p>
+
+        <p><strong>Para saber mais, veja:</strong> <a class="npc-event-link" href="#eventos" onclick="openKizunasEventTab(event)">Kizunas</a></p>
       `,
       "block.novato.xp": `
         <h3>Mapa de XP</h3>
@@ -3194,6 +3231,7 @@
       "npcs.p": "Select a NPC to consult their services and information.",
       "npcs.btn.babel": "Babel",
       "npcs.btn.hashima": "Director Hashima",
+      "npcs.btn.agumon_kizuna": "Agumon Kizuna",
       "npcs.hero_title": "Digital Galaxy NPCs and Stores",
       "npcs.hero_text": "Select a NPC to see all the details.",
       "eventos.h2": "Events",
@@ -3307,6 +3345,21 @@
         </div>
 
         <p class="notice"><strong>Reminder:</strong> The Ticket Admission redeems only event, Easy, and Normal passes. Passes Hard must be picked up directly from Director Hashima or the NPC in charge of the dungeon.</p>
+      `,
+      "block.npcs.agumon_kizuna": `
+        <div class="npc-profile-intro">
+          <img class="npc-profile-image" src="Agumon_Kizuna_NPC.png" alt="Agumon Kizuna Craft NPC">
+          <div>
+            <h3>Agumon Kizuna &lt;Craft&gt;</h3>
+            <p><strong>Agumon Kizuna &lt;Craft&gt;</strong> provides the daily quest <strong>Last Evolution</strong>. After completing the quest for <strong>3 days</strong>, the player can exchange the reward for the <strong>Agumon and Gabumon (Kizuna) Selection Box</strong>.</p>
+          </div>
+        </div>
+
+        <h3>Rewards and star system</h3>
+        <p>The Selection Box lets the player choose the special evolution item for <strong>Agumon Kizuna</strong> or <strong>Gabumon Kizuna</strong>.</p>
+        <p>This NPC also provides the evolution items required to progress through the star system of Agumon Kizuna and Gabumon Kizuna.</p>
+
+        <p><strong>To learn more, see:</strong> <a class="npc-event-link" href="#eventos" onclick="openKizunasEventTab(event)">Kizunas</a></p>
       `,
       "block.novato.xp": `
         <h3>XP Map</h3>
@@ -4461,6 +4514,7 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "npcs.p": "Selecciona un NPC para consultar sus servicios e información.",
       "npcs.btn.babel": "Babel",
       "npcs.btn.hashima": "Director Hashima",
+      "npcs.btn.agumon_kizuna": "Agumon Kizuna",
       "npcs.hero_title": "NPCs y tiendas digitales de galaxias",
       "npcs.hero_text": "Selecciona un NPC para ver todos los detalles.",
       "eventos.h2": "Eventos",
@@ -4574,6 +4628,21 @@ In most cases, there is no damage reduction or way to survive by taking this ski
         </div>
 
         <p class="notice"><strong>Recordatorio:</strong> El Ticket Admission solo canjea eventos, Easy y Normal pases. Los pases Hard deben recogerse directamente del Director Hashima o del NPC encargado de la mazmorra.</p>
+      `,
+      "block.npcs.agumon_kizuna": `
+        <div class="npc-profile-intro">
+          <img class="npc-profile-image" src="Agumon_Kizuna_NPC.png" alt="NPC Agumon Kizuna Craft">
+          <div>
+            <h3>Agumon Kizuna &lt;Craft&gt;</h3>
+            <p><strong>Agumon Kizuna &lt;Craft&gt;</strong> entrega la misión diaria <strong>Last Evolution</strong>. Después de completar la misión durante <strong>3 días</strong>, el jugador podrá cambiar la recompensa por la <strong>Agumon and Gabumon (Kizuna) Selection Box</strong>.</p>
+          </div>
+        </div>
+
+        <h3>Recompensas y sistema de estrellas</h3>
+        <p>La Selection Box permite elegir el objeto especial de evolución de <strong>Agumon Kizuna</strong> o <strong>Gabumon Kizuna</strong>.</p>
+        <p>Este NPC también ofrece los objetos de evolución necesarios para avanzar en el sistema de estrellas de Agumon Kizuna y Gabumon Kizuna.</p>
+
+        <p><strong>Para saber más, consulta:</strong> <a class="npc-event-link" href="#eventos" onclick="openKizunasEventTab(event)">Kizunas</a></p>
       `,
       "block.novato.xp": `
         <h3>Mapa de XP</h3>
@@ -5871,6 +5940,18 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     content.innerHTML = target.innerHTML;
     openEventoId = id;
     applyTranslations(currentLanguage);
+  }
+
+  function openKizunasEventTab(event){
+    event?.preventDefault();
+    showSection('eventos');
+    toggleEvento('evento-kizunas');
+    window.requestAnimationFrame(() => {
+      document.getElementById('eventos')?.scrollIntoView({
+        behavior:'smooth',
+        block:'start'
+      });
+    });
   }
 
   function resetNpcView(){
