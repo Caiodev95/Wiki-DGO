@@ -367,6 +367,185 @@
     }
     #novato .novice-block{ display:none; }
 
+    .transcendence-guide{
+      overflow:hidden;
+      border:1px solid rgba(0,229,255,.45);
+      border-radius:12px;
+      background:rgba(6,16,34,.38);
+      box-shadow:0 0 24px rgba(0,229,255,.08) inset;
+    }
+    .transcendence-hero{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 190px;
+      gap:22px;
+      align-items:center;
+      padding:28px;
+      border-bottom:1px solid rgba(0,229,255,.28);
+      background:
+        radial-gradient(circle at 88% 18%, rgba(0,229,255,.16), transparent 30%),
+        linear-gradient(135deg, rgba(19,39,70,.96), rgba(7,18,37,.92));
+    }
+    .transcendence-eyebrow{
+      margin:0 0 6px;
+      color:var(--cor-destaque-secundaria);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .transcendence-hero h3{
+      margin:0 0 12px;
+      color:var(--cor-destaque-primaria);
+      font-size:clamp(26px,4vw,38px);
+      line-height:1.08;
+      text-shadow:0 0 10px rgba(0,229,255,.45);
+    }
+    .transcendence-hero p{ margin:0; font-size:16px; }
+    .transcendence-archive{
+      display:block;
+      width:100%;
+      max-height:230px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 16px rgba(0,229,255,.34));
+    }
+    .transcendence-body{ padding:26px; }
+    .transcendence-section{ margin-top:32px; }
+    .transcendence-section:first-child{ margin-top:0; }
+    .transcendence-section h4{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin:0 0 14px;
+      color:var(--cor-destaque-primaria);
+      font-size:21px;
+    }
+    .transcendence-step{
+      display:inline-grid;
+      flex:0 0 30px;
+      width:30px;
+      height:30px;
+      place-items:center;
+      border:1px solid var(--cor-destaque-secundaria);
+      border-radius:50%;
+      background:rgba(0,229,255,.1);
+      color:var(--cor-destaque-secundaria);
+      font-size:13px;
+    }
+    .transcendence-requirements,
+    .transcendence-charge-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+    .transcendence-card{
+      padding:16px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:10px;
+      background:rgba(19,39,70,.68);
+    }
+    .transcendence-card strong{
+      display:block;
+      margin-bottom:4px;
+      color:var(--cor-destaque-primaria);
+      font-size:17px;
+    }
+    .transcendence-main-image{
+      display:block;
+      width:min(100%,805px);
+      margin:18px auto 8px;
+      border:1px solid rgba(0,229,255,.5);
+      border-radius:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,.4);
+    }
+    .transcendence-caption{
+      margin:0 0 18px;
+      color:#aebed4;
+      font-size:13px;
+      text-align:center;
+    }
+    .transcendence-charge-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .transcendence-charge-image{
+      display:block;
+      width:min(100%,430px);
+      margin:16px auto;
+      border-radius:10px;
+    }
+    .transcendence-list{ margin:0; padding-left:22px; }
+    .transcendence-list li{ margin:7px 0; }
+    .transcendence-raremon{
+      display:grid;
+      grid-template-columns:170px minmax(0,1fr);
+      gap:22px;
+      align-items:center;
+      padding:20px;
+      border:1px solid rgba(0,229,255,.34);
+      border-radius:12px;
+      background:linear-gradient(135deg,rgba(19,39,70,.78),rgba(6,16,34,.68));
+    }
+    .transcendence-raremon img{
+      display:block;
+      width:100%;
+      max-height:150px;
+      object-fit:contain;
+      filter:drop-shadow(0 0 14px rgba(0,229,255,.3));
+    }
+    .transcendence-table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:9px;
+      background:rgba(0,0,0,.18);
+    }
+    .transcendence-table th,
+    .transcendence-table td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      text-align:left;
+    }
+    .transcendence-table th{ color:var(--cor-destaque-primaria); }
+    .transcendence-table tr:last-child td{ border-bottom:0; }
+    .transcendence-fruits{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin:16px 0;
+    }
+    .transcendence-fruit{
+      display:grid;
+      grid-template-columns:64px minmax(0,1fr);
+      gap:14px;
+      align-items:center;
+      padding:14px;
+      border:1px solid rgba(255,196,0,.35);
+      border-radius:10px;
+      background:rgba(255,196,0,.06);
+    }
+    .transcendence-fruit img{
+      display:block;
+      width:58px;
+      height:58px;
+      object-fit:contain;
+      image-rendering:auto;
+    }
+    .transcendence-fruit strong{ color:var(--cor-destaque-primaria); }
+    .transcendence-notice{
+      padding:16px;
+      border:1px dashed rgba(255,196,0,.7);
+      border-radius:10px;
+      background:rgba(255,196,0,.07);
+    }
+    .transcendence-notice p{ margin:0; }
+    @media (max-width:760px){
+      .transcendence-hero{ grid-template-columns:1fr; padding:22px 18px; }
+      .transcendence-archive{ max-height:170px; }
+      .transcendence-body{ padding:22px 18px; }
+      .transcendence-requirements,
+      .transcendence-charge-grid,
+      .transcendence-fruits{ grid-template-columns:1fr; }
+      .transcendence-raremon{ grid-template-columns:1fr; }
+      .transcendence-raremon img{ max-width:190px; margin:0 auto; }
+    }
+
     #eventos .event-layout{
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -1920,55 +2099,77 @@
         </div>
       `,
       "block.novato.trans": `
-        <h3>Transcendência de Digimons</h3>
-        <p>Você pode acessar a aba de Transcendência pelo Digimon Archive. Quando estiver no menu, clique com o botão esquerdo no Digimon que deseja transcender e que está no seu slot de mercenário.</p>
-        <p>Depois de inserir o Digimon, será possível ver a barra de EXP dentro do menu. O objetivo é aumentar essa EXP até 100%, sacrificando outros Digimons do seu arquivo. Você pode sacrificar até 10 Digimons ao mesmo tempo, e a EXP recebida dependerá do nível de hatch, nível do Digimon e nível de DigiClon dos Digimons sacrificados. A quantidade de EXP será mostrada quando o Digimon sacrificado for selecionado.</p>
-        <p>Depois de selecionar todos os Digimons, você poderá escolher uma de duas opções de Charge para confirmar o sacrifício. É necessário 1 Transcendence ConvertChip para cada Digimon. Ou seja, se 10 Digimons forem sacrificados ao mesmo tempo, serão necessários 10 Transcendence ConvertChips no total.</p>
-        <p>Quando a EXP atingir 100%, a opção de transcender seu Digimon ficará disponível. Será cobrado um custo de 5T para realizar a transcendência.</p>
-        <div class="images">
-          <img src="sistema_transcendencia.png" alt="Sistema de transcendência" style="width:70%;">
-        </div>
-        <h3>Nota Importante</h3>
-        <ul>
-          <li><b>Regular Charge</b> requer <b>Low Class Transcendence ConvertChip</b>.</li>
-          <li><b>Hyper Charge</b> requer <b>Mid Class Transcendence ConvertChip</b>. Essa opção concede mais <b>EXP</b> do que o <b>Regular Charge</b>.</li>
-          <li>Os <b>Transcendence ConvertChips</b>, tanto os de classe <b>Low</b> quanto os de classe <b>Mid</b>, são divididos em vários grupos, de forma semelhante aos itens de Data usados no hatch.</li>
-          <li>O <b>Low Class</b> Transcendence ConvertChip pode ser obtido através do <b>NPC - Nanomon Item Craft</b>, em Dats Center.</li>
-          <li>O <b>Mid Class Transcendence ConvertChip</b> pode ser obtido no <b>Cash Shop</b>.</li>
-        </ul>
-        <div class="images">
-          <img src="Convert_chips.png" alt="Chips Conversores" style="width:50%;">
-        </div>
-        <h3>Itens necessários para aumento de tamanho do Digimon</h3>
-        <p>Depois de transcendido, o Digimon não poderá mais consumir Fruits comuns. Em vez disso, ele só poderá consumir as frutas exclusivas de Transcendência:</p>
-        <p><b>Fruto de Yggdrasil:</b> o tamanho do Digimon muda aleatoriamente entre 125% ~ 140%.</p>
-        <div class="images">
-          <img src="Yggdrasil_Fruit.png" alt="Fruta de Transcendência do deus" style="width:10%;">
-        </div>
-        <p><b>Fruto da Homeostase:</b> o tamanho do Digimon muda aleatoriamente entre 128% ~ 140%.</p>
-        <div class="images">
-          <img src="Fruit_of_Homeostasis.png" alt="Fruta de Transcendência da Deusa" style="width:10%;">
-        </div>
-        <h3>Experiência obtida ao sacrificar</h3>
-        <ul>
-          <li>Digimon 4/5 dão 1/4 de experiência em comparação com Digimons 5/5.</li>
-          <li>Digimons 3/5 dão 1/40 da experiência em comparação com Digimons 5/5.</li>
-          <li>O clonamento não escala com o nível, mas escala com a fase de hatch. Clonar 1 atributo para 6/15 adiciona aproximadamente 0,856% de EXP.</li>
-          <li>Digimons da mesma espécie dão 3 vezes mais experiência do que Digimons de espécies diferentes.</li>
-          <li>Um Digimon 5/5 no nível 1 concede 7,17% de EXP.</li>
-          <li>O Hyper Charge aumenta a experiência em 60%. Por exemplo, um Digimon 5/5 no nível 1 dará 11,47% de EXP com Hyper Charge, em comparação com 7,17% usando Regular Charge.</li>
-          <li>Existe uma chance aleatória de receber EXP em dobro, tanto com Regular Charge quanto com Hyper Charge.</li>
-        </ul>
-        <h3>Nota</h3>
-        <p>O Raremon é uma linha especial de Digimon que sempre concede uma quantidade fixa de EXP, independentemente do clonamento e do nível.</p>
-        <div class="images">
-          <img src="Raremon_(Mega)_Icon.png" alt="Ícone Raremon" style="width:10%;">
-        </div>
-        <ul>
-          <li>Raremon 3/5 sempre concede 2,24% de EXP com Regular Charge, ou 3,58% com Hyper Charge.</li>
-          <li>Raremon 4/5 sempre concede 16,82% de EXP com Regular Charge, ou 26,91% com Hyper Charge.</li>
-          <li>Raremon 5/5 sempre concede 44,85% de EXP com Regular Charge, ou 71,76% com Hyper Charge.</li>
-        </ul>
+        <article class="transcendence-guide">
+          <header class="transcendence-hero">
+            <div>
+              <p class="transcendence-eyebrow">Sistema de progressão</p>
+              <h3>Transcendência de Digimons</h3>
+              <p>A Transcendência, também conhecida como <b>6/6</b>, aumenta o tamanho do Digimon, melhora seu AT de acordo com a size e libera o clonamento de HP.</p>
+            </div>
+            <img class="transcendence-archive" src="Digimon_Archive_Transcendence.png" alt="Digimon Archive">
+          </header>
+
+          <div class="transcendence-body">
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">1</span> Requisitos</h4>
+              <div class="transcendence-requirements">
+                <div class="transcendence-card"><strong>Hatch 5/5</strong>Digimons chocados com size inferior não podem ser transcendidos.</div>
+                <div class="transcendence-card"><strong>Nível 100+</strong>O Digimon precisa alcançar, no mínimo, o nível 100.</div>
+                <div class="transcendence-card"><strong>Size 125%+</strong>É necessário possuir pelo menos 125% de tamanho.</div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">2</span> Como transcender</h4>
+              <p>Vá até o <b>Digimon Archive</b>, abra a aba <b>Transcendence</b> e selecione o Digimon desejado. A barra de EXP será exibida no menu e deverá chegar a 100%.</p>
+              <img class="transcendence-main-image image-zoom-trigger" data-image-zoom src="Transcendence_Archive_Interface.png" alt="Tela de Transcendência no Digimon Archive" tabindex="0" role="button" aria-label="Ampliar tela de Transcendência no Digimon Archive">
+              <p class="transcendence-caption">Clique na imagem para ampliar a tela do Digimon Archive.</p>
+              <p>Para preencher a barra, sacrifique Digimons armazenados no Archive. É possível selecionar até <b>10 Digimons por vez</b>. A EXP recebida varia conforme o nível de hatch, o nível do Digimon e seu DigiClon; o valor aparece antes da confirmação.</p>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">3</span> Charges e ConvertChips</h4>
+              <div class="transcendence-charge-grid">
+                <div class="transcendence-card"><strong>Regular Charge</strong>Requer <b>Low Class Transcendence ConvertChip</b>.</div>
+                <div class="transcendence-card"><strong>Hyper Charge</strong>Requer <b>Mid Class Transcendence ConvertChip</b> e concede mais EXP.</div>
+              </div>
+              <img class="transcendence-charge-image image-zoom-trigger" data-image-zoom src="Convert_chips.png" alt="Transcendence ConvertChips Low e Mid Class" tabindex="0" role="button" aria-label="Ampliar imagem dos Transcendence ConvertChips">
+              <ul class="transcendence-list">
+                <li>Os ConvertChips Low e Mid são separados por grupos, de forma semelhante aos itens de Data usados no hatch.</li>
+                <li>O <b>Low Class Transcendence ConvertChip</b> pode ser obtido com o NPC <b>Nanomon - Item Craft</b>, em DATS Center.</li>
+                <li>O <b>Mid Class Transcendence ConvertChip</b> pode ser adquirido no Cash Shop.</li>
+              </ul>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">4</span> EXP especial do Raremon</h4>
+              <div class="transcendence-raremon">
+                <img src="Raremon_Champion.png" alt="Raremon Champion">
+                <div>
+                  <p>Raremon concede uma quantidade fixa de EXP, independentemente do nível e do clonamento.</p>
+                  <table class="transcendence-table">
+                    <thead><tr><th>Hatch</th><th>Regular</th><th>Hyper</th></tr></thead>
+                    <tbody>
+                      <tr><td>3/5</td><td>2,24%</td><td>3,58%</td></tr>
+                      <tr><td>4/5</td><td>16,82%</td><td>26,91%</td></tr>
+                      <tr><td>5/5</td><td>44,85%</td><td>71,76%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">5</span> Após a transcendência</h4>
+              <p>Depois de transcendido, o Digimon não poderá consumir frutas comuns. Para aumentar seu tamanho até 140%, utilize as frutas exclusivas de Transcendência:</p>
+              <div class="transcendence-fruits">
+                <div class="transcendence-fruit"><img src="Yggdrasil_Fruit.png" alt="Fruto de Yggdrasil"><div><strong>Fruto de Yggdrasil</strong><br>Fruta exclusiva para Digimons transcendidos.</div></div>
+                <div class="transcendence-fruit"><img src="Fruit_of_Homeostasis.png" alt="Fruta da Homeostase"><div><strong>Fruta da Homeostase</strong><br>Fruta exclusiva para Digimons transcendidos.</div></div>
+              </div>
+              <div class="transcendence-notice"><p>O servidor possui um sistema próprio que aumenta a size automaticamente até o valor desejado, sem risco de diminuir além do tamanho já alcançado.</p></div>
+            </section>
+          </div>
+        </article>
       `,
       "block.novato.buffs": `
         <h3>Troca de itens</h3>
@@ -3165,55 +3366,77 @@
         </div>
       `,
       "block.novato.trans": `
-        <h3>Transcendence of Digimons</h3>
-        <p>You can access the Transcendence tab from the Digimon Archive. Once you're in the menu, left-click on the Digimon you want to transcend that's in your mercenary slot.</p>
-        <p>Once you have entered the Digimon, you will be able to see the XP bar within the menu. The goal is to increase this XP up to 100% by sacrificing other Digimons of your archive. You can sacrifice up to 10 Digimons at the same time, and the XP you earn will depend on the hatch level, Digimon level, and DigiClon level of the Digimons sacrificed. The amount of XP will be shown when the sacrificed Digimon is selected.</p>
-        <p>Once you've selected all Digimons, you'll be able to choose one of two Charge options to confirm the sacrifice. 1 Transcendence ConvertChip is required for each Digimon. That is, if 10 Digimons are sacrificed at the same time, 10 Transcendence ConvertChips will be needed in total.</p>
-        <p>Once XP reaches 100%, the option to transcend your Digimon will become available. A cost of 5T will be charged to realize transcendence.</p>
-        <div class="images">
-          <img src="sistema_transcendencia.png" alt="System of transcendence" style="width:70%;">
-        </div>
-        <h3>Important Note</h3>
-        <ul>
-          <li><b>Regular Charge</b> Requires <b>Low Class Transcendence ConvertChip</b>.</li>
-          <li><b>Hyper Charge</b> Requires <b>Mid Class Transcendence ConvertChip</b>. This option grants more <b>EXP</b> than the <b>Regular Charge</b>.</li>
-          <li>The <b>Transcendence ConvertChips</b>, both class <b>Low</b> as well as class <b>Mid</b>, are divided into several groups, similar to the Data items used in the hatch.</li>
-          <li>The <b>Low Class</b> Transcendence ConvertChip can be obtained through the <b>NPC - Nanomon Item Craft</b>in Dats Center.</li>
-          <li>The <b>Mid Class Transcendence ConvertChip</b> It can be obtained from the <b>Cash Shop</b>.</li>
-        </ul>
-        <div class="images">
-          <img src="Convert_chips.png" alt="Converter Chips" style="width:50%;">
-        </div>
-        <h3>Items needed for Digimon size increase</h3>
-        <p>Once transcended, the Digimon will no longer be able to consume regular Fruits. Instead, he will only be able to consume the fruits exclusive to Transcendence:</p>
-        <p><b>Yggdrasil Fruit:</b> The size of the Digimon changes randomly between 125%~140%.</p>
-        <div class="images">
-          <img src="Yggdrasil_Fruit.png" alt="God's Fruit of Transcendence" style="width:10%;">
-        </div>
-        <p><b>Fruit of Homeostasis:</b> The size of the Digimon changes randomly between 128%~140%.</p>
-        <div class="images">
-          <img src="Fruit_of_Homeostasis.png" alt="Fruit of Goddess Transcendence" style="width:10%;">
-        </div>
-        <h3>Experience gained from sacrificing</h3>
-        <ul>
-          <li>Digimon 4/5 gives 1/4 experience compared to Digimons 5/5.</li>
-          <li>Digimons 3/5 gives 1/40 of the experience compared to Digimons 5/5.</li>
-          <li>Cloning doesn't scale with level, but scales with the hatch phase. Cloning 1 attribute to 6/15 adds approximately 0.856% XP.</li>
-          <li>Digimons of the same species give 3 times more experience than Digimons of different species.</li>
-          <li>A 5/5 Digimon at level 1 grants 7.17% XP.</li>
-          <li>The Hyper Charge increases experience by 60%. For example, a 5/5 Digimon at level 1 will give 11.47% XP with Hyper Charge, compared to 7.17% using Regular Charge.</li>
-          <li>There is a random chance to receive double XP with both Regular Charge and Hyper Charge.</li>
-        </ul>
-        <h3>Note</h3>
-        <p>Raremon is a special line of Digimon that always grants a fixed amount of XP, regardless of cloning and level.</p>
-        <div class="images">
-          <img src="Raremon_(Mega)_Icon.png" alt="Raremon Icon" style="width:10%;">
-        </div>
-        <ul>
-          <li>3/5 Raremon always grants 2.24% XP with Regular Charge, or 3.58% with Hyper Charge.</li>
-          <li>Raremon 4/5 always grants 16.82% XP with Regular Charge, or 26.91% with Hyper Charge.</li>
-          <li>Raremon 5/5 always grants 44.85% XP with Regular Charge, or 71.76% with Hyper Charge.</li>
-        </ul>
+        <article class="transcendence-guide">
+          <header class="transcendence-hero">
+            <div>
+              <p class="transcendence-eyebrow">Progression system</p>
+              <h3>Digimon Transcendence</h3>
+              <p>Transcendence, also known as <b>6/6</b>, increases the Digimon's size, improves its AT according to its size, and unlocks HP cloning.</p>
+            </div>
+            <img class="transcendence-archive" src="Digimon_Archive_Transcendence.png" alt="Digimon Archive">
+          </header>
+
+          <div class="transcendence-body">
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">1</span> Requirements</h4>
+              <div class="transcendence-requirements">
+                <div class="transcendence-card"><strong>Hatch 5/5</strong>Digimon hatched at a lower size cannot be transcended.</div>
+                <div class="transcendence-card"><strong>Level 100+</strong>The Digimon must be at least level 100.</div>
+                <div class="transcendence-card"><strong>Size 125%+</strong>A minimum size of 125% is required.</div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">2</span> How to transcend</h4>
+              <p>Go to the <b>Digimon Archive</b>, open the <b>Transcendence</b> tab, and select the desired Digimon. The EXP bar will appear in the menu and must reach 100%.</p>
+              <img class="transcendence-main-image image-zoom-trigger" data-image-zoom src="Transcendence_Archive_Interface.png" alt="Transcendence screen in the Digimon Archive" tabindex="0" role="button" aria-label="Enlarge the Transcendence screen in the Digimon Archive">
+              <p class="transcendence-caption">Click the image to enlarge the Digimon Archive screen.</p>
+              <p>To fill the bar, sacrifice Digimon stored in the Archive. You can select up to <b>10 Digimon at a time</b>. The EXP received depends on hatch level, Digimon level, and DigiClon level; the value is displayed before confirmation.</p>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">3</span> Charges and ConvertChips</h4>
+              <div class="transcendence-charge-grid">
+                <div class="transcendence-card"><strong>Regular Charge</strong>Requires a <b>Low Class Transcendence ConvertChip</b>.</div>
+                <div class="transcendence-card"><strong>Hyper Charge</strong>Requires a <b>Mid Class Transcendence ConvertChip</b> and grants more EXP.</div>
+              </div>
+              <img class="transcendence-charge-image image-zoom-trigger" data-image-zoom src="Convert_chips.png" alt="Low and Mid Class Transcendence ConvertChips" tabindex="0" role="button" aria-label="Enlarge the Transcendence ConvertChips image">
+              <ul class="transcendence-list">
+                <li>Low and Mid ConvertChips are separated into groups, similarly to the Data items used for hatching.</li>
+                <li>The <b>Low Class Transcendence ConvertChip</b> can be obtained from the <b>Nanomon - Item Craft</b> NPC in DATS Center.</li>
+                <li>The <b>Mid Class Transcendence ConvertChip</b> can be purchased from the Cash Shop.</li>
+              </ul>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">4</span> Raremon's special EXP</h4>
+              <div class="transcendence-raremon">
+                <img src="Raremon_Champion.png" alt="Raremon Champion">
+                <div>
+                  <p>Raremon grants a fixed amount of EXP regardless of its level or cloning.</p>
+                  <table class="transcendence-table">
+                    <thead><tr><th>Hatch</th><th>Regular</th><th>Hyper</th></tr></thead>
+                    <tbody>
+                      <tr><td>3/5</td><td>2.24%</td><td>3.58%</td></tr>
+                      <tr><td>4/5</td><td>16.82%</td><td>26.91%</td></tr>
+                      <tr><td>5/5</td><td>44.85%</td><td>71.76%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">5</span> After transcendence</h4>
+              <p>After being transcended, the Digimon can no longer consume regular fruits. To increase its size up to 140%, use the exclusive Transcendence fruits:</p>
+              <div class="transcendence-fruits">
+                <div class="transcendence-fruit"><img src="Yggdrasil_Fruit.png" alt="Yggdrasil Fruit"><div><strong>Yggdrasil Fruit</strong><br>An exclusive fruit for transcended Digimon.</div></div>
+                <div class="transcendence-fruit"><img src="Fruit_of_Homeostasis.png" alt="Fruit of Homeostasis"><div><strong>Fruit of Homeostasis</strong><br>An exclusive fruit for transcended Digimon.</div></div>
+              </div>
+              <div class="transcendence-notice"><p>The server has its own system that automatically increases the Digimon's size to the desired value without any risk of dropping below the size already reached.</p></div>
+            </section>
+          </div>
+        </article>
       `,
       "block.novato.buffs": `
         <h3>Item exchange</h3>
@@ -4410,55 +4633,77 @@ In most cases, there is no damage reduction or way to survive by taking this ski
         </div>
       `,
       "block.novato.trans": `
-        <h3>Trascendencia de Digimons</h3>
-        <p>Puedes acceder a la pestaña de Trascendencia desde el Archivo Digimon. Una vez en el menú, haz clic izquierdo en la Digimon quieres trascender que está en tu ranura de mercenario.</p>
-        <p>Una vez que entres en la Digimon, podrás ver la barra de XP dentro del menú. El objetivo es aumentar esta experiencia hasta el 100% sacrificando otros Digimons de tu archivo. Puedes sacrificar hasta 10 Digimons al mismo tiempo, y la experiencia que ganes dependerá del nivel de la escotilla, Digimon nivel y DigiClon nivel del Digimons sacrificado. La cantidad de XP se mostrará cuando se seleccione el Digimon sacrificado.</p>
-        <p>Una vez que hayas seleccionado todas las Digimons, podrás elegir una de dos opciones de Carga para confirmar el sacrificio. Se requiere 1 Transcendence ConvertChip por cada Digimon. Es decir, si se sacrifican 10 Digimons al mismo tiempo, se necesitarán un total de 10 Transcendence ConvertChip.</p>
-        <p>Una vez que la XP alcance el 100%, la opción de trascender tu Digimon estará disponible. Se cobrará un coste de 5 toneladas para alcanzar la trascendencia.</p>
-        <div class="images">
-          <img src="sistema_transcendencia.png" alt="Sistema de trascendencia" style="width:70%;">
-        </div>
-        <h3>Nota importante</h3>
-        <ul>
-          <li><b>Regular Charge</b> Requiere <b>Low Class Transcendence ConvertChip</b>.</li>
-          <li><b>Hyper Charge</b> Requiere <b>Mid Class Transcendence ConvertChip</b>. Esta opción concede más <b>EXP</b> que el <b>Regular Charge</b>.</li>
-          <li>El <b>Transcendence ConvertChips</b>, ambas clases <b>Bajo</b> así como la clase <b>Mid</b>, se dividen en varios grupos, similares a los Data objetos usados en la escotilla.</li>
-          <li>El <b>Low Class</b> Transcendence ConvertChip pueden obtenerse a través de <b>NPC - Nanomon Item Craft</b>en Dats Center.</li>
-          <li>El <b>Mid Class Transcendence ConvertChip</b> Puede obtenerse a partir de <b>Cash Shop</b>.</li>
-        </ul>
-        <div class="images">
-          <img src="Convert_chips.png" alt="Chips convertidores" style="width:50%;">
-        </div>
-        <h3>Artículos necesarios para Digimon aumento de tamaño</h3>
-        <p>Una vez trascendido, el Digimon ya no podrá consumir Frutas normales. En su lugar, solo podrá consumir las frutas exclusivas de la Trascendencia:</p>
-        <p><b>Fruta de Yggdrasil:</b> El tamaño de la Digimon cambia aleatoriamente entre un 125%~140%.</p>
-        <div class="images">
-          <img src="Yggdrasil_Fruit.png" alt="El fruto de la trascendencia de Dios" style="width:10%;">
-        </div>
-        <p><b>Fruto de la homeostasis:</b> El tamaño de la Digimon cambia aleatoriamente entre el 128%~140%.</p>
-        <div class="images">
-          <img src="Fruit_of_Homeostasis.png" alt="Fruto de la Diosa Trascendencia" style="width:10%;">
-        </div>
-        <h3>Experiencia adquirida al sacrificarse</h3>
-        <ul>
-          <li>Digimon 4/5 da 1/4 de experiencia comparado con Digimons 5/5.</li>
-          <li>Digimons 3/5 da 1/40 de la experiencia comparado con Digimons 5/5.</li>
-          <li>La clonación no escala con el nivel, pero sí con la fase de eclosión. Clonar 1 atributo a 6/15 añade aproximadamente un 0,856% de XP.</li>
-          <li>Digimons de la misma especie dan tres veces más experiencia que Digimons de especies diferentes.</li>
-          <li>Un 5/5 Digimon en nivel 1 otorga un 7,17% de experiencia.</li>
-          <li>El Hyper Charge aumenta la experiencia en un 60%. Por ejemplo, un Digimon 5/5 en nivel 1 dará un 11,47% de XP con Hyper Charge, comparado con un 7,17% usando Regular Charge.</li>
-          <li>Hay una posibilidad aleatoria de recibir el doble de XP tanto con Regular Charge como con Hyper Charge.</li>
-        </ul>
-        <h3>Nota</h3>
-        <p>Raremon es una línea especial de Digimon que siempre otorga una cantidad fija de XP, independientemente de la clonación y el nivel.</p>
-        <div class="images">
-          <img src="Raremon_(Mega)_Icon.png" alt="Icono de Raremon" style="width:10%;">
-        </div>
-        <ul>
-          <li>3/5 Raremon siempre otorga un 2,24% de XP con Regular Charge, o un 3,58% con Hyper Charge.</li>
-          <li>Raremon 4/5 siempre otorga un 16,82% de XP con Regular Charge, o un 26,91% con Hyper Charge.</li>
-          <li>Raremon 5/5 siempre otorga un 44,85% de XP con Regular Charge, o 71,76% con Hyper Charge.</li>
-        </ul>
+        <article class="transcendence-guide">
+          <header class="transcendence-hero">
+            <div>
+              <p class="transcendence-eyebrow">Sistema de progresión</p>
+              <h3>Trascendencia de Digimon</h3>
+              <p>La Trascendencia, también conocida como <b>6/6</b>, aumenta el tamaño del Digimon, mejora su AT según la size y desbloquea la clonación de HP.</p>
+            </div>
+            <img class="transcendence-archive" src="Digimon_Archive_Transcendence.png" alt="Digimon Archive">
+          </header>
+
+          <div class="transcendence-body">
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">1</span> Requisitos</h4>
+              <div class="transcendence-requirements">
+                <div class="transcendence-card"><strong>Hatch 5/5</strong>Los Digimon eclosionados con una size inferior no pueden trascender.</div>
+                <div class="transcendence-card"><strong>Nivel 100+</strong>El Digimon debe alcanzar, como mínimo, el nivel 100.</div>
+                <div class="transcendence-card"><strong>Size 125%+</strong>Se requiere un tamaño mínimo del 125%.</div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">2</span> Cómo trascender</h4>
+              <p>Ve al <b>Digimon Archive</b>, abre la pestaña <b>Transcendence</b> y selecciona el Digimon deseado. La barra de EXP aparecerá en el menú y deberá alcanzar el 100%.</p>
+              <img class="transcendence-main-image image-zoom-trigger" data-image-zoom src="Transcendence_Archive_Interface.png" alt="Pantalla de Trascendencia en Digimon Archive" tabindex="0" role="button" aria-label="Ampliar la pantalla de Trascendencia en Digimon Archive">
+              <p class="transcendence-caption">Haz clic en la imagen para ampliar la pantalla de Digimon Archive.</p>
+              <p>Para llenar la barra, sacrifica Digimon almacenados en el Archive. Puedes seleccionar hasta <b>10 Digimon a la vez</b>. La EXP recibida depende del nivel de hatch, del nivel del Digimon y de su DigiClon; el valor aparece antes de confirmar.</p>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">3</span> Charges y ConvertChips</h4>
+              <div class="transcendence-charge-grid">
+                <div class="transcendence-card"><strong>Regular Charge</strong>Requiere un <b>Low Class Transcendence ConvertChip</b>.</div>
+                <div class="transcendence-card"><strong>Hyper Charge</strong>Requiere un <b>Mid Class Transcendence ConvertChip</b> y concede más EXP.</div>
+              </div>
+              <img class="transcendence-charge-image image-zoom-trigger" data-image-zoom src="Convert_chips.png" alt="Transcendence ConvertChips Low y Mid Class" tabindex="0" role="button" aria-label="Ampliar la imagen de los Transcendence ConvertChips">
+              <ul class="transcendence-list">
+                <li>Los ConvertChips Low y Mid se dividen en grupos, de forma similar a los objetos Data utilizados en el hatch.</li>
+                <li>El <b>Low Class Transcendence ConvertChip</b> se puede obtener con el NPC <b>Nanomon - Item Craft</b> en DATS Center.</li>
+                <li>El <b>Mid Class Transcendence ConvertChip</b> se puede adquirir en el Cash Shop.</li>
+              </ul>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">4</span> EXP especial de Raremon</h4>
+              <div class="transcendence-raremon">
+                <img src="Raremon_Champion.png" alt="Raremon Champion">
+                <div>
+                  <p>Raremon concede una cantidad fija de EXP, independientemente de su nivel y clonación.</p>
+                  <table class="transcendence-table">
+                    <thead><tr><th>Hatch</th><th>Regular</th><th>Hyper</th></tr></thead>
+                    <tbody>
+                      <tr><td>3/5</td><td>2,24%</td><td>3,58%</td></tr>
+                      <tr><td>4/5</td><td>16,82%</td><td>26,91%</td></tr>
+                      <tr><td>5/5</td><td>44,85%</td><td>71,76%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="transcendence-section">
+              <h4><span class="transcendence-step">5</span> Después de la trascendencia</h4>
+              <p>Después de trascender, el Digimon ya no podrá consumir frutas normales. Para aumentar su tamaño hasta el 140%, utiliza las frutas exclusivas de Trascendencia:</p>
+              <div class="transcendence-fruits">
+                <div class="transcendence-fruit"><img src="Yggdrasil_Fruit.png" alt="Fruta de Yggdrasil"><div><strong>Fruta de Yggdrasil</strong><br>Fruta exclusiva para Digimon trascendidos.</div></div>
+                <div class="transcendence-fruit"><img src="Fruit_of_Homeostasis.png" alt="Fruta de Homeostasis"><div><strong>Fruta de Homeostasis</strong><br>Fruta exclusiva para Digimon trascendidos.</div></div>
+              </div>
+              <div class="transcendence-notice"><p>El servidor cuenta con un sistema propio que aumenta automáticamente la size hasta el valor deseado, sin riesgo de disminuir por debajo del tamaño ya alcanzado.</p></div>
+            </section>
+          </div>
+        </article>
       `,
       "block.novato.buffs": `
         <h3>Intercambio de objetos</h3>
