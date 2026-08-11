@@ -737,14 +737,13 @@
     #npcs .npc-block{ display:none; }
     .npc-hero{
       position:relative;
-      display:grid;
-      place-items:center;
-      min-height:420px;
+      aspect-ratio:4 / 3;
+      min-height:0;
       padding:0;
       overflow:hidden;
       border-radius:10px;
-      text-align:center;
       isolation:isolate;
+      background:#071225;
     }
     .npc-hero::after{
       content:"";
@@ -752,8 +751,8 @@
       inset:0;
       z-index:1;
       background:
-        radial-gradient(circle at center, rgba(4,15,34,.08) 0%, rgba(4,15,34,.52) 52%, rgba(4,15,34,.28) 100%),
-        linear-gradient(180deg, rgba(5,17,38,.08), rgba(5,17,38,.52));
+        linear-gradient(180deg, rgba(4,15,34,.12) 0%, transparent 28%, transparent 66%, rgba(4,15,34,.28) 100%),
+        linear-gradient(90deg, rgba(4,15,34,.14), transparent 28%);
       pointer-events:none;
     }
     .npc-hero-image{
@@ -764,43 +763,33 @@
       height:100%;
       object-fit:cover;
     }
-    .npc-hero-character{
-      position:absolute;
-      bottom:0;
-      z-index:2;
-      width:auto;
-      object-fit:contain;
-      object-position:bottom;
-      filter:drop-shadow(0 10px 15px rgba(0,0,0,.72));
-      pointer-events:none;
-    }
-    .npc-hero-hashima{
-      left:-2%;
-      height:86%;
-    }
-    .npc-hero-babel{
-      right:-2%;
-      height:82%;
-    }
     .npc-hero-brand{
       position:absolute;
-      top:10px;
-      left:50%;
+      left:18px;
+      bottom:18px;
       z-index:3;
-      width:min(54%, 430px);
-      transform:translateX(-50%);
-      text-shadow:0 2px 8px #000, 0 0 16px rgba(0,229,255,.55);
+      width:min(62%, 430px);
+      padding:12px 16px;
+      border-left:4px solid #ffe600;
+      border-radius:0 10px 10px 0;
+      background:linear-gradient(90deg, rgba(4,15,34,.94), rgba(4,15,34,.72));
+      box-shadow:0 8px 24px rgba(0,0,0,.32);
+      text-shadow:0 2px 7px #000;
     }
     .npc-hero-logo{
+      position:absolute;
+      top:14px;
+      right:14px;
+      z-index:3;
       display:block;
-      width:min(64%, 230px);
-      margin:-4px auto -38px;
-      filter:drop-shadow(0 0 12px rgba(0,229,255,.48));
+      width:min(29%, 190px);
+      height:auto;
+      filter:drop-shadow(0 3px 9px rgba(0,0,0,.8)) drop-shadow(0 0 8px rgba(0,229,255,.35));
     }
     .npc-hero-brand h3{
       margin:0;
       color:#ffe600;
-      font-size:clamp(1.15rem, 3vw, 1.8rem);
+      font-size:clamp(1.05rem, 2.4vw, 1.55rem);
       line-height:1.15;
     }
     .npc-hero-brand p{
@@ -1252,26 +1241,21 @@
       #event-content{ min-height: 280px; }
       #npcs .npc-layout{ grid-template-columns:1fr; }
       #npc-content{ min-height:320px; }
-      .npc-hero{ min-height:300px; }
-      .npc-hero-hashima{
-        left:-12%;
-        height:70%;
-      }
-      .npc-hero-babel{
-        right:-12%;
-        height:68%;
-      }
+      .npc-hero{ min-height:0; }
       .npc-hero-brand{
-        top:4px;
-        width:78%;
+        left:9px;
+        bottom:9px;
+        width:min(76%, 300px);
+        padding:8px 10px;
       }
       .npc-hero-logo{
-        width:min(58%, 170px);
-        margin:-8px auto -32px;
+        top:8px;
+        right:8px;
+        width:min(31%, 125px);
       }
+      .npc-hero-brand h3{ font-size:clamp(.92rem, 4.5vw, 1.12rem); }
       .npc-hero-brand p{
-        margin-top:6px;
-        font-size:.78rem;
+        display:none;
       }
       .babel-intro,
       .npc-profile-intro{ grid-template-columns:1fr; }
@@ -1733,11 +1717,9 @@
 
         <div id="npc-content">
           <div id="npc-hero" class="npc-hero">
-            <img class="npc-hero-image" src="NPCs_Lojas_Hero.jpg" alt="" aria-hidden="true">
-            <img class="npc-hero-character npc-hero-hashima" src="Diretor_Hashima_Recorte.png" alt="Diretor Hashima">
-            <img class="npc-hero-character npc-hero-babel" src="Babel_Recorte.png" alt="Babel">
+            <img class="npc-hero-image" src="Mercado_digimon.png" alt="Mercado Digimon">
+            <img class="npc-hero-logo" src="Digital_galaxy_logo.png" alt="Digital Galaxy">
             <div class="npc-hero-brand">
-              <img class="npc-hero-logo" src="Digital_galaxy_logo.png" alt="Digital Galaxy">
               <h3 data-i18n="npcs.hero_title">NPCs e Lojas do Digital Galaxy</h3>
               <p data-i18n="npcs.hero_text">Selecione um NPC para ver todos os detalhes.</p>
             </div>
