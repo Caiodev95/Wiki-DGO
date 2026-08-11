@@ -717,6 +717,160 @@
       background:linear-gradient(90deg, transparent, rgba(0,229,255,.55), transparent);
     }
 
+    #sistemas .system-layout{
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:20px;
+      align-items:start;
+      margin-top:10px;
+    }
+    #sistemas .system-nav{ display:flex; flex-direction:column; gap:10px; }
+    #sistemas .system-nav button{ width:100%; text-align:left; }
+    #system-content{
+      min-width:0;
+      min-height:420px;
+      padding:18px;
+      border:1px solid var(--cor-destaque-secundaria);
+      border-radius:12px;
+      background-color:var(--cor-fundo-secao);
+      box-shadow:0 0 22px rgba(0,229,255,.12) inset;
+    }
+    #sistemas .system-block{ display:none; }
+    .system-hero{
+      position:relative;
+      aspect-ratio:16 / 9;
+      min-height:380px;
+      overflow:hidden;
+      border-radius:10px;
+      background:#071225;
+      isolation:isolate;
+    }
+    .system-hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:linear-gradient(180deg, transparent 38%, rgba(4,15,34,.2) 62%, rgba(4,15,34,.82));
+      pointer-events:none;
+    }
+    .system-hero-image{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center top;
+    }
+    .system-hero-copy{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      z-index:2;
+      max-width:520px;
+      padding:12px 16px;
+      border-left:4px solid var(--cor-destaque-primaria);
+      border-radius:0 10px 10px 0;
+      background:linear-gradient(90deg, rgba(4,15,34,.94), rgba(4,15,34,.62));
+      text-shadow:0 2px 7px #000;
+    }
+    .system-hero-copy h3{
+      margin:0;
+      color:var(--cor-destaque-primaria);
+      font-size:clamp(1.15rem,2.5vw,1.65rem);
+    }
+    .system-hero-copy p{ margin:6px 0 0; }
+    .system-guide-header{
+      padding:20px;
+      border:1px solid rgba(255,196,0,.38);
+      border-radius:12px;
+      background:linear-gradient(135deg,rgba(255,196,0,.09),rgba(0,229,255,.05));
+    }
+    .system-guide-kicker{
+      margin:0 0 6px;
+      color:var(--cor-destaque-secundaria);
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .system-guide-header h3{
+      margin:0 0 10px;
+      color:var(--cor-destaque-primaria);
+      font-size:clamp(1.45rem,3vw,2rem);
+    }
+    .system-guide-header p:last-child{ margin-bottom:0; }
+    .system-guide-section{ margin-top:26px; }
+    .system-guide-section h4{
+      margin:0 0 12px;
+      color:var(--cor-destaque-primaria);
+      font-size:1.2rem;
+    }
+    .system-rule-grid,
+    .star-condenser-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+    .system-rule-card,
+    .star-condenser-card{
+      padding:15px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:10px;
+      background:rgba(19,39,70,.68);
+    }
+    .system-rule-card strong,
+    .star-condenser-card strong{
+      display:block;
+      margin-bottom:5px;
+      color:var(--cor-destaque-primaria);
+    }
+    .star-condenser-card.pending{ border-style:dashed; opacity:.82; }
+    .system-guide-image{
+      display:block;
+      width:100%;
+      margin-top:14px;
+      border:1px solid rgba(0,229,255,.5);
+      border-radius:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,.38);
+    }
+    .system-guide-caption{
+      margin:8px 0 0;
+      color:#aebed4;
+      font-size:.8rem;
+      text-align:center;
+    }
+    .system-bonus-table-wrap{
+      overflow-x:auto;
+      border:1px solid rgba(0,229,255,.35);
+      border-radius:10px;
+    }
+    .system-bonus-table{
+      width:100%;
+      min-width:620px;
+      border-collapse:collapse;
+      background:rgba(0,0,0,.18);
+    }
+    .system-bonus-table th,
+    .system-bonus-table td{
+      padding:11px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:center;
+    }
+    .system-bonus-table th{
+      color:var(--cor-destaque-primaria);
+      background:rgba(0,229,255,.08);
+    }
+    .system-bonus-table tr:last-child td{ border-bottom:0; }
+    .system-availability{
+      margin-top:18px;
+      padding:14px 16px;
+      border:1px dashed rgba(255,196,0,.7);
+      border-radius:10px;
+      background:rgba(255,196,0,.07);
+    }
+    .system-availability p{ margin:0; }
+
     #npcs .npc-layout{
       display:grid;
       grid-template-columns:260px 1fr;
@@ -1239,6 +1393,18 @@
       #novice-content{ min-height: 320px; }
       #eventos .event-layout{ grid-template-columns: 1fr; }
       #event-content{ min-height: 280px; }
+      #sistemas .system-layout{ grid-template-columns:1fr; }
+      #system-content{ min-height:320px; }
+      .system-hero{ min-height:260px; }
+      .system-hero-copy{
+        left:9px;
+        right:9px;
+        bottom:9px;
+        padding:8px 10px;
+      }
+      .system-hero-copy p{ display:none; }
+      .system-rule-grid,
+      .star-condenser-grid{ grid-template-columns:1fr; }
       #npcs .npc-layout{ grid-template-columns:1fr; }
       #npc-content{ min-height:320px; }
       .npc-hero{ min-height:0; }
@@ -1702,7 +1868,24 @@
 
     <div id="sistemas" class="section">
       <h2 data-i18n="sistemas.h2">Sistemas</h2>
-      <p data-i18n="sistemas.p">Aqui você encontra...</p>
+      <p data-i18n="sistemas.p">Consulte os sistemas exclusivos e os principais recursos de progressão do Digital Galaxy.</p>
+      <div class="system-layout">
+        <div class="nav system-nav">
+          <div><button onclick="toggleSistema('sistema-estrelas')" data-i18n="sistemas.btn.estrelas">Sistema de Estrelas</button></div>
+        </div>
+
+        <div id="system-content">
+          <div id="system-hero" class="system-hero">
+            <img class="system-hero-image" src="Sistema_de_Estrelas_DGO.png" alt="Sistema de Estrelas do Digital Galaxy" data-i18n-attr="alt:sistemas.hero_alt">
+            <div class="system-hero-copy">
+              <h3 data-i18n="sistemas.hero_title">Sistemas exclusivos do Digital Galaxy</h3>
+              <p data-i18n="sistemas.hero_text">Selecione um sistema para consultar todos os detalhes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sistema-estrelas" class="system-block"><div data-i18n-html="block.sistemas.estrelas"></div></div>
     </div>
 
     <div id="npcs" class="section">
@@ -2063,7 +2246,62 @@
       "mapas.li3": "File Island",
       "mapas.li4": "Odaiba",
       "sistemas.h2": "Sistemas",
-      "sistemas.p": "Aqui você encontra detalhes sobre sistemas do jogo, como evolução, atributos e reforço de equipamentos.",
+      "sistemas.p": "Consulte os sistemas exclusivos e os principais recursos de progressão do Digital Galaxy.",
+      "sistemas.btn.estrelas": "Sistema de Estrelas",
+      "sistemas.hero_alt": "Sistema de Estrelas do Digital Galaxy",
+      "sistemas.hero_title": "Sistemas exclusivos do Digital Galaxy",
+      "sistemas.hero_text": "Selecione um sistema para consultar todos os detalhes.",
+      "block.sistemas.estrelas": `
+        <article class="system-guide">
+          <header class="system-guide-header">
+            <p class="system-guide-kicker">Exclusivo do DGO</p>
+            <h3>Novo: Sistema de Aprimoramento</h3>
+            <p>Eleve o poder do seu parceiro ao limite. Use <strong>Itens Evolutivos</strong> para desbloquear Estrelas de Poder e receber bônus expressivos de atributos.</p>
+          </header>
+
+          <section class="system-guide-section">
+            <h4>Como funciona?</h4>
+            <div class="system-rule-grid">
+              <div class="system-rule-card"><strong>Desbloqueio</strong>Use o item de evolução correspondente ao Digimon para liberar até 5 Estrelas.</div>
+              <div class="system-rule-card"><strong>Elegibilidade</strong>Disponível exclusivamente para Digimons dos Ranks SSS e SSS+. O Rank U será incluído futuramente.</div>
+              <div class="system-rule-card"><strong>Progressão</strong>Cada estrela aumenta o bônus acumulado. Quanto maior o nível, maiores serão os atributos recebidos.</div>
+            </div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Condensadores de Estrelas</h4>
+            <p>Se você não possuir o item evolutivo específico do Digimon, poderá utilizar um condensador compatível com o Rank.</p>
+            <div class="star-condenser-grid">
+              <div class="star-condenser-card"><strong>Condensador de Estrelas SSS</strong>Aprimora qualquer Digimon de Rank SSS.</div>
+              <div class="star-condenser-card"><strong>Condensador de Estrelas SSS+</strong>Aprimora qualquer Digimon de Rank SSS+.</div>
+              <div class="star-condenser-card pending"><strong>Condensador de Estrelas U</strong>Será disponibilizado futuramente.</div>
+            </div>
+            <div class="system-availability"><p><strong>Disponibilidade:</strong> os condensadores aparecem por tempo limitado em eventos especiais e no Cash Shop.</p></div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Bônus acumulados por Estrela</h4>
+            <div class="system-bonus-table-wrap">
+              <table class="system-bonus-table">
+                <thead><tr><th>Estrela</th><th>ATK</th><th>HP</th><th>Red. de Dano</th><th>Vel. de ATK</th><th>Dano Final</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>+7%</td><td>+5%</td><td>+3%</td><td>+1%</td><td>+1%</td></tr>
+                  <tr><td>2</td><td>+10%</td><td>+7%</td><td>+6%</td><td>+2%</td><td>+2%</td></tr>
+                  <tr><td>3</td><td>+13%</td><td>+10%</td><td>+10%</td><td>+3%</td><td>+3%</td></tr>
+                  <tr><td>4</td><td>+16%</td><td>+12%</td><td>+13%</td><td>+4%</td><td>+4%</td></tr>
+                  <tr><td>5</td><td>+20%</td><td>+15%</td><td>+18%</td><td>+5%</td><td>+7%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <figure class="system-guide-section">
+            <h4>Guia visual</h4>
+            <img class="system-guide-image image-zoom-trigger" data-image-zoom src="Sistema_de_Estrelas_DGO.png" alt="Guia visual do Sistema de Estrelas" tabindex="0" role="button" aria-label="Ampliar guia visual do Sistema de Estrelas">
+            <figcaption class="system-guide-caption">Clique na imagem para ampliar.</figcaption>
+          </figure>
+        </article>
+      `,
       "npcs.h2": "NPCs & Lojas",
       "npcs.p": "Selecione um NPC para consultar seus serviços e informações.",
       "npcs.btn.babel": "Babel",
@@ -3360,7 +3598,62 @@
       "mapas.li3": "File Island",
       "mapas.li4": "Odaiba",
       "sistemas.h2": "Systems",
-      "sistemas.p": "Here you can find details about game systems, such as evolution, attributes, and equipment reinforcement.",
+      "sistemas.p": "Explore Digital Galaxy's exclusive systems and main progression features.",
+      "sistemas.btn.estrelas": "Star System",
+      "sistemas.hero_alt": "Digital Galaxy Star System",
+      "sistemas.hero_title": "Digital Galaxy exclusive systems",
+      "sistemas.hero_text": "Select a system to view all its details.",
+      "block.sistemas.estrelas": `
+        <article class="system-guide">
+          <header class="system-guide-header">
+            <p class="system-guide-kicker">DGO Exclusive</p>
+            <h3>New: Enhancement System</h3>
+            <p>Push your partner's power to the limit. Use <strong>Evolution Items</strong> to unlock Power Stars and receive substantial attribute bonuses.</p>
+          </header>
+
+          <section class="system-guide-section">
+            <h4>How does it work?</h4>
+            <div class="system-rule-grid">
+              <div class="system-rule-card"><strong>Unlocking</strong>Use the corresponding Digimon evolution item to unlock up to 5 Stars.</div>
+              <div class="system-rule-card"><strong>Eligibility</strong>Available exclusively to Rank SSS and SSS+ Digimon. Rank U will be added in the future.</div>
+              <div class="system-rule-card"><strong>Progression</strong>Each Star increases the cumulative bonus. Higher levels grant greater attributes.</div>
+            </div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Star Condensers</h4>
+            <p>If you do not have the Digimon's specific evolution item, you can use a condenser compatible with its Rank.</p>
+            <div class="star-condenser-grid">
+              <div class="star-condenser-card"><strong>SSS Star Condenser</strong>Enhances any Rank SSS Digimon.</div>
+              <div class="star-condenser-card"><strong>SSS+ Star Condenser</strong>Enhances any Rank SSS+ Digimon.</div>
+              <div class="star-condenser-card pending"><strong>U Star Condenser</strong>Will become available in the future.</div>
+            </div>
+            <div class="system-availability"><p><strong>Availability:</strong> condensers are offered for a limited time during special events and in the Cash Shop.</p></div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Cumulative bonuses per Star</h4>
+            <div class="system-bonus-table-wrap">
+              <table class="system-bonus-table">
+                <thead><tr><th>Star</th><th>ATK</th><th>HP</th><th>Damage Reduction</th><th>Attack Speed</th><th>Final Damage</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>+7%</td><td>+5%</td><td>+3%</td><td>+1%</td><td>+1%</td></tr>
+                  <tr><td>2</td><td>+10%</td><td>+7%</td><td>+6%</td><td>+2%</td><td>+2%</td></tr>
+                  <tr><td>3</td><td>+13%</td><td>+10%</td><td>+10%</td><td>+3%</td><td>+3%</td></tr>
+                  <tr><td>4</td><td>+16%</td><td>+12%</td><td>+13%</td><td>+4%</td><td>+4%</td></tr>
+                  <tr><td>5</td><td>+20%</td><td>+15%</td><td>+18%</td><td>+5%</td><td>+7%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <figure class="system-guide-section">
+            <h4>Visual guide</h4>
+            <img class="system-guide-image image-zoom-trigger" data-image-zoom src="Sistema_de_Estrelas_DGO.png" alt="Star System visual guide" tabindex="0" role="button" aria-label="Enlarge the Star System visual guide">
+            <figcaption class="system-guide-caption">Click the image to enlarge it.</figcaption>
+          </figure>
+        </article>
+      `,
       "npcs.h2": "NPCs & Shops",
       "npcs.p": "Select a NPC to consult their services and information.",
       "npcs.btn.babel": "Babel",
@@ -4657,7 +4950,62 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "mapas.li3": "File Island",
       "mapas.li4": "Odaiba",
       "sistemas.h2": "Sistemas",
-      "sistemas.p": "Aquí puedes encontrar detalles sobre los sistemas de juego, como evolución, atributos y refuerzo de equipo.",
+      "sistemas.p": "Consulta los sistemas exclusivos y las principales funciones de progresión de Digital Galaxy.",
+      "sistemas.btn.estrelas": "Sistema de Estrellas",
+      "sistemas.hero_alt": "Sistema de Estrellas de Digital Galaxy",
+      "sistemas.hero_title": "Sistemas exclusivos de Digital Galaxy",
+      "sistemas.hero_text": "Selecciona un sistema para consultar todos sus detalles.",
+      "block.sistemas.estrelas": `
+        <article class="system-guide">
+          <header class="system-guide-header">
+            <p class="system-guide-kicker">Exclusivo de DGO</p>
+            <h3>Nuevo: Sistema de Mejora</h3>
+            <p>Lleva el poder de tu compañero al límite. Usa <strong>Objetos Evolutivos</strong> para desbloquear Estrellas de Poder y recibir grandes bonificaciones de atributos.</p>
+          </header>
+
+          <section class="system-guide-section">
+            <h4>¿Cómo funciona?</h4>
+            <div class="system-rule-grid">
+              <div class="system-rule-card"><strong>Desbloqueo</strong>Usa el objeto de evolución correspondiente al Digimon para liberar hasta 5 Estrellas.</div>
+              <div class="system-rule-card"><strong>Elegibilidad</strong>Disponible exclusivamente para Digimon de Rango SSS y SSS+. El Rango U se añadirá próximamente.</div>
+              <div class="system-rule-card"><strong>Progresión</strong>Cada Estrella aumenta la bonificación acumulada. Los niveles superiores otorgan mayores atributos.</div>
+            </div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Condensadores de Estrellas</h4>
+            <p>Si no tienes el objeto evolutivo específico del Digimon, puedes usar un condensador compatible con su Rango.</p>
+            <div class="star-condenser-grid">
+              <div class="star-condenser-card"><strong>Condensador de Estrellas SSS</strong>Mejora cualquier Digimon de Rango SSS.</div>
+              <div class="star-condenser-card"><strong>Condensador de Estrellas SSS+</strong>Mejora cualquier Digimon de Rango SSS+.</div>
+              <div class="star-condenser-card pending"><strong>Condensador de Estrellas U</strong>Estará disponible próximamente.</div>
+            </div>
+            <div class="system-availability"><p><strong>Disponibilidad:</strong> los condensadores se ofrecen por tiempo limitado en eventos especiales y en el Cash Shop.</p></div>
+          </section>
+
+          <section class="system-guide-section">
+            <h4>Bonificaciones acumuladas por Estrella</h4>
+            <div class="system-bonus-table-wrap">
+              <table class="system-bonus-table">
+                <thead><tr><th>Estrella</th><th>ATK</th><th>HP</th><th>Red. de Daño</th><th>Vel. de ATK</th><th>Daño Final</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>+7%</td><td>+5%</td><td>+3%</td><td>+1%</td><td>+1%</td></tr>
+                  <tr><td>2</td><td>+10%</td><td>+7%</td><td>+6%</td><td>+2%</td><td>+2%</td></tr>
+                  <tr><td>3</td><td>+13%</td><td>+10%</td><td>+10%</td><td>+3%</td><td>+3%</td></tr>
+                  <tr><td>4</td><td>+16%</td><td>+12%</td><td>+13%</td><td>+4%</td><td>+4%</td></tr>
+                  <tr><td>5</td><td>+20%</td><td>+15%</td><td>+18%</td><td>+5%</td><td>+7%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <figure class="system-guide-section">
+            <h4>Guía visual</h4>
+            <img class="system-guide-image image-zoom-trigger" data-image-zoom src="Sistema_de_Estrelas_DGO.png" alt="Guía visual del Sistema de Estrellas" tabindex="0" role="button" aria-label="Ampliar la guía visual del Sistema de Estrellas">
+            <figcaption class="system-guide-caption">Haz clic en la imagen para ampliarla.</figcaption>
+          </figure>
+        </article>
+      `,
       "npcs.h2": "NPCs y tiendas",
       "npcs.p": "Selecciona un NPC para consultar sus servicios e información.",
       "npcs.btn.babel": "Babel",
@@ -5926,6 +6274,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   let novatoHeroTemplate = "";
   let openEventoId = null;
   let eventHeroTemplate = "";
+  let openSistemaId = null;
+  let systemHeroTemplate = "";
   let openNpcId = null;
   let npcHeroTemplate = "";
   let rafflesimonEventTimer = null;
@@ -5937,6 +6287,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       [openDungeonId, 'dungeon-content'],
       [openNovatoId, 'novice-content'],
       [openEventoId, 'event-content'],
+      [openSistemaId, 'system-content'],
       [openNpcId, 'npc-content']
     ];
 
@@ -5997,6 +6348,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (sectionId === 'novato') toggleNovato(targetId);
       if (sectionId === 'dungeons') toggleDungeonInfo(targetId);
       if (sectionId === 'eventos') toggleEvento(targetId);
+      if (sectionId === 'sistemas') toggleSistema(targetId);
       if (sectionId === 'npcs') toggleNpc(targetId);
     }
 
@@ -6140,6 +6492,26 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     applyTranslations(currentLanguage);
   }
 
+  function resetSistemaView(){
+    const content = document.getElementById('system-content');
+    if (!content) return;
+    content.innerHTML = systemHeroTemplate;
+    openSistemaId = null;
+    applyTranslations(currentLanguage);
+  }
+
+  function toggleSistema(id){
+    const content = document.getElementById('system-content');
+    if (!content) return;
+    if (openSistemaId === id) { resetSistemaView(); return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    hydrateTranslatedHtml(target, currentLanguage);
+    content.innerHTML = target.innerHTML;
+    openSistemaId = id;
+    applyTranslations(currentLanguage);
+  }
+
   // ===== BUSCA AUTOMATICA =====
   const SEARCH_SECTION_ALIASES = {
     inicio: 'inicio início home pagina página principal wiki start beginning comienzo',
@@ -6148,7 +6520,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     'guias-missoes': 'guias guía guide guides missoes missões missions misiones quests',
     dungeons: 'dg dungeon dungeons masmorra masmorras mazmorra mazmorras raid raids boss bosses',
     mapas: 'mapa mapas map maps localizacao localização location ubicación',
-    sistemas: 'sistema sistemas system systems',
+    sistemas: 'sistema sistemas system systems estrela estrelas star stars aprimoramento enhancement mejora condensador condenser',
     npcs: 'npc npcs loja lojas shop shops tienda tiendas',
     eventos: 'evento eventos event events',
     guias: 'change log changelog atualizacoes atualizações updates cambios'
@@ -6158,6 +6530,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     toggleDungeonInfo: 'dungeons',
     toggleNovato: 'novato',
     toggleEvento: 'eventos',
+    toggleSistema: 'sistemas',
     toggleNpc: 'npcs'
   };
 
@@ -6191,8 +6564,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     if (isMainSection) {
       clone.querySelectorAll(
-        '.nav, .novice-block, .digimon-info, .event-block, .npc-block, ' +
-        '#dungeon-content, #novice-content, #event-content, #npc-content'
+        '.nav, .novice-block, .digimon-info, .event-block, .system-block, .npc-block, ' +
+        '#dungeon-content, #novice-content, #event-content, #system-content, #npc-content'
       )
         .forEach(element => element.remove());
     }
@@ -6228,7 +6601,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       let sectionId = '';
       let externalUrl = '';
 
-      const match = command.match(/^(showSection|toggleDungeonInfo|toggleNovato|toggleEvento|toggleNpc)\(['"]([^'"]+)['"]\)/);
+      const match = command.match(/^(showSection|toggleDungeonInfo|toggleNovato|toggleEvento|toggleSistema|toggleNpc)\(['"]([^'"]+)['"]\)/);
       if (match) {
         handler = match[1];
         targetId = match[2];
@@ -6384,6 +6757,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (entry.handler === 'toggleDungeonInfo') toggleDungeonInfo(entry.targetId);
       if (entry.handler === 'toggleNovato') toggleNovato(entry.targetId);
       if (entry.handler === 'toggleEvento') toggleEvento(entry.targetId);
+      if (entry.handler === 'toggleSistema') toggleSistema(entry.targetId);
       if (entry.handler === 'toggleNpc') toggleNpc(entry.targetId);
     }
 
@@ -6755,6 +7129,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (id === 'dungeons') { resetDungeonView(); firePortal(); }
       if (id === 'novato') { resetNovatoView(); resetarMascoteNovato(); }
       if (id === 'eventos') resetEventView();
+      if (id === 'sistemas') resetSistemaView();
       if (id === 'npcs') resetNpcView();
       if (id === 'guias') loadDiscordChangeLog();
     }
@@ -6780,6 +7155,9 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     const eventHero = document.getElementById('event-hero');
     if (eventHero) eventHeroTemplate = eventHero.outerHTML;
+
+    const systemHero = document.getElementById('system-hero');
+    if (systemHero) systemHeroTemplate = systemHero.outerHTML;
 
     const npcHero = document.getElementById('npc-hero');
     if (npcHero) npcHeroTemplate = npcHero.outerHTML;
