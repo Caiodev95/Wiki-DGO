@@ -1044,8 +1044,9 @@
     .video-library-intro p{ margin:0; }
     .video-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      grid-template-columns:repeat(auto-fill,minmax(280px,360px));
       gap:18px;
+      justify-content:start;
     }
     .video-card{
       overflow:hidden;
@@ -1060,35 +1061,17 @@
       border-color:rgba(255,196,0,.72);
       box-shadow:0 14px 30px rgba(0,0,0,.34),0 0 20px rgba(0,229,255,.12);
     }
-    .video-thumbnail-link{
+    .video-player{
       position:relative;
-      display:block;
       aspect-ratio:16 / 9;
       overflow:hidden;
       background:#020814;
     }
-    .video-thumbnail-link img{
+    .video-player iframe{
+      display:block;
       width:100%;
       height:100%;
-      object-fit:cover;
-      transition:transform .25s ease,filter .25s ease;
-    }
-    .video-card:hover .video-thumbnail-link img{ transform:scale(1.035); filter:brightness(.78); }
-    .video-play{
-      position:absolute;
-      top:50%;
-      left:50%;
-      display:grid;
-      width:56px;
-      height:40px;
-      place-items:center;
-      border-radius:11px;
-      background:#ff0033;
-      color:#fff;
-      font-size:20px;
-      line-height:1;
-      transform:translate(-50%,-50%);
-      box-shadow:0 6px 18px rgba(0,0,0,.45);
+      border:0;
     }
     .video-card-body{ padding:16px; }
     .video-card-body h3{
@@ -1443,6 +1426,7 @@
       .wiki-search { width: 100%; }
       .wiki-search-submit { padding: 0 11px; }
       .wiki-search-results { max-height: min(58vh, 420px); }
+      .video-grid{ grid-template-columns:1fr; }
       #dungeons .dungeon-layout{ grid-template-columns: 1fr; }
       #dungeon-content{ min-height: 360px; }
       #novato .novice-layout{ grid-template-columns: 1fr; }
@@ -7037,23 +7021,17 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     const card = document.createElement('article');
     card.className = 'video-card';
 
-    const thumbnailLink = document.createElement('a');
-    thumbnailLink.className = 'video-thumbnail-link';
-    thumbnailLink.href = videoUrl;
-    thumbnailLink.target = '_blank';
-    thumbnailLink.rel = 'noopener noreferrer';
-    thumbnailLink.setAttribute('aria-label', `${translate('videos.watch')}: ${titleText}`);
-
-    const thumbnail = document.createElement('img');
-    thumbnail.src = video.thumbnail || `https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg`;
-    thumbnail.alt = titleText;
-    thumbnail.loading = 'lazy';
-
-    const play = document.createElement('span');
-    play.className = 'video-play';
-    play.setAttribute('aria-hidden', 'true');
-    play.textContent = '▶';
-    thumbnailLink.append(thumbnail, play);
+    const player = document.createElement('div');
+    player.className = 'video-player';
+    const iframe = document.createElement('iframe');
+    const embedOrigin = encodeURIComponent(window.location.origin);
+    iframe.src = `https://www.youtube.com/embed/${encodeURIComponent(video.id)}?rel=0&origin=${embedOrigin}`;
+    iframe.title = titleText;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    player.appendChild(iframe);
 
     const body = document.createElement('div');
     body.className = 'video-card-body';
@@ -7074,7 +7052,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     watchLink.rel = 'noopener noreferrer';
     watchLink.textContent = translate('videos.watch');
     body.appendChild(watchLink);
-    card.append(thumbnailLink, body);
+    card.append(player, body);
     return card;
   }
 
