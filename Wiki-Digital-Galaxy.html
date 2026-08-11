@@ -1668,6 +1668,92 @@
       to { opacity: 1; transform: translateX(0) translateY(0); }
     }
 
+    body.wiki-intro-active {
+      overflow: hidden;
+    }
+
+    #wiki-intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 30000;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #01040a;
+      isolation: isolate;
+    }
+
+    #wiki-intro-overlay.is-closing {
+      pointer-events: none;
+      animation: wikiIntroReveal .78s ease-out forwards;
+    }
+
+    #wiki-intro-overlay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: #fff;
+      opacity: 0;
+    }
+
+    #wiki-intro-overlay.is-closing::after {
+      animation: wikiIntroFlash .78s ease-out forwards;
+    }
+
+    .wiki-intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background: #01040a;
+    }
+
+    .wiki-intro-skip {
+      position: absolute;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 3;
+      min-height: 42px;
+      padding: 10px 18px;
+      border: 1px solid rgba(0, 229, 255, .78);
+      border-radius: 999px;
+      background: rgba(3, 13, 29, .78);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 18px rgba(0, 229, 255, .24);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .wiki-intro-skip:hover,
+    .wiki-intro-skip:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(5, 27, 56, .94);
+      box-shadow: 0 0 24px rgba(0, 229, 255, .42);
+      outline: none;
+    }
+
+    @keyframes wikiIntroReveal {
+      0%, 35% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes wikiIntroFlash {
+      0% { opacity: .92; }
+      22% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @media (max-aspect-ratio: 4 / 3) {
+      .wiki-intro-video {
+        object-fit: contain;
+      }
+    }
+
     @media (max-width: 720px) {
       .mascote-box {
         left: 10px;
@@ -1700,12 +1786,42 @@
       #portal-overlay {
         display: none !important;
       }
+
+      #wiki-intro-overlay {
+        display: none !important;
+      }
+
+      body.wiki-intro-active {
+        overflow: auto;
+      }
     }
 
   </style>
 </head>
 
-<body>
+<body class="wiki-intro-active">
+  <div id="wiki-intro-overlay" role="dialog" aria-modal="true" aria-label="Abertura da Digital Galaxy Wiki">
+    <video
+      id="wiki-intro-video"
+      class="wiki-intro-video"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    >
+      <source src="abertura-wiki.mp4" type="video/mp4">
+    </video>
+    <button
+      id="wiki-intro-skip"
+      class="wiki-intro-skip"
+      type="button"
+      data-i18n="intro.skip"
+      data-i18n-attr="aria-label:intro.skip_label"
+      aria-label="Pular introdução"
+    >Pular introdução</button>
+  </div>
+  <noscript><style>#wiki-intro-overlay{display:none!important}body.wiki-intro-active{overflow:auto}</style></noscript>
   <div class="content">
     <div class="logo-container glitch-wrapper">
       <div class="glitch">
@@ -2169,6 +2285,8 @@
     pt: {
       "site.title": "Digimon Galaxy - Wiki DGO",
       "site.h1": "Digital Galaxy Wiki",
+      "intro.skip": "Pular introdução",
+      "intro.skip_label": "Pular o vídeo de introdução",
       "lang.label": "Idioma:",
       "lang.pt": "🇧🇷 Português",
       "lang.en": "🇺🇸 English",
@@ -3513,6 +3631,8 @@
     en: {
       "site.title": "Digimon Galaxy - Wiki DGO",
       "site.h1": "Digital Galaxy Wiki",
+      "intro.skip": "Skip intro",
+      "intro.skip_label": "Skip the introduction video",
       "lang.label": "Language:",
       "lang.pt": "🇧🇷 Portuguese",
       "lang.en": "🇺🇸 English",
@@ -4857,6 +4977,8 @@ In most cases, there is no damage reduction or way to survive by taking this ski
     es: {
       "site.title": "Digimon Galaxy - Wiki DGO",
       "site.h1": "Digital Galaxy Wiki",
+      "intro.skip": "Saltar introducción",
+      "intro.skip_label": "Saltar el video de introducción",
       "lang.label": "Idioma:",
       "lang.pt": "🇧🇷 Portugués",
       "lang.en": "🇺🇸 Inglés",
@@ -6280,6 +6402,76 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     if (select) select.value = currentLanguage;
   }
 
+  const WIKI_INTRO_SESSION_KEY = 'digital-galaxy-wiki-intro-v1';
+  let wikiIntroCloseTimer = null;
+
+  function dismissWikiIntro({ remember = true, immediate = false } = {}) {
+    const overlay = document.getElementById('wiki-intro-overlay');
+    if (!overlay) {
+      document.body.classList.remove('wiki-intro-active');
+      return;
+    }
+
+    if (remember) {
+      try {
+        sessionStorage.setItem(WIKI_INTRO_SESSION_KEY, '1');
+      } catch (error) {
+        console.warn('Não foi possível salvar a exibição da introdução.', error);
+      }
+    }
+
+    document.body.classList.remove('wiki-intro-active');
+
+    if (immediate) {
+      overlay.remove();
+      return;
+    }
+
+    if (overlay.classList.contains('is-closing')) return;
+    overlay.classList.add('is-closing');
+    overlay.setAttribute('aria-hidden', 'true');
+    wikiIntroCloseTimer = window.setTimeout(() => overlay.remove(), 820);
+  }
+
+  function initWikiIntro() {
+    const overlay = document.getElementById('wiki-intro-overlay');
+    const video = document.getElementById('wiki-intro-video');
+    const skipButton = document.getElementById('wiki-intro-skip');
+    if (!overlay || !video) {
+      dismissWikiIntro({ remember: false, immediate: true });
+      return;
+    }
+
+    let alreadyShown = false;
+    try {
+      alreadyShown = sessionStorage.getItem(WIKI_INTRO_SESSION_KEY) === '1';
+    } catch (error) {
+      console.warn('Não foi possível consultar a introdução da sessão.', error);
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (alreadyShown || reduceMotion) {
+      dismissWikiIntro({ remember: alreadyShown, immediate: true });
+      return;
+    }
+
+    let safetyTimer = null;
+    const finishIntro = () => {
+      if (safetyTimer) window.clearTimeout(safetyTimer);
+      dismissWikiIntro();
+    };
+
+    video.addEventListener('ended', finishIntro, { once: true });
+    video.addEventListener('error', finishIntro, { once: true });
+    skipButton?.addEventListener('click', finishIntro, { once: true });
+    safetyTimer = window.setTimeout(finishIntro, 14000);
+
+    const playback = video.play();
+    if (playback && typeof playback.catch === 'function') {
+      playback.catch(finishIntro);
+    }
+  }
+
   // ====== UI helpers ======
   let openDungeonId = null;
   let heroTemplate = "";
@@ -7169,6 +7361,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
   // ===== INIT =====
   window.addEventListener('DOMContentLoaded', () => {
+    initWikiIntro();
+
     const heroEl = document.getElementById('dungeon-hero');
     if (heroEl) heroTemplate = heroEl.outerHTML;
 
