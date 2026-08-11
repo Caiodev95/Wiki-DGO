@@ -1020,51 +1020,107 @@
       box-shadow:0 10px 28px rgba(0,0,0,.3);
     }
 
-    .changelog-toolbar{
-      display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;
-      margin:16px 0 20px;
+    .video-library-intro{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin:16px 0 22px;
+      padding:16px 18px;
+      border:1px solid rgba(0,229,255,.32);
+      border-radius:12px;
+      background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(255,196,0,.06));
     }
-    .changelog-status{ color:#a9c6e8; font-size:14px; }
-    .changelog-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .changelog-actions button,
-    .changelog-discord-link{
-      display:inline-flex; align-items:center; justify-content:center;
-      min-height:38px; padding:8px 14px; box-sizing:border-box;
-      border:1px solid var(--cor-destaque-primaria); border-radius:8px;
-      background:linear-gradient(180deg, #ffd54f, var(--cor-destaque-primaria));
-      color:#09162b; font:inherit; font-weight:bold; text-decoration:none;
-      transition:filter .18s ease, transform .18s ease, box-shadow .18s ease;
+    .video-library-icon{
+      display:grid;
+      flex:0 0 48px;
+      width:48px;
+      height:48px;
+      place-items:center;
+      border:1px solid rgba(255,196,0,.55);
+      border-radius:50%;
+      background:rgba(255,196,0,.1);
+      color:var(--cor-destaque-primaria);
     }
-    .changelog-actions button:hover,
-    .changelog-discord-link:hover{
-      filter:brightness(1.06); transform:translateY(-1px);
-      box-shadow:0 0 0 1px rgba(255,196,0,.45), 0 0 22px rgba(0,229,255,.35);
+    .video-library-intro p{ margin:0; }
+    .video-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
     }
-    .changelog-list{ display:grid; gap:16px; }
-    .changelog-entry{
-      padding:16px; border:1px solid rgba(0,229,255,.28); border-radius:12px;
-      background:rgba(0,0,0,.18); box-shadow:0 0 18px rgba(0,229,255,.08) inset;
+    .video-card{
+      overflow:hidden;
+      border:1px solid rgba(0,229,255,.3);
+      border-radius:12px;
+      background:rgba(7,18,37,.88);
+      box-shadow:0 10px 26px rgba(0,0,0,.28);
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
     }
-    .changelog-entry-header{
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px;
+    .video-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(255,196,0,.72);
+      box-shadow:0 14px 30px rgba(0,0,0,.34),0 0 20px rgba(0,229,255,.12);
     }
-    .changelog-author{ color:#ffe27a; font-weight:800; }
-    .changelog-date{ color:#9db2cb; font-size:13px; }
-    .changelog-content{ margin:0; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.55; }
-    .changelog-attachments{
-      display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; margin-top:12px;
+    .video-thumbnail-link{
+      position:relative;
+      display:block;
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      background:#020814;
     }
-    .changelog-attachments img{
-      display:block; width:100%; max-height:420px; object-fit:contain;
-      border-radius:10px; background:rgba(0,0,0,.25);
+    .video-thumbnail-link img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .25s ease,filter .25s ease;
     }
-    .changelog-attachment-link{ color:#7eefff; overflow-wrap:anywhere; }
-    .changelog-embed{
-      margin-top:12px; padding:12px; border-left:4px solid var(--cor-destaque-secundaria);
-      border-radius:8px; background:rgba(0,0,0,.2);
+    .video-card:hover .video-thumbnail-link img{ transform:scale(1.035); filter:brightness(.78); }
+    .video-play{
+      position:absolute;
+      top:50%;
+      left:50%;
+      display:grid;
+      width:56px;
+      height:40px;
+      place-items:center;
+      border-radius:11px;
+      background:#ff0033;
+      color:#fff;
+      font-size:20px;
+      line-height:1;
+      transform:translate(-50%,-50%);
+      box-shadow:0 6px 18px rgba(0,0,0,.45);
     }
-    .changelog-embed h3{ margin-top:0; }
-    .changelog-empty{ padding:32px 16px; text-align:center; }
+    .video-card-body{ padding:16px; }
+    .video-card-body h3{
+      margin:0 0 8px;
+      color:var(--cor-destaque-primaria);
+      font-size:1.08rem;
+      line-height:1.3;
+    }
+    .video-card-body p{ margin:0 0 14px; color:#c8d7ea; line-height:1.5; }
+    .video-watch-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 14px;
+      border:1px solid var(--cor-destaque-primaria);
+      border-radius:8px;
+      background:linear-gradient(180deg,#ffd54f,var(--cor-destaque-primaria));
+      color:#09162b;
+      font-weight:800;
+      text-decoration:none;
+    }
+    .video-empty{
+      grid-column:1 / -1;
+      padding:44px 20px;
+      border:1px dashed rgba(0,229,255,.38);
+      border-radius:12px;
+      background:rgba(0,0,0,.16);
+      text-align:center;
+    }
+    .video-empty h3{ margin:0 0 8px; color:var(--cor-destaque-primaria); }
+    .video-empty p{ margin:0; }
 
     .digimon-controls{
       display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 16px;
@@ -1716,7 +1772,7 @@
       <button onclick="showSection('sistemas')" data-i18n="nav.sistemas">Sistemas</button>
       <button onclick="showSection('npcs')" data-i18n="nav.npcs">NPCs & Lojas</button>
       <button onclick="showSection('eventos')" data-i18n="nav.eventos">Eventos</button>
-      <button onclick="showSection('guias')" data-i18n="nav.guias">Change-log</button>
+      <button onclick="showSection('guias')" data-i18n="nav.guias">Vídeos</button>
     </div>
 
     <div id="inicio" class="section active centered">
@@ -1750,7 +1806,7 @@
           </button>
           <button class="home-quick-card" type="button" onclick="openHomeShortcut('guias')">
             <span class="home-quick-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg></span>
-            <span><strong data-i18n="inicio.quick_updates_title">Últimas atualizações</strong><small data-i18n="inicio.quick_updates_text">Confira as novidades publicadas no Change-log.</small></span>
+            <span><strong data-i18n="inicio.quick_updates_title">Vídeos do DGO</strong><small data-i18n="inicio.quick_updates_text">Assista aos conteúdos publicados no canal do Digital Galaxy.</small></span>
           </button>
         </div>
       </div>
@@ -1941,18 +1997,15 @@
     </div>
 
     <div id="guias" class="section">
-      <h2 data-i18n="guias.h2">Change-log</h2>
-      <p data-i18n="guias.p">Atualizações publicadas no canal oficial do Discord.</p>
-      <div class="changelog-toolbar">
-        <span id="changelog-status" class="changelog-status" aria-live="polite" data-i18n="changelog.loading">Carregando atualizações...</span>
-        <div class="changelog-actions">
-          <button type="button" onclick="loadDiscordChangeLog(true)" data-i18n="changelog.update">Atualizar</button>
-          <a class="changelog-discord-link" href="https://discord.com/channels/1373314901145292932/1373314902977937451" target="_blank" rel="noopener noreferrer" data-i18n="changelog.open_discord">Abrir canal no Discord</a>
-        </div>
+      <h2 data-i18n="guias.h2">Vídeos</h2>
+      <p data-i18n="guias.p">Assista aos guias, novidades e conteúdos do Digital Galaxy publicados no YouTube.</p>
+      <div class="video-library-intro">
+        <span class="video-library-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="4" stroke="currentColor" stroke-width="2"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
+        </span>
+        <p data-i18n="videos.intro">Os vídeos mais recentes do canal serão organizados nesta galeria.</p>
       </div>
-      <div id="changelog-list" class="changelog-list" aria-live="polite">
-        <div class="changelog-empty"><p data-i18n="changelog.loading">Carregando atualizações...</p></div>
-      </div>
+      <div id="video-gallery" class="video-grid" aria-live="polite"></div>
     </div>
   </div>
 
@@ -2155,7 +2208,7 @@
       "nav.sistemas": "Sistemas",
       "nav.npcs": "NPCs & Lojas",
       "nav.eventos": "Eventos",
-      "nav.guias": "Change-log",
+      "nav.guias": "Vídeos",
       "inicio.h2": "Bem-vindo à Wiki DGO Brasil!",
       "inicio.p1": "Aqui você encontrará todas as informações atualizadas sobre o Digital Galaxy: digimons, sistemas, mapas, dicas, além de conteúdos exclusivos do servidor.",
       "inicio.quick_title": "Acessos rápidos",
@@ -2170,8 +2223,8 @@
       "inicio.quick_events_text": "Consulte eventos permanentes e temporários.",
       "inicio.quick_npcs_title": "NPCs & Lojas",
       "inicio.quick_npcs_text": "Encontre serviços, trocas e NPCs importantes.",
-      "inicio.quick_updates_title": "Últimas atualizações",
-      "inicio.quick_updates_text": "Confira as novidades publicadas no Change-log.",
+      "inicio.quick_updates_title": "Vídeos do DGO",
+      "inicio.quick_updates_text": "Assista aos conteúdos publicados no canal do Digital Galaxy.",
       "novato.h2": "Área do Novato",
       "novato.tabs.xp": "Mapa de XP & Localização",
       "novato.tabs.seals": "Selos",
@@ -2316,21 +2369,12 @@
       "eventos.btn.kizunas": "✨ Kizunas",
       "eventos.hero_title": "Eventos do Digital Galaxy",
       "eventos.hero_text": "Selecione um evento para ver todos os detalhes.",
-      "guias.h2": "Change-log",
-      "guias.p": "Atualizações publicadas no canal oficial do Discord.",
-      "changelog.loading": "Carregando atualizações...",
-      "changelog.updating": "Atualizando publicações...",
-      "changelog.update": "Atualizar",
-      "changelog.last_sync": "Última sincronização: {date}",
-      "changelog.awaiting": "Aguardando a primeira sincronização com o Discord.",
-      "changelog.load_error": "Não foi possível carregar o change-log agora.",
-      "changelog.no_updates": "Nenhuma atualização foi sincronizada ainda.",
-      "changelog.view_discord": "Ver publicações no Discord",
-      "changelog.discord_available": "As publicações continuam disponíveis diretamente no Discord.",
-      "changelog.open_discord": "Abrir canal no Discord",
-      "changelog.open_attachment": "Abrir anexo",
-      "changelog.image_alt": "Imagem publicada no change-log",
-      "changelog.zoom_image": "Ampliar {name}",
+      "guias.h2": "Vídeos",
+      "guias.p": "Assista aos guias, novidades e conteúdos do Digital Galaxy publicados no YouTube.",
+      "videos.intro": "Os vídeos mais recentes do canal serão organizados nesta galeria.",
+      "videos.empty_title": "Vídeos em breve",
+      "videos.empty_text": "Os conteúdos do canal do Digital Galaxy aparecerão aqui.",
+      "videos.watch": "Assistir no YouTube",
       "image.zoom_alt": "Imagem ampliada",
       "image.zoom_title": "Visualização ampliada",
       "image.close": "FECHAR ✕",
@@ -3507,7 +3551,7 @@
       "nav.sistemas": "Systems",
       "nav.npcs": "NPCs & Shops",
       "nav.eventos": "Events",
-      "nav.guias": "Change-log",
+      "nav.guias": "Videos",
       "inicio.h2": "Welcome to the DGO Brazil Wiki!",
       "inicio.p1": "Here you will find all the up-to-date information about Digital Galaxy: digimons, systems, maps, tips, as well as exclusive server content.",
       "inicio.quick_title": "Quick access",
@@ -3522,8 +3566,8 @@
       "inicio.quick_events_text": "Browse permanent and temporary events.",
       "inicio.quick_npcs_title": "NPCs & Shops",
       "inicio.quick_npcs_text": "Find important services, exchanges, and NPCs.",
-      "inicio.quick_updates_title": "Latest updates",
-      "inicio.quick_updates_text": "See the latest news published in the Change-log.",
+      "inicio.quick_updates_title": "DGO Videos",
+      "inicio.quick_updates_text": "Watch content published on the Digital Galaxy channel.",
       "novato.h2": "Rookie Area",
       "novato.tabs.xp": "XP Map & Location",
       "novato.tabs.seals": "Seals",
@@ -3668,21 +3712,12 @@
       "eventos.btn.kizunas": "✨ Kizunas",
       "eventos.hero_title": "Digital Galaxy Events",
       "eventos.hero_text": "Select an event to see all the details.",
-      "guias.h2": "Change-log",
-      "guias.p": "Updates posted on the official Discord channel.",
-      "changelog.loading": "Loading updates...",
-      "changelog.updating": "Updating publications...",
-      "changelog.update": "Refresh",
-      "changelog.last_sync": "Last sync: {date}",
-      "changelog.awaiting": "Waiting for the first sync with Discord.",
-      "changelog.load_error": "Could not load the change-log now.",
-      "changelog.no_updates": "No updates have been synced yet.",
-      "changelog.view_discord": "View posts on Discord",
-      "changelog.discord_available": "Posts are still available directly on Discord.",
-      "changelog.open_discord": "Open channel on Discord",
-      "changelog.open_attachment": "Open attachment",
-      "changelog.image_alt": "Image published in the change-log",
-      "changelog.zoom_image": "Enlarge {name}",
+      "guias.h2": "Videos",
+      "guias.p": "Watch Digital Galaxy guides, news, and content published on YouTube.",
+      "videos.intro": "The channel's latest videos will be organized in this gallery.",
+      "videos.empty_title": "Videos coming soon",
+      "videos.empty_text": "Content from the Digital Galaxy channel will appear here.",
+      "videos.watch": "Watch on YouTube",
       "image.zoom_alt": "Enlarged image",
       "image.zoom_title": "Zoomed-in view",
       "image.close": "CLOSE ✕",
@@ -4859,7 +4894,7 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "nav.sistemas": "Sistemas",
       "nav.npcs": "NPCs y tiendas",
       "nav.eventos": "Eventos",
-      "nav.guias": "Registro de cambios",
+      "nav.guias": "Videos",
       "inicio.h2": "¡Bienvenido a la Wiki de DGO Brasil!",
       "inicio.p1": "Aquí encontrarás toda la información actualizada sobre Digital Galaxy: digimons, sistemas, mapas, consejos, así como contenido exclusivo para servidores.",
       "inicio.quick_title": "Accesos rápidos",
@@ -4874,8 +4909,8 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "inicio.quick_events_text": "Consulta eventos permanentes y temporales.",
       "inicio.quick_npcs_title": "NPCs y tiendas",
       "inicio.quick_npcs_text": "Encuentra servicios, intercambios y NPCs importantes.",
-      "inicio.quick_updates_title": "Últimas actualizaciones",
-      "inicio.quick_updates_text": "Consulta las novedades publicadas en el registro de cambios.",
+      "inicio.quick_updates_title": "Videos de DGO",
+      "inicio.quick_updates_text": "Mira los contenidos publicados en el canal de Digital Galaxy.",
       "novato.h2": "Zona de novatos",
       "novato.tabs.xp": "Mapa y ubicación de XP",
       "novato.tabs.seals": "Sellos",
@@ -5020,21 +5055,12 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "eventos.btn.kizunas": "✨ Kizunas",
       "eventos.hero_title": "Eventos de Galaxias Digitales",
       "eventos.hero_text": "Selecciona un evento para ver todos los detalles.",
-      "guias.h2": "Registro de cambios",
-      "guias.p": "Actualizaciones publicadas en el canal oficial de Discord.",
-      "changelog.loading": "Cargando actualizaciones...",
-      "changelog.updating": "Actualizando publicaciones...",
-      "changelog.update": "Actualizar",
-      "changelog.last_sync": "Última sincronización: {fecha}",
-      "changelog.awaiting": "Esperando la primera sincronización con Discord.",
-      "changelog.load_error": "No se pudo cargar el registro de cambios ahora.",
-      "changelog.no_updates": "Aún no se ha sincronizado ninguna actualización.",
-      "changelog.view_discord": "Ver publicaciones en Discord",
-      "changelog.discord_available": "Las publicaciones siguen estando disponibles directamente en Discord.",
-      "changelog.open_discord": "Canal abierto en Discord",
-      "changelog.open_attachment": "Adjunto abierto",
-      "changelog.image_alt": "Imagen publicada en el registro de cambios",
-      "changelog.zoom_image": "Ampliar {name}",
+      "guias.h2": "Videos",
+      "guias.p": "Mira las guías, novedades y contenidos de Digital Galaxy publicados en YouTube.",
+      "videos.intro": "Los videos más recientes del canal se organizarán en esta galería.",
+      "videos.empty_title": "Videos próximamente",
+      "videos.empty_text": "Los contenidos del canal de Digital Galaxy aparecerán aquí.",
+      "videos.watch": "Ver en YouTube",
       "image.zoom_alt": "Imagen ampliada",
       "image.zoom_title": "Vista ampliada",
       "image.close": "CERRAR ✕",
@@ -6328,9 +6354,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     const searchInput = document.getElementById('wiki-search-input');
     if (searchInput?.value.trim()) renderSearchResults(searchInput.value);
 
-    if (document.getElementById('guias')?.classList.contains('active')) {
-      loadDiscordChangeLog();
-    }
+    if (document.getElementById('guias')?.classList.contains('active')) renderVideoGallery();
 
     if (persist) {
       try {
@@ -6523,7 +6547,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     sistemas: 'sistema sistemas system systems estrela estrelas star stars aprimoramento enhancement mejora condensador condenser',
     npcs: 'npc npcs loja lojas shop shops tienda tiendas',
     eventos: 'evento eventos event events',
-    guias: 'change log changelog atualizacoes atualizações updates cambios'
+    guias: 'video videos youtube canal channel guia guias guide guides conteúdo contenido content'
   };
 
   const SEARCH_HANDLER_SECTIONS = {
@@ -6641,6 +6665,28 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       });
     });
 
+    YOUTUBE_VIDEOS.forEach(video => {
+      if (!video?.id) return;
+      const title = getLocalizedVideoText(video.title);
+      const description = getLocalizedVideoText(video.description);
+      const category = getSearchSectionTitle('guias');
+      const aliases = `${SEARCH_SECTION_ALIASES.guias} ${video.tags || ''}`;
+      entries.push({
+        key: `youtubeVideo:${video.id}`,
+        handler: 'youtubeVideo',
+        targetId: video.id,
+        sectionId: 'guias',
+        externalUrl: getYouTubeVideoUrl(video),
+        title,
+        category,
+        snippet: makeSearchSnippet(description || title),
+        normalizedTitle: normalizeSearchText(title),
+        normalizedCategory: normalizeSearchText(category),
+        normalizedAliases: normalizeSearchText(aliases),
+        normalizedBody: normalizeSearchText(description)
+      });
+    });
+
     wikiSearchIndex = entries;
   }
 
@@ -6747,6 +6793,11 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     if (entry.handler === 'redirectToDigimons') {
       window.location.href = entry.externalUrl;
+      return;
+    }
+
+    if (entry.handler === 'youtubeVideo') {
+      window.open(entry.externalUrl, '_blank', 'noopener,noreferrer');
       return;
     }
 
@@ -6953,170 +7004,85 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     overlay.setAttribute('aria-hidden', 'true');
   }
 
-  const DISCORD_CHANGELOG_URL = 'discord-changelog.json';
-  const DISCORD_CHANNEL_URL = 'https://discord.com/channels/1373314901145292932/1373314902977937451';
+  const YOUTUBE_VIDEOS = [
+    // { id: 'YOUTUBE_ID', title: { pt: '', en: '', es: '' }, description: { pt: '', en: '', es: '' } }
+  ];
 
-  function formatDiscordDate(value){
-    if (!value) return '';
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return '';
-    return new Intl.DateTimeFormat(LANGUAGE_LOCALES[currentLanguage], {
-      dateStyle: 'long',
-      timeStyle: 'short'
-    }).format(date);
+  function getLocalizedVideoText(value){
+    if (typeof value === 'string') return value;
+    return value?.[currentLanguage] || value?.pt || value?.en || value?.es || '';
   }
 
-  function createChangeLogImage(src, alt){
-    const image = document.createElement('img');
-    image.src = src;
-    image.alt = alt || translate('changelog.image_alt');
-    image.loading = 'lazy';
-    image.className = 'image-zoom-trigger';
-    image.dataset.imageZoom = '';
-    image.tabIndex = 0;
-    image.setAttribute('role', 'button');
-    image.setAttribute('aria-label', translate('changelog.zoom_image', { name: image.alt }));
-    return image;
+  function getYouTubeVideoUrl(video){
+    return video.url || `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`;
   }
 
-  function appendChangeLogAttachment(container, attachment){
-    if (!attachment?.url) return;
-    if (attachment.content_type?.startsWith('image/')) {
-      container.appendChild(createChangeLogImage(attachment.url, attachment.filename));
-      return;
-    }
+  function createVideoCard(video){
+    const titleText = getLocalizedVideoText(video.title);
+    const descriptionText = getLocalizedVideoText(video.description);
+    const videoUrl = getYouTubeVideoUrl(video);
+    const card = document.createElement('article');
+    card.className = 'video-card';
 
-    const link = document.createElement('a');
-    link.className = 'changelog-attachment-link';
-    link.href = attachment.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = attachment.filename || translate('changelog.open_attachment');
-    container.appendChild(link);
-  }
+    const thumbnailLink = document.createElement('a');
+    thumbnailLink.className = 'video-thumbnail-link';
+    thumbnailLink.href = videoUrl;
+    thumbnailLink.target = '_blank';
+    thumbnailLink.rel = 'noopener noreferrer';
+    thumbnailLink.setAttribute('aria-label', `${translate('videos.watch')}: ${titleText}`);
 
-  function appendChangeLogEmbed(entry, embed){
-    if (!embed?.title && !embed?.description && !embed?.image_url && !embed?.fields?.length) return;
-    const card = document.createElement('div');
-    card.className = 'changelog-embed';
+    const thumbnail = document.createElement('img');
+    thumbnail.src = video.thumbnail || `https://i.ytimg.com/vi/${encodeURIComponent(video.id)}/hqdefault.jpg`;
+    thumbnail.alt = titleText;
+    thumbnail.loading = 'lazy';
 
-    if (embed.title) {
-      const title = document.createElement('h3');
-      title.textContent = embed.title;
-      card.appendChild(title);
-    }
-    if (embed.description) {
+    const play = document.createElement('span');
+    play.className = 'video-play';
+    play.setAttribute('aria-hidden', 'true');
+    play.textContent = '▶';
+    thumbnailLink.append(thumbnail, play);
+
+    const body = document.createElement('div');
+    body.className = 'video-card-body';
+    const title = document.createElement('h3');
+    title.textContent = titleText;
+    body.appendChild(title);
+
+    if (descriptionText) {
       const description = document.createElement('p');
-      description.className = 'changelog-content';
-      description.textContent = embed.description;
-      card.appendChild(description);
+      description.textContent = descriptionText;
+      body.appendChild(description);
     }
-    embed.fields?.forEach(field => {
-      const fieldTitle = document.createElement('strong');
-      fieldTitle.textContent = field.name || '';
-      const fieldContent = document.createElement('p');
-      fieldContent.className = 'changelog-content';
-      fieldContent.textContent = field.value || '';
-      card.append(fieldTitle, fieldContent);
-    });
-    if (embed.image_url) card.appendChild(createChangeLogImage(embed.image_url, embed.title));
-    entry.appendChild(card);
+
+    const watchLink = document.createElement('a');
+    watchLink.className = 'video-watch-link';
+    watchLink.href = videoUrl;
+    watchLink.target = '_blank';
+    watchLink.rel = 'noopener noreferrer';
+    watchLink.textContent = translate('videos.watch');
+    body.appendChild(watchLink);
+    card.append(thumbnailLink, body);
+    return card;
   }
 
-  function createChangeLogEntry(message){
-    const entry = document.createElement('article');
-    entry.className = 'changelog-entry';
+  function renderVideoGallery(){
+    const gallery = document.getElementById('video-gallery');
+    if (!gallery) return;
+    gallery.replaceChildren();
 
-    const header = document.createElement('header');
-    header.className = 'changelog-entry-header';
-    const author = document.createElement('span');
-    author.className = 'changelog-author';
-    author.textContent = message.author?.display_name || message.author?.username || 'Digital Galaxy';
-    const date = document.createElement('time');
-    date.className = 'changelog-date';
-    date.dateTime = message.timestamp || '';
-    date.textContent = formatDiscordDate(message.timestamp);
-    header.append(author, date);
-    entry.appendChild(header);
-
-    if (message.content) {
-      const content = document.createElement('p');
-      content.className = 'changelog-content';
-      content.textContent = message.content;
-      entry.appendChild(content);
-    }
-
-    if (message.attachments?.length) {
-      const attachments = document.createElement('div');
-      attachments.className = 'changelog-attachments';
-      message.attachments.forEach(attachment => appendChangeLogAttachment(attachments, attachment));
-      if (attachments.childElementCount) entry.appendChild(attachments);
-    }
-
-    message.embeds?.forEach(embed => appendChangeLogEmbed(entry, embed));
-    return entry;
-  }
-
-  function renderDiscordChangeLog(data){
-    const list = document.getElementById('changelog-list');
-    if (!list) return;
-    list.replaceChildren();
-
-    if (!data.messages?.length) {
+    if (!YOUTUBE_VIDEOS.length) {
       const empty = document.createElement('div');
-      empty.className = 'changelog-empty';
+      empty.className = 'video-empty';
+      const title = document.createElement('h3');
+      title.textContent = translate('videos.empty_title');
       const text = document.createElement('p');
-      text.textContent = translate('changelog.no_updates');
-      const link = document.createElement('a');
-      link.className = 'changelog-discord-link';
-      link.href = DISCORD_CHANNEL_URL;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.textContent = translate('changelog.view_discord');
-      empty.append(text, link);
-      list.appendChild(empty);
+      text.textContent = translate('videos.empty_text');
+      empty.append(title, text);
+      gallery.appendChild(empty);
       return;
     }
 
-    data.messages.forEach(message => list.appendChild(createChangeLogEntry(message)));
-    list.dataset.loaded = 'true';
-  }
-
-  async function loadDiscordChangeLog(manual = false){
-    const status = document.getElementById('changelog-status');
-    const list = document.getElementById('changelog-list');
-    if (!status || !list) return;
-    status.textContent = manual
-      ? translate('changelog.updating')
-      : translate('changelog.loading');
-
-    try {
-      const response = await fetch(`${DISCORD_CHANGELOG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      renderDiscordChangeLog(data);
-      status.textContent = data.updated_at
-        ? translate('changelog.last_sync', { date: formatDiscordDate(data.updated_at) })
-        : translate('changelog.awaiting');
-    } catch (error) {
-      console.error('Falha ao carregar o change-log:', error);
-      status.textContent = translate('changelog.load_error');
-      if (!list.dataset.loaded) {
-        list.replaceChildren();
-        const empty = document.createElement('div');
-        empty.className = 'changelog-empty';
-        const text = document.createElement('p');
-        text.textContent = translate('changelog.discord_available');
-        const link = document.createElement('a');
-        link.className = 'changelog-discord-link';
-        link.href = DISCORD_CHANNEL_URL;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = translate('changelog.open_discord');
-        empty.append(text, link);
-        list.appendChild(empty);
-      }
-    }
+    YOUTUBE_VIDEOS.forEach(video => gallery.appendChild(createVideoCard(video)));
   }
 
   function showSection(id) {
@@ -7131,7 +7097,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (id === 'eventos') resetEventView();
       if (id === 'sistemas') resetSistemaView();
       if (id === 'npcs') resetNpcView();
-      if (id === 'guias') loadDiscordChangeLog();
+      if (id === 'guias') renderVideoGallery();
     }
   }
 
@@ -7179,10 +7145,6 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     imageZoomOverlay?.addEventListener('click', event => {
       if (event.target === imageZoomOverlay || event.target.id === 'image-zoom-img') closeImageZoom();
     });
-
-    window.setInterval(() => {
-      if (document.getElementById('guias')?.classList.contains('active')) loadDiscordChangeLog();
-    }, 60000);
 
     validateTranslationCatalogs();
     const languageSelect = document.getElementById('language-select');
