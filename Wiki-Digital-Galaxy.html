@@ -436,6 +436,101 @@
     }
     #dungeons .digimon-info{ display: none; }
 
+    #mapas .map-layout{
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:20px;
+      align-items:start;
+      margin-top:10px;
+    }
+    #mapas .map-nav{ display:flex; flex-direction:column; gap:10px; }
+    #mapas .map-nav button{ width:100%; text-align:left; }
+    #map-content{
+      min-width:0;
+      min-height:460px;
+      padding:18px;
+      border:1px solid var(--cor-destaque-secundaria);
+      border-radius:12px;
+      background-color:var(--cor-fundo-secao);
+      box-shadow:0 0 22px rgba(0,229,255,.12) inset;
+    }
+    #mapas .map-block{ display:none; }
+    .map-hero{
+      display:grid;
+      place-items:center;
+      min-height:420px;
+      padding:34px;
+      text-align:center;
+      border-radius:10px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(0,229,255,.16), transparent 42%),
+        linear-gradient(145deg, rgba(8,25,52,.92), rgba(4,13,29,.96));
+    }
+    .map-hero-mark{
+      display:grid;
+      place-items:center;
+      width:92px;
+      height:92px;
+      margin:0 auto 18px;
+      border:1px solid rgba(255,196,0,.7);
+      border-radius:50%;
+      color:#ffe27a;
+      font-size:42px;
+      box-shadow:0 0 28px rgba(0,229,255,.22), 0 0 0 8px rgba(0,229,255,.05);
+    }
+    .map-guide-header{
+      margin-bottom:18px;
+      padding:18px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:10px;
+      background:linear-gradient(135deg, rgba(0,229,255,.09), rgba(255,196,0,.05));
+    }
+    .map-guide-header h3{ margin-top:0; }
+    .map-route{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:8px;
+      margin:14px 0 20px;
+    }
+    .map-route span{
+      padding:7px 10px;
+      border:1px solid rgba(0,229,255,.34);
+      border-radius:999px;
+      background:rgba(0,0,0,.18);
+    }
+    .map-route b{ color:#ffe27a; }
+    .map-card-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin:14px 0 22px;
+    }
+    .map-card{
+      padding:14px;
+      border:1px solid rgba(0,229,255,.22);
+      border-radius:10px;
+      background:rgba(0,0,0,.17);
+    }
+    .map-card h4{ margin:0 0 8px; color:#ffe27a; }
+    .map-card p{ margin:5px 0; }
+    .map-card ul{ margin-bottom:0; padding-left:20px; }
+    .map-card li{ margin:4px 0; }
+    .map-card-wide{ grid-column:1 / -1; }
+    .map-endgame-badge{
+      display:inline-block;
+      margin-bottom:8px;
+      padding:4px 9px;
+      border:1px solid rgba(255,196,0,.6);
+      border-radius:999px;
+      color:#ffe27a;
+      background:rgba(255,196,0,.08);
+      font-size:.78rem;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
     #novato .novice-layout{
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -1435,6 +1530,10 @@
       .video-grid{ grid-template-columns:1fr; }
       #dungeons .dungeon-layout{ grid-template-columns: 1fr; }
       #dungeon-content{ min-height: 360px; }
+      #mapas .map-layout{ grid-template-columns:1fr; }
+      #map-content{ min-height:360px; }
+      .map-card-grid{ grid-template-columns:1fr; }
+      .map-card-wide{ grid-column:auto; }
       #novato .novice-layout{ grid-template-columns: 1fr; }
       #novice-content{ min-height: 320px; }
       #eventos .event-layout{ grid-template-columns: 1fr; }
@@ -2019,13 +2118,38 @@
 
     <div id="mapas" class="section">
       <h2 data-i18n="mapas.h2">Mapas</h2>
-      <p data-i18n="mapas.p">Confira os mapas...</p>
-      <ul>
-        <li data-i18n="mapas.li1">DATS Center</li>
-        <li data-i18n="mapas.li2">D-Terminal</li>
-        <li data-i18n="mapas.li3">File Island</li>
-        <li data-i18n="mapas.li4">Odaiba</li>
-      </ul>
+      <p data-i18n="mapas.p">Consulte a progressão, os acessos e os principais objetivos de cada região disponível no servidor.</p>
+      <div class="map-layout">
+        <div class="nav map-nav">
+          <button onclick="toggleMapa('mapa-progressao')" data-i18n="mapas.btn.progressao">Rota de progressão</button>
+          <button onclick="toggleMapa('mapa-hubs-iniciais')" data-i18n="mapas.btn.hubs">Hubs e áreas iniciais</button>
+          <button onclick="toggleMapa('mapa-file-server')" data-i18n="mapas.btn.file_server">File Island e Server</button>
+          <button onclick="toggleMapa('mapa-odaiba-shinjuku')" data-i18n="mapas.btn.odaiba">Odaiba e Shinjuku</button>
+          <button onclick="toggleMapa('mapa-digital-area')" data-i18n="mapas.btn.digital_area">Digital Area</button>
+          <button onclick="toggleMapa('mapa-versandi-bestas')" data-i18n="mapas.btn.versandi">Versandi e Bestas</button>
+          <button onclick="toggleMapa('mapa-spiral-mountain')" data-i18n="mapas.btn.spiral">Spiral Mountain</button>
+          <button onclick="toggleMapa('mapa-dreaper')" data-i18n="mapas.btn.dreaper">The D-Reaper</button>
+          <button onclick="toggleMapa('mapa-zonas-extras')" data-i18n="mapas.btn.extras">Zonas complementares</button>
+        </div>
+        <div id="map-content">
+          <div id="map-hero" class="map-hero">
+            <div>
+              <div class="map-hero-mark" aria-hidden="true">⌖</div>
+              <h3 data-i18n="mapas.hero.title">Atlas do Digital Galaxy</h3>
+              <p data-i18n="mapas.hero.text">Selecione uma região para consultar mapas, acessos, progressão e conteúdos conectados.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="mapa-progressao" class="map-block"><div data-i18n-html="block.mapas.progressao"></div></div>
+      <div id="mapa-hubs-iniciais" class="map-block"><div data-i18n-html="block.mapas.hubs"></div></div>
+      <div id="mapa-file-server" class="map-block"><div data-i18n-html="block.mapas.file_server"></div></div>
+      <div id="mapa-odaiba-shinjuku" class="map-block"><div data-i18n-html="block.mapas.odaiba"></div></div>
+      <div id="mapa-digital-area" class="map-block"><div data-i18n-html="block.mapas.digital_area"></div></div>
+      <div id="mapa-versandi-bestas" class="map-block"><div data-i18n-html="block.mapas.versandi"></div></div>
+      <div id="mapa-spiral-mountain" class="map-block"><div data-i18n-html="block.mapas.spiral"></div></div>
+      <div id="mapa-dreaper" class="map-block"><div data-i18n-html="block.mapas.dreaper"></div></div>
+      <div id="mapa-zonas-extras" class="map-block"><div data-i18n-html="block.mapas.extras"></div></div>
     </div>
 
     <div id="sistemas" class="section">
@@ -2395,11 +2519,114 @@
       "dungeons.btn.mkt": "DG - Market place",
       "dungeons.btn.gk": "DG - Gankoomon",
       "mapas.h2": "Mapas",
-      "mapas.p": "Confira os mapas disponíveis e suas conexões.",
-      "mapas.li1": "DATS Center",
-      "mapas.li2": "D-Terminal",
-      "mapas.li3": "File Island",
-      "mapas.li4": "Odaiba",
+      "mapas.p": "Consulte a progressão, os acessos e os principais objetivos de cada região disponível no servidor.",
+      "mapas.btn.progressao": "Rota de progressão",
+      "mapas.btn.hubs": "Hubs e áreas iniciais",
+      "mapas.btn.file_server": "File Island e Server",
+      "mapas.btn.odaiba": "Odaiba e Shinjuku",
+      "mapas.btn.digital_area": "Digital Area",
+      "mapas.btn.versandi": "Versandi e Bestas",
+      "mapas.btn.spiral": "Spiral Mountain",
+      "mapas.btn.dreaper": "The D-Reaper",
+      "mapas.btn.extras": "Zonas complementares",
+      "mapas.hero.title": "Atlas do Digital Galaxy",
+      "mapas.hero.text": "Selecione uma região para consultar mapas, acessos, progressão e conteúdos conectados.",
+      "block.mapas.progressao": `
+        <div class="map-guide-header"><h3>Rota geral de progressão</h3><p>Use esta rota como referência para avançar pela história e localizar as regiões permanentes do servidor. O nível necessário pode variar conforme o balanceamento do Digital Galaxy.</p></div>
+        <div class="map-route"><span>Yokohama</span><b>›</b><span>Western Area</span><b>›</b><span>Glacier</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku / Digital Area</span><b>›</b><span>Spiral Mountain ou D-Reaper</span></div>
+        <div class="notice"><b>Escopo do servidor:</b> este atlas termina em <b>Spiral Mountain</b> e <b>The D-Reaper</b>. Regiões posteriores, como Kaiser’s Territory e a linha de Digimon Frontier, não fazem parte deste guia.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Início e desenvolvimento</h4><p>DATS Center e D-Terminal funcionam como hubs. Yokohama, Western Area, Glacier e File Island concentram quests de introdução, evolução e os primeiros locais de farm.</p></article>
+          <article class="map-card"><h4>Meio de jogo</h4><p>Server Continent, Odaiba, Shinjuku, Digital Area e Versandi ampliam a história, liberam raids, acessórios, quests diárias e entradas de dungeon.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>Spiral Mountain</h4><p>Progressão contra os Dark Masters, sete campos principais, dungeons conectadas e materiais do Spiral Key Ring.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>The D-Reaper</h4><p>Sequência final de Shinjuku com ADRs, dungeons próprias e materiais usados no sistema D-Ark.</p></article>
+          <article class="map-card map-card-wide"><h4>Como usar o atlas</h4><p>Cada subaba lista campos, acessos e objetivos. Quando uma área possuir dungeon, consulte a aba <b>Dungeons</b> para ver bosses, círculos, drops e estratégias completas.</p></article>
+        </div>
+      `,
+      "block.mapas.hubs": `
+        <div class="map-guide-header"><h3>Hubs e áreas iniciais</h3><p>Regiões usadas para serviços, transporte, quests introdutórias e progressão até File Island.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>DATS</h4><ul><li><b>DATS Center:</b> hub principal de NPCs, lojas, crafts, Arena e transporte.</li><li><b>Colosseum Stadium:</b> acesso aos conteúdos do Coliseu.</li><li><b>Digimon Attribute Arena:</b> área dedicada ao desafio de atributos.</li></ul></article>
+          <article class="map-card"><h4>D-Terminal</h4><ul><li>D-Terminal</li><li>D-Terminal Dungeon B1 e B2</li><li>Underground Summon Square</li><li>Village of the Beginning (Lost)</li></ul><p>É o principal ponto de conexão para dungeons, guias e trocas especiais.</p></article>
+          <article class="map-card"><h4>Yokohama</h4><ul><li>Yokohama Village</li><li>Yokohama East Village</li><li>Oil Refinery 1, 2 e 3</li></ul><p>Primeira linha de mapas da campanha clássica.</p></article>
+          <article class="map-card"><h4>Western Area</h4><ul><li>Western Village</li><li>Outskirts, East e West</li><li>Wilderness Area e Wind Valley</li><li>Digimon Farm e Ruined Historic</li><li>Dark Tower Wasteland</li></ul><p>A Dark Tower também conecta Kaiser’s Laboratory Easy, Normal e Hard.</p></article>
+          <article class="map-card"><h4>Digimon Maze</h4><ul><li>Maze Entrance</li><li>B2, B1</li><li>F1, F2, F3 e F4</li></ul><p>A entrada tradicional é liberada pela linha de quests iniciada após o nível de Tamer 55.</p></article>
+          <article class="map-card"><h4>Glacier Area</h4><ul><li>Snowstorm Village</li><li>Snowman Village</li><li>Distorted Data Village</li><li>Frozen Ground</li><li>Infinite Ice Wall</li></ul><p>Região importante para quests e farm antes da progressão avançada de File Island.</p></article>
+        </div>
+      `,
+      "block.mapas.file_server": `
+        <div class="map-guide-header"><h3>File Island e Server Continent</h3><p>A transição entre a progressão intermediária e o conteúdo de Odaiba.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>File Island</h4><ul><li>Village of Beginning</li><li>Silver Lake</li><li>Silent Forest</li><li>Lost Historic Site</li><li>File Island Waterfront</li><li>Infinite Mountain</li><li>Lake of Beginning</li></ul></article>
+          <article class="map-card"><h4>Conteúdos conectados</h4><ul><li>Ancient Ruins of Secret, em Lost Historic Site</li><li>Infinite Mountain Dungeon</li><li>Crack of Devimon Normal e Hard</li></ul><p>As mecânicas e recompensas ficam detalhadas na aba Dungeons.</p></article>
+          <article class="map-card"><h4>Acesso avançado</h4><p>A linha tradicional de Server Continent é liberada no nível de Tamer 64 após a conclusão da batalha contra Devimon na Infinite Mountain Dungeon.</p><p>Complete as quests principais de File Island antes de seguir.</p></article>
+          <article class="map-card"><h4>Server Continent</h4><ul><li>Server Continent Desert</li><li>Server Continent Canyon</li><li>Server Continent Pyramid</li></ul><p>Os campos concentram Digimons de nível mais alto, raids e materiais usados em passes e crafts.</p></article>
+          <article class="map-card map-card-wide"><h4>Server Continent Pyramid</h4><p>Último campo da região, com Digimons na faixa tradicional de nível 92–94 e o raid Etemon. Também conecta Nanomon Maze Easy/Normal e Datamon Maze Hard.</p></article>
+        </div>
+      `,
+      "block.mapas.odaiba": `
+        <div class="map-guide-header"><h3>Tokyo-Odaiba e Shinjuku</h3><p>Campanha inspirada em Digimon Adventure e Digimon Tamers, com vários campos, raids e dungeons conectadas.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Como iniciar Odaiba</h4><p>Na progressão original, é necessário Tamer nível 75+, concluir a batalha final contra Etemon em Server Continent Pyramid e seguir a quest entregue por Mimi.</p></article>
+          <article class="map-card"><h4>Tokyo-Odaiba</h4><ul><li>Camp Site</li><li>Valley of Light</li><li>Shibuya</li><li>Tokyo Tower</li><li>Tokyo Tower Observatory</li><li>Minato City</li><li>Rainbow Bridge</li><li>Odaiba</li><li>Big Sight</li><li>Fuji TV Rooftop</li></ul></article>
+          <article class="map-card"><h4>Dungeons da região</h4><ul><li>Tokyo Tower Observatory e Easy</li><li>Fuji TV Rooftop e Easy</li><li>Venomous Vortex e Easy</li></ul><p>Consulte SkullMeramon, Myotismon e VenomMyotismon na aba Dungeons.</p></article>
+          <article class="map-card"><h4>Shinjuku</h4><ul><li>Shinjuku Western Area (Day/Night)</li><li>Shinjuku East Area (Day/Night)</li><li>Stadium</li><li>Road</li></ul><p>Concluir a história de Shinjuku libera a continuidade em Digital Area e, depois, a linha do D-Reaper.</p></article>
+        </div>
+      `,
+      "block.mapas.digital_area": `
+        <div class="map-guide-header"><h3>Digital Area</h3><p>Continuação da história de Digimon Tamers, acessada após Shinjuku Western Area (Night).</p></div>
+        <div class="notice"><b>Referência de acesso:</b> Digimon parceiro acima do nível 99, conclusão da quest principal de Culumon em Shinjuku Western Area (Night) e início da sequência “Status Report” com PawnChessmon W.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Ordem dos campos</h4><ol><li>Wasteland Area</li><li>Cloud Area</li><li>Forest Area</li><li>Ocean Area</li><li>Four Holy Beast Area</li><li>Collapsed Four Holy Beast Area</li><li>Zhuqiaomon’s Resting Area</li><li>Four Holy Beast Area (D-Reaper)</li><li>Wasteland Area (Night)</li></ol></article>
+          <article class="map-card"><h4>Objetivos da região</h4><ul><li>Avançar a campanha de Tamers.</li><li>Concluir quests diárias e obter DATS Mission Reports.</li><li>Farmar materiais de recompensas com PawnChessmon B.</li><li>Preparar o acesso a Shinjuku na linha do D-Reaper.</li></ul></article>
+          <article class="map-card"><h4>Conteúdos conectados</h4><ul><li>Chaotic Battlefield</li><li>Final Battle</li></ul><p>Essas dungeons ficam ligadas a Zhuqiaomon’s Resting Area e possuem seus próprios requisitos e recompensas.</p></article>
+          <article class="map-card"><h4>Conexão final</h4><p>Wasteland Area (Night) conecta Four Holy Beast Area (D-Reaper), Wasteland Area e Shinjuku Western Area (Night), fechando a rota entre o Digital World e Shinjuku.</p></article>
+        </div>
+      `,
+      "block.mapas.versandi": `
+        <div class="map-guide-header"><h3>Versandi Terminal e as Quatro Bestas</h3><p>Região ligada ao conteúdo X-Antibody, Royal Base e às dungeons das Quatro Bestas Sagradas.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Versandi Terminal</h4><p>Campo de nível avançado com quests, Digimons X-Antibody, materiais de craft e acesso à Royal Base.</p><p>Também é uma das fontes de Yin and Yang Spirit usado no passe da Fanglongmon Dungeon.</p></article>
+          <article class="map-card"><h4>Royal Base</h4><ul><li>Royal Base Easy</li><li>Royal Base Normal</li><li>Royal Base Hard</li></ul><p>As estratégias, o Crude Rusty Bracelet e a mecânica dos círculos estão na aba Dungeons.</p></article>
+          <article class="map-card"><h4>Dungeons das Bestas</h4><ul><li>Scar of Water Crystal — Xuanwumon</li><li>Uprising Flame — Zhuqiaomon</li><li>Trace of Black Steel — Baihumon</li><li>Descending Thunder God — Qinglongmon</li></ul></article>
+          <article class="map-card"><h4>Fanglongmon</h4><p>Boundaries of Yin and Yang / Fanglongmon Dungeon reúne as quatro zonas das Bestas antes do confronto subterrâneo contra Fanglongmon.</p><p>Veja requisitos, 90k+ de HP recomendados e mecânicas na aba Dungeons.</p></article>
+        </div>
+      `,
+      "block.mapas.spiral": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Endgame do servidor</span><h3>Spiral Mountain</h3><p>Campanha dos Dark Masters. A entrada de referência exige Tamer nível 90 e a quest “Crisis on Digital World” concluída.</p></div>
+        <div class="notice">O acesso inicial leva a <b>Forest of the Beginning</b>. Jogadores que concluíram a quest podem usar o item de transporte correspondente ou pagar a viagem ao White-bearded Guru em D-Terminal.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>1. Forest of the Beginning</h4><p>Primeiro campo. Conecta Marine Dragon Domain, dungeon iniciada com Taichi após “Rescue and Bait - 1”.</p></article>
+          <article class="map-card"><h4>2. Forest of Marionette</h4><p>Liberada após “To forest, to deeper forest” com Sora. Conecta Front Yard of Marionette Mansion.</p></article>
+          <article class="map-card"><h4>3. Metal Empire</h4><p>Continuação após “To the Next Goal” com Taichi. Região da campanha de Machinedramon.</p></article>
+          <article class="map-card"><h4>4. Underground City</h4><p>Liberada após “Once Again”. Conecta Back of the Empire Dungeon depois de “Numemon Rescue Operation - 5”.</p></article>
+          <article class="map-card"><h4>5. The Top of a Nightmare</h4><p>Região da campanha de Piedmon. Conecta Stage of Clown após “Last Hope - 3”.</p></article>
+          <article class="map-card"><h4>6. Void Space</h4><p>Liberada por “In the Back of the Darkness”. A dungeon Void Space aparece após “Unfinished Fight”.</p></article>
+          <article class="map-card"><h4>7. Lake of Beginning</h4><p>Área final da sequência, acessada pela continuação “Back to Own Places - 1” iniciada com Taichi.</p></article>
+          <article class="map-card"><h4>Principais objetivos</h4><ul><li>Concluir a campanha dos Dark Masters.</li><li>Farmar materiais do Spiral Key Ring.</li><li>Obter chips e atributos R15 associados à região.</li><li>Avançar pelas dungeons de cada mestre.</li></ul></article>
+        </div>
+      `,
+      "block.mapas.dreaper": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Endgame do servidor</span><h3>Shinjuku — The D-Reaper</h3><p>Continuação final da campanha de Tamers, com campos dominados pelos ADRs e progressão ligada ao D-Ark.</p></div>
+        <div class="notice"><b>Como iniciar:</b> conclua a história principal de Shinjuku e aceite a continuação que leva a West Shinjuku (D-Reaper). A sequência libera Office, East Shinjuku, Safe Area e Shinjuku Park.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>West Shinjuku (D-Reaper)</h4><p>Primeiro campo do arco. ADR-02 a ADR-05 aparecem aproximadamente entre os níveis 121–125; ADR-06, ADR-07 e ADR-08 funcionam como raids de campo entre 127–129.</p></article>
+          <article class="map-card"><h4>Office</h4><p>Hub interno liberado durante a investigação. Dá acesso às dungeons Shinjuku Station e Shinjuku Park (D-Reaper) por meio de Yamaki Mitsuo.</p></article>
+          <article class="map-card"><h4>East Shinjuku (D-Reaper)</h4><p>Liberada pela quest de Yamaki sobre os Digimons desaparecidos. ADRs comuns ficam aproximadamente entre 131–135 e os raids entre 137–139.</p></article>
+          <article class="map-card"><h4>Safe Area</h4><p>Liberada durante “Tamers, assemble!”. É o ponto de entrada para a dungeon D-Reaper Area com Takato.</p></article>
+          <article class="map-card"><h4>Shinjuku Park</h4><p>Campo final liberado após concluir a sequência da D-Reaper Area. Não confunda com a dungeon Shinjuku Park (D-Reaper), acessada pelo Office.</p></article>
+          <article class="map-card"><h4>Farm e progressão</h4><ul><li>Reinforced Memory Card: quests diárias.</li><li>D-Reaper Data, True Data e Enrichment Data: ADR-06/07/08.</li><li>Matrix Energy: Shinjuku Station e Shinjuku Park.</li><li>Safe Energy: D-Reaper Area.</li></ul><p>Esses materiais participam da progressão do D-Ark Limited Edition.</p></article>
+        </div>
+      `,
+      "block.mapas.extras": `
+        <div class="map-guide-header"><h3>Zonas complementares</h3><p>Áreas permanentes que não pertencem à rota linear principal, mas oferecem quests, farm ou desafios específicos.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Xros Wars</h4><ul><li>Green Zone</li><li>Green Zone Advanced</li><li>Miso Village</li></ul><p>A região concentra a progressão ligada aos Digimons e sistemas de Xros Wars.</p></article>
+          <article class="map-card"><h4>Shadow Labyrinth</h4><ul><li>Shadow Labyrinth</li><li>Shadow Labyrinth Hard</li></ul><p>Conteúdo separado por dificuldade e acessado por sua própria linha de entrada.</p></article>
+          <article class="map-card"><h4>Summon e desafios</h4><p>D-Terminal Underground Summon Square, Colosseum Stadium e Digimon Attribute Arena funcionam como áreas de atividade, não como campos comuns de campanha.</p></article>
+          <article class="map-card"><h4>Não incluídos</h4><p>Mapas temporários de eventos, áreas removidas, zonas de GM e regiões lançadas depois de The D-Reaper e Spiral Mountain ficam fora do escopo atual.</p></article>
+        </div>
+      `,
       "sistemas.h2": "Sistemas",
       "sistemas.p": "Consulte os sistemas exclusivos e os principais recursos de progressão do Digital Galaxy.",
       "sistemas.btn.estrelas": "Sistema de Estrelas",
@@ -3733,11 +3960,114 @@
       "dungeons.btn.mkt": "DG - Market place",
       "dungeons.btn.gk": "DG - Gankoomon",
       "mapas.h2": "Maps",
-      "mapas.p": "Check out the available maps and their connections.",
-      "mapas.li1": "DATS Center",
-      "mapas.li2": "D-Terminal",
-      "mapas.li3": "File Island",
-      "mapas.li4": "Odaiba",
+      "mapas.p": "Check the progression, access requirements, and main objectives for every region available on the server.",
+      "mapas.btn.progressao": "Progression route",
+      "mapas.btn.hubs": "Hubs and early areas",
+      "mapas.btn.file_server": "File Island and Server",
+      "mapas.btn.odaiba": "Odaiba and Shinjuku",
+      "mapas.btn.digital_area": "Digital Area",
+      "mapas.btn.versandi": "Versandi and Beasts",
+      "mapas.btn.spiral": "Spiral Mountain",
+      "mapas.btn.dreaper": "The D-Reaper",
+      "mapas.btn.extras": "Additional zones",
+      "mapas.hero.title": "Digital Galaxy Atlas",
+      "mapas.hero.text": "Select a region to view its maps, access requirements, progression, and connected content.",
+      "block.mapas.progressao": `
+        <div class="map-guide-header"><h3>General progression route</h3><p>Use this route as a reference for story progression and permanent regions. Exact level requirements may vary with Digital Galaxy balancing.</p></div>
+        <div class="map-route"><span>Yokohama</span><b>›</b><span>Western Area</span><b>›</b><span>Glacier</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku / Digital Area</span><b>›</b><span>Spiral Mountain or D-Reaper</span></div>
+        <div class="notice"><b>Server scope:</b> this atlas ends at <b>Spiral Mountain</b> and <b>The D-Reaper</b>. Later regions such as Kaiser’s Territory and the Digimon Frontier storyline are not included.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Early progression</h4><p>DATS Center and D-Terminal are the main hubs. Yokohama, Western Area, Glacier, and File Island cover introductory quests, evolution, and early farming.</p></article>
+          <article class="map-card"><h4>Midgame</h4><p>Server Continent, Odaiba, Shinjuku, Digital Area, and Versandi expand the story and unlock raids, accessories, daily quests, and dungeons.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>Spiral Mountain</h4><p>Dark Masters progression, seven main fields, connected dungeons, and Spiral Key Ring materials.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>The D-Reaper</h4><p>The final Shinjuku arc with ADR enemies, dedicated dungeons, and D-Ark materials.</p></article>
+          <article class="map-card map-card-wide"><h4>How to use the atlas</h4><p>Each section lists fields, access, and objectives. For bosses, circles, drops, and full strategies, open the corresponding guide under <b>Dungeons</b>.</p></article>
+        </div>
+      `,
+      "block.mapas.hubs": `
+        <div class="map-guide-header"><h3>Hubs and early areas</h3><p>Regions used for services, travel, introductory quests, and progression toward File Island.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>DATS</h4><ul><li><b>DATS Center:</b> main hub for NPCs, shops, crafting, Arena, and travel.</li><li><b>Colosseum Stadium:</b> Colosseum content.</li><li><b>Digimon Attribute Arena:</b> attribute challenge area.</li></ul></article>
+          <article class="map-card"><h4>D-Terminal</h4><ul><li>D-Terminal</li><li>D-Terminal Dungeon B1 and B2</li><li>Underground Summon Square</li><li>Village of the Beginning (Lost)</li></ul><p>The main connection point for dungeons, guides, and special exchanges.</p></article>
+          <article class="map-card"><h4>Yokohama</h4><ul><li>Yokohama Village</li><li>Yokohama East Village</li><li>Oil Refinery 1, 2, and 3</li></ul><p>The first map line of the classic campaign.</p></article>
+          <article class="map-card"><h4>Western Area</h4><ul><li>Western Village</li><li>Outskirts, East, and West</li><li>Wilderness Area and Wind Valley</li><li>Digimon Farm and Ruined Historic</li><li>Dark Tower Wasteland</li></ul><p>Dark Tower also connects to Kaiser’s Laboratory Easy, Normal, and Hard.</p></article>
+          <article class="map-card"><h4>Digimon Maze</h4><ul><li>Maze Entrance</li><li>B2 and B1</li><li>F1, F2, F3, and F4</li></ul><p>The traditional entrance quest line starts at Tamer level 55.</p></article>
+          <article class="map-card"><h4>Glacier Area</h4><ul><li>Snowstorm Village</li><li>Snowman Village</li><li>Distorted Data Village</li><li>Frozen Ground</li><li>Infinite Ice Wall</li></ul><p>An important questing and farming region before advanced File Island progression.</p></article>
+        </div>
+      `,
+      "block.mapas.file_server": `
+        <div class="map-guide-header"><h3>File Island and Server Continent</h3><p>The transition from intermediate progression into Odaiba content.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>File Island</h4><ul><li>Village of Beginning</li><li>Silver Lake</li><li>Silent Forest</li><li>Lost Historic Site</li><li>File Island Waterfront</li><li>Infinite Mountain</li><li>Lake of Beginning</li></ul></article>
+          <article class="map-card"><h4>Connected content</h4><ul><li>Ancient Ruins of Secret at Lost Historic Site</li><li>Infinite Mountain Dungeon</li><li>Crack of Devimon Normal and Hard</li></ul><p>Mechanics and rewards are covered under Dungeons.</p></article>
+          <article class="map-card"><h4>Advanced access</h4><p>The traditional Server Continent route unlocks at Tamer level 64 after the Devimon battle in Infinite Mountain Dungeon.</p><p>Complete the File Island main quests before moving on.</p></article>
+          <article class="map-card"><h4>Server Continent</h4><ul><li>Server Continent Desert</li><li>Server Continent Canyon</li><li>Server Continent Pyramid</li></ul><p>These fields contain stronger Digimon, raids, and materials used for passes and crafting.</p></article>
+          <article class="map-card map-card-wide"><h4>Server Continent Pyramid</h4><p>The region’s final field, traditionally featuring level 92–94 Digimon and the Etemon raid. It also connects to Nanomon Maze Easy/Normal and Datamon Maze Hard.</p></article>
+        </div>
+      `,
+      "block.mapas.odaiba": `
+        <div class="map-guide-header"><h3>Tokyo-Odaiba and Shinjuku</h3><p>Campaigns inspired by Digimon Adventure and Digimon Tamers, with multiple fields, raids, and connected dungeons.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Starting Odaiba</h4><p>In the original progression, you need Tamer level 75+, must finish the final Etemon battle in Server Continent Pyramid, and continue the quest offered by Mimi.</p></article>
+          <article class="map-card"><h4>Tokyo-Odaiba</h4><ul><li>Camp Site</li><li>Valley of Light</li><li>Shibuya</li><li>Tokyo Tower</li><li>Tokyo Tower Observatory</li><li>Minato City</li><li>Rainbow Bridge</li><li>Odaiba</li><li>Big Sight</li><li>Fuji TV Rooftop</li></ul></article>
+          <article class="map-card"><h4>Regional dungeons</h4><ul><li>Tokyo Tower Observatory and Easy</li><li>Fuji TV Rooftop and Easy</li><li>Venomous Vortex and Easy</li></ul><p>See SkullMeramon, Myotismon, and VenomMyotismon under Dungeons.</p></article>
+          <article class="map-card"><h4>Shinjuku</h4><ul><li>Shinjuku Western Area (Day/Night)</li><li>Shinjuku East Area (Day/Night)</li><li>Stadium</li><li>Road</li></ul><p>Completing Shinjuku unlocks Digital Area and later the D-Reaper storyline.</p></article>
+        </div>
+      `,
+      "block.mapas.digital_area": `
+        <div class="map-guide-header"><h3>Digital Area</h3><p>Continuation of the Digimon Tamers story after Shinjuku Western Area (Night).</p></div>
+        <div class="notice"><b>Access reference:</b> partner Digimon above level 99, Culumon’s main quest completed in Shinjuku Western Area (Night), and the “Status Report” sequence started with PawnChessmon W.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Field order</h4><ol><li>Wasteland Area</li><li>Cloud Area</li><li>Forest Area</li><li>Ocean Area</li><li>Four Holy Beast Area</li><li>Collapsed Four Holy Beast Area</li><li>Zhuqiaomon’s Resting Area</li><li>Four Holy Beast Area (D-Reaper)</li><li>Wasteland Area (Night)</li></ol></article>
+          <article class="map-card"><h4>Regional goals</h4><ul><li>Advance the Tamers campaign.</li><li>Complete dailies and obtain DATS Mission Reports.</li><li>Farm reward materials for PawnChessmon B.</li><li>Prepare access to the Shinjuku D-Reaper route.</li></ul></article>
+          <article class="map-card"><h4>Connected content</h4><ul><li>Chaotic Battlefield</li><li>Final Battle</li></ul><p>These dungeons are connected to Zhuqiaomon’s Resting Area and have separate requirements and rewards.</p></article>
+          <article class="map-card"><h4>Final connection</h4><p>Wasteland Area (Night) links Four Holy Beast Area (D-Reaper), Wasteland Area, and Shinjuku Western Area (Night).</p></article>
+        </div>
+      `,
+      "block.mapas.versandi": `
+        <div class="map-guide-header"><h3>Versandi Terminal and the Four Beasts</h3><p>Advanced region tied to X-Antibody content, Royal Base, and the Four Holy Beast dungeons.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Versandi Terminal</h4><p>Advanced field with quests, X-Antibody Digimon, crafting materials, and Royal Base access.</p><p>It is also a source of Yin and Yang Spirit for Fanglongmon Dungeon passes.</p></article>
+          <article class="map-card"><h4>Royal Base</h4><ul><li>Royal Base Easy</li><li>Royal Base Normal</li><li>Royal Base Hard</li></ul><p>Strategies, the Crude Rusty Bracelet, and circle mechanics are covered under Dungeons.</p></article>
+          <article class="map-card"><h4>Beast dungeons</h4><ul><li>Scar of Water Crystal — Xuanwumon</li><li>Uprising Flame — Zhuqiaomon</li><li>Trace of Black Steel — Baihumon</li><li>Descending Thunder God — Qinglongmon</li></ul></article>
+          <article class="map-card"><h4>Fanglongmon</h4><p>Boundaries of Yin and Yang / Fanglongmon Dungeon combines all four Beast zones before the underground Fanglongmon battle.</p><p>See access, recommended 90k+ HP, and mechanics under Dungeons.</p></article>
+        </div>
+      `,
+      "block.mapas.spiral": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Server endgame</span><h3>Spiral Mountain</h3><p>The Dark Masters campaign. Reference access requires Tamer level 90 and completion of “Crisis on Digital World”.</p></div>
+        <div class="notice">Initial access leads to <b>Forest of the Beginning</b>. Eligible players can use its travel item or pay White-bearded Guru in D-Terminal.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>1. Forest of the Beginning</h4><p>First field. Connects to Marine Dragon Domain after “Rescue and Bait - 1” with Taichi.</p></article>
+          <article class="map-card"><h4>2. Forest of Marionette</h4><p>Unlocked after “To forest, to deeper forest” with Sora. Connects to Front Yard of Marionette Mansion.</p></article>
+          <article class="map-card"><h4>3. Metal Empire</h4><p>Continues after “To the Next Goal” with Taichi and covers the Machinedramon campaign.</p></article>
+          <article class="map-card"><h4>4. Underground City</h4><p>Unlocked after “Once Again”. Connects to Back of the Empire Dungeon after “Numemon Rescue Operation - 5”.</p></article>
+          <article class="map-card"><h4>5. The Top of a Nightmare</h4><p>Piedmon’s campaign area. Connects to Stage of Clown after “Last Hope - 3”.</p></article>
+          <article class="map-card"><h4>6. Void Space</h4><p>Unlocked by “In the Back of the Darkness”. Void Space dungeon appears after “Unfinished Fight”.</p></article>
+          <article class="map-card"><h4>7. Lake of Beginning</h4><p>Final area in the sequence, reached through “Back to Own Places - 1” with Taichi.</p></article>
+          <article class="map-card"><h4>Main goals</h4><ul><li>Finish the Dark Masters campaign.</li><li>Farm Spiral Key Ring materials.</li><li>Obtain regional R15 chips and attributes.</li><li>Clear each Dark Master dungeon.</li></ul></article>
+        </div>
+      `,
+      "block.mapas.dreaper": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Server endgame</span><h3>Shinjuku — The D-Reaper</h3><p>The final Tamers campaign, featuring ADR-infested fields and D-Ark progression.</p></div>
+        <div class="notice"><b>How to start:</b> complete Shinjuku’s main story and accept the continuation leading to West Shinjuku (D-Reaper). The quest line unlocks Office, East Shinjuku, Safe Area, and Shinjuku Park.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>West Shinjuku (D-Reaper)</h4><p>First field. ADR-02 through ADR-05 are roughly level 121–125; ADR-06, ADR-07, and ADR-08 are field raids around level 127–129.</p></article>
+          <article class="map-card"><h4>Office</h4><p>Investigation hub that connects to Shinjuku Station and Shinjuku Park (D-Reaper) through Yamaki Mitsuo.</p></article>
+          <article class="map-card"><h4>East Shinjuku (D-Reaper)</h4><p>Unlocked through Yamaki’s missing Digimon quest. Common ADRs are roughly level 131–135 and field raids 137–139.</p></article>
+          <article class="map-card"><h4>Safe Area</h4><p>Unlocked during “Tamers, assemble!”. This is the entrance point for D-Reaper Area with Takato.</p></article>
+          <article class="map-card"><h4>Shinjuku Park</h4><p>Final field unlocked after the D-Reaper Area sequence. It is separate from the Shinjuku Park (D-Reaper) dungeon entered from Office.</p></article>
+          <article class="map-card"><h4>Farming and progression</h4><ul><li>Reinforced Memory Card: daily quests.</li><li>D-Reaper Data, True Data, and Enrichment Data: ADR-06/07/08.</li><li>Matrix Energy: Shinjuku Station and Shinjuku Park.</li><li>Safe Energy: D-Reaper Area.</li></ul><p>These materials support D-Ark Limited Edition progression.</p></article>
+        </div>
+      `,
+      "block.mapas.extras": `
+        <div class="map-guide-header"><h3>Additional zones</h3><p>Permanent areas outside the main linear route that provide their own quests, farming, or challenges.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Xros Wars</h4><ul><li>Green Zone</li><li>Green Zone Advanced</li><li>Miso Village</li></ul><p>Regional progression tied to Xros Wars Digimon and systems.</p></article>
+          <article class="map-card"><h4>Shadow Labyrinth</h4><ul><li>Shadow Labyrinth</li><li>Shadow Labyrinth Hard</li></ul><p>Separate challenge content with its own entry flow.</p></article>
+          <article class="map-card"><h4>Summon and challenge areas</h4><p>D-Terminal Underground Summon Square, Colosseum Stadium, and Digimon Attribute Arena are activity zones rather than regular campaign fields.</p></article>
+          <article class="map-card"><h4>Not included</h4><p>Temporary event maps, removed areas, GM zones, and regions released after The D-Reaper and Spiral Mountain are outside the current scope.</p></article>
+        </div>
+      `,
       "sistemas.h2": "Systems",
       "sistemas.p": "Explore Digital Galaxy's exclusive systems and main progression features.",
       "sistemas.btn.estrelas": "Star System",
@@ -5071,11 +5401,114 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "dungeons.btn.mkt": "DG - Market Place",
       "dungeons.btn.gk": "DG - Gankoomon",
       "mapas.h2": "Mapas",
-      "mapas.p": "Consulta los mapas disponibles y sus conexiones.",
-      "mapas.li1": "DATS Center",
-      "mapas.li2": "D-Terminal",
-      "mapas.li3": "File Island",
-      "mapas.li4": "Odaiba",
+      "mapas.p": "Consulta la progresión, los requisitos de acceso y los objetivos principales de cada región disponible en el servidor.",
+      "mapas.btn.progressao": "Ruta de progresión",
+      "mapas.btn.hubs": "Centros y áreas iniciales",
+      "mapas.btn.file_server": "File Island y Server",
+      "mapas.btn.odaiba": "Odaiba y Shinjuku",
+      "mapas.btn.digital_area": "Digital Area",
+      "mapas.btn.versandi": "Versandi y Bestias",
+      "mapas.btn.spiral": "Spiral Mountain",
+      "mapas.btn.dreaper": "The D-Reaper",
+      "mapas.btn.extras": "Zonas complementarias",
+      "mapas.hero.title": "Atlas de Digital Galaxy",
+      "mapas.hero.text": "Selecciona una región para consultar sus mapas, accesos, progresión y contenidos conectados.",
+      "block.mapas.progressao": `
+        <div class="map-guide-header"><h3>Ruta general de progresión</h3><p>Utiliza esta ruta como referencia para avanzar en la historia y localizar las regiones permanentes. Los niveles exactos pueden variar según el balance de Digital Galaxy.</p></div>
+        <div class="map-route"><span>Yokohama</span><b>›</b><span>Western Area</span><b>›</b><span>Glacier</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku / Digital Area</span><b>›</b><span>Spiral Mountain o D-Reaper</span></div>
+        <div class="notice"><b>Alcance del servidor:</b> este atlas termina en <b>Spiral Mountain</b> y <b>The D-Reaper</b>. Las regiones posteriores, como Kaiser’s Territory y la historia de Digimon Frontier, no están incluidas.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Inicio y desarrollo</h4><p>DATS Center y D-Terminal son los centros principales. Yokohama, Western Area, Glacier y File Island reúnen misiones iniciales, evolución y los primeros lugares de farmeo.</p></article>
+          <article class="map-card"><h4>Mitad del juego</h4><p>Server Continent, Odaiba, Shinjuku, Digital Area y Versandi amplían la historia y desbloquean raids, accesorios, misiones diarias y mazmorras.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>Spiral Mountain</h4><p>Progresión contra los Dark Masters, siete campos principales, mazmorras conectadas y materiales del Spiral Key Ring.</p></article>
+          <article class="map-card"><span class="map-endgame-badge">Endgame</span><h4>The D-Reaper</h4><p>Arco final de Shinjuku con enemigos ADR, mazmorras propias y materiales del D-Ark.</p></article>
+          <article class="map-card map-card-wide"><h4>Cómo usar el atlas</h4><p>Cada sección enumera campos, accesos y objetivos. Para bosses, círculos, drops y estrategias completas, abre la guía correspondiente en <b>Mazmorras</b>.</p></article>
+        </div>
+      `,
+      "block.mapas.hubs": `
+        <div class="map-guide-header"><h3>Centros y áreas iniciales</h3><p>Regiones utilizadas para servicios, transporte, misiones introductorias y progresión hacia File Island.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>DATS</h4><ul><li><b>DATS Center:</b> centro principal de NPCs, tiendas, fabricación, Arena y transporte.</li><li><b>Colosseum Stadium:</b> contenido del Coliseo.</li><li><b>Digimon Attribute Arena:</b> desafíos de atributos.</li></ul></article>
+          <article class="map-card"><h4>D-Terminal</h4><ul><li>D-Terminal</li><li>D-Terminal Dungeon B1 y B2</li><li>Underground Summon Square</li><li>Village of the Beginning (Lost)</li></ul><p>Principal punto de conexión para mazmorras, guías e intercambios especiales.</p></article>
+          <article class="map-card"><h4>Yokohama</h4><ul><li>Yokohama Village</li><li>Yokohama East Village</li><li>Oil Refinery 1, 2 y 3</li></ul><p>Primera línea de mapas de la campaña clásica.</p></article>
+          <article class="map-card"><h4>Western Area</h4><ul><li>Western Village</li><li>Outskirts, East y West</li><li>Wilderness Area y Wind Valley</li><li>Digimon Farm y Ruined Historic</li><li>Dark Tower Wasteland</li></ul><p>Dark Tower también conecta Kaiser’s Laboratory Easy, Normal y Hard.</p></article>
+          <article class="map-card"><h4>Digimon Maze</h4><ul><li>Maze Entrance</li><li>B2 y B1</li><li>F1, F2, F3 y F4</li></ul><p>La línea tradicional de acceso comienza en el nivel 55 de Tamer.</p></article>
+          <article class="map-card"><h4>Glacier Area</h4><ul><li>Snowstorm Village</li><li>Snowman Village</li><li>Distorted Data Village</li><li>Frozen Ground</li><li>Infinite Ice Wall</li></ul><p>Región importante de misiones y farmeo antes de la progresión avanzada de File Island.</p></article>
+        </div>
+      `,
+      "block.mapas.file_server": `
+        <div class="map-guide-header"><h3>File Island y Server Continent</h3><p>La transición entre la progresión intermedia y el contenido de Odaiba.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>File Island</h4><ul><li>Village of Beginning</li><li>Silver Lake</li><li>Silent Forest</li><li>Lost Historic Site</li><li>File Island Waterfront</li><li>Infinite Mountain</li><li>Lake of Beginning</li></ul></article>
+          <article class="map-card"><h4>Contenido conectado</h4><ul><li>Ancient Ruins of Secret en Lost Historic Site</li><li>Infinite Mountain Dungeon</li><li>Crack of Devimon Normal y Hard</li></ul><p>Las mecánicas y recompensas están en la pestaña Mazmorras.</p></article>
+          <article class="map-card"><h4>Acceso avanzado</h4><p>La ruta tradicional de Server Continent se desbloquea en el nivel 64 de Tamer después de la batalla contra Devimon en Infinite Mountain Dungeon.</p><p>Completa las misiones principales de File Island antes de continuar.</p></article>
+          <article class="map-card"><h4>Server Continent</h4><ul><li>Server Continent Desert</li><li>Server Continent Canyon</li><li>Server Continent Pyramid</li></ul><p>Estos campos reúnen Digimon más fuertes, raids y materiales para pases y fabricación.</p></article>
+          <article class="map-card map-card-wide"><h4>Server Continent Pyramid</h4><p>Campo final de la región, tradicionalmente con Digimon de nivel 92–94 y el raid Etemon. También conecta Nanomon Maze Easy/Normal y Datamon Maze Hard.</p></article>
+        </div>
+      `,
+      "block.mapas.odaiba": `
+        <div class="map-guide-header"><h3>Tokyo-Odaiba y Shinjuku</h3><p>Campañas inspiradas en Digimon Adventure y Digimon Tamers, con varios campos, raids y mazmorras conectadas.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Cómo iniciar Odaiba</h4><p>En la progresión original se requiere Tamer nivel 75+, completar la batalla final contra Etemon en Server Continent Pyramid y continuar la misión de Mimi.</p></article>
+          <article class="map-card"><h4>Tokyo-Odaiba</h4><ul><li>Camp Site</li><li>Valley of Light</li><li>Shibuya</li><li>Tokyo Tower</li><li>Tokyo Tower Observatory</li><li>Minato City</li><li>Rainbow Bridge</li><li>Odaiba</li><li>Big Sight</li><li>Fuji TV Rooftop</li></ul></article>
+          <article class="map-card"><h4>Mazmorras de la región</h4><ul><li>Tokyo Tower Observatory y Easy</li><li>Fuji TV Rooftop y Easy</li><li>Venomous Vortex y Easy</li></ul><p>Consulta SkullMeramon, Myotismon y VenomMyotismon en Mazmorras.</p></article>
+          <article class="map-card"><h4>Shinjuku</h4><ul><li>Shinjuku Western Area (Day/Night)</li><li>Shinjuku East Area (Day/Night)</li><li>Stadium</li><li>Road</li></ul><p>Completar Shinjuku desbloquea Digital Area y después la historia del D-Reaper.</p></article>
+        </div>
+      `,
+      "block.mapas.digital_area": `
+        <div class="map-guide-header"><h3>Digital Area</h3><p>Continuación de la historia de Digimon Tamers después de Shinjuku Western Area (Night).</p></div>
+        <div class="notice"><b>Referencia de acceso:</b> Digimon compañero por encima del nivel 99, misión principal de Culumon completada en Shinjuku Western Area (Night) e inicio de “Status Report” con PawnChessmon W.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Orden de los campos</h4><ol><li>Wasteland Area</li><li>Cloud Area</li><li>Forest Area</li><li>Ocean Area</li><li>Four Holy Beast Area</li><li>Collapsed Four Holy Beast Area</li><li>Zhuqiaomon’s Resting Area</li><li>Four Holy Beast Area (D-Reaper)</li><li>Wasteland Area (Night)</li></ol></article>
+          <article class="map-card"><h4>Objetivos de la región</h4><ul><li>Avanzar en la campaña de Tamers.</li><li>Completar misiones diarias y obtener DATS Mission Reports.</li><li>Farmear materiales de recompensa para PawnChessmon B.</li><li>Preparar el acceso a la ruta D-Reaper de Shinjuku.</li></ul></article>
+          <article class="map-card"><h4>Contenido conectado</h4><ul><li>Chaotic Battlefield</li><li>Final Battle</li></ul><p>Estas mazmorras están conectadas a Zhuqiaomon’s Resting Area y poseen requisitos propios.</p></article>
+          <article class="map-card"><h4>Conexión final</h4><p>Wasteland Area (Night) conecta Four Holy Beast Area (D-Reaper), Wasteland Area y Shinjuku Western Area (Night).</p></article>
+        </div>
+      `,
+      "block.mapas.versandi": `
+        <div class="map-guide-header"><h3>Versandi Terminal y las Cuatro Bestias</h3><p>Región avanzada relacionada con X-Antibody, Royal Base y las mazmorras de las Cuatro Bestias Sagradas.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Versandi Terminal</h4><p>Campo avanzado con misiones, Digimon X-Antibody, materiales de fabricación y acceso a Royal Base.</p><p>También proporciona Yin and Yang Spirit para los pases de Fanglongmon Dungeon.</p></article>
+          <article class="map-card"><h4>Royal Base</h4><ul><li>Royal Base Easy</li><li>Royal Base Normal</li><li>Royal Base Hard</li></ul><p>Las estrategias, el Crude Rusty Bracelet y los círculos están explicados en Mazmorras.</p></article>
+          <article class="map-card"><h4>Mazmorras de las Bestias</h4><ul><li>Scar of Water Crystal — Xuanwumon</li><li>Uprising Flame — Zhuqiaomon</li><li>Trace of Black Steel — Baihumon</li><li>Descending Thunder God — Qinglongmon</li></ul></article>
+          <article class="map-card"><h4>Fanglongmon</h4><p>Boundaries of Yin and Yang / Fanglongmon Dungeon reúne las cuatro zonas antes de la batalla subterránea contra Fanglongmon.</p><p>Consulta el acceso, los 90k+ de HP recomendados y las mecánicas en Mazmorras.</p></article>
+        </div>
+      `,
+      "block.mapas.spiral": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Endgame del servidor</span><h3>Spiral Mountain</h3><p>Campaña de los Dark Masters. El acceso de referencia requiere Tamer nivel 90 y haber completado “Crisis on Digital World”.</p></div>
+        <div class="notice">El acceso inicial conduce a <b>Forest of the Beginning</b>. Los jugadores elegibles pueden usar el objeto de transporte o pagar al White-bearded Guru en D-Terminal.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>1. Forest of the Beginning</h4><p>Primer campo. Conecta Marine Dragon Domain después de “Rescue and Bait - 1” con Taichi.</p></article>
+          <article class="map-card"><h4>2. Forest of Marionette</h4><p>Se desbloquea tras “To forest, to deeper forest” con Sora. Conecta Front Yard of Marionette Mansion.</p></article>
+          <article class="map-card"><h4>3. Metal Empire</h4><p>Continúa después de “To the Next Goal” con Taichi y cubre la campaña de Machinedramon.</p></article>
+          <article class="map-card"><h4>4. Underground City</h4><p>Se desbloquea tras “Once Again”. Conecta Back of the Empire Dungeon después de “Numemon Rescue Operation - 5”.</p></article>
+          <article class="map-card"><h4>5. The Top of a Nightmare</h4><p>Zona de la campaña de Piedmon. Conecta Stage of Clown después de “Last Hope - 3”.</p></article>
+          <article class="map-card"><h4>6. Void Space</h4><p>Se desbloquea con “In the Back of the Darkness”. La mazmorra Void Space aparece después de “Unfinished Fight”.</p></article>
+          <article class="map-card"><h4>7. Lake of Beginning</h4><p>Área final de la secuencia, alcanzada mediante “Back to Own Places - 1” con Taichi.</p></article>
+          <article class="map-card"><h4>Objetivos principales</h4><ul><li>Completar la campaña de los Dark Masters.</li><li>Farmear materiales del Spiral Key Ring.</li><li>Obtener chips y atributos R15 de la región.</li><li>Superar las mazmorras de cada Dark Master.</li></ul></article>
+        </div>
+      `,
+      "block.mapas.dreaper": `
+        <div class="map-guide-header"><span class="map-endgame-badge">Endgame del servidor</span><h3>Shinjuku — The D-Reaper</h3><p>Campaña final de Tamers, con campos dominados por ADRs y progresión del D-Ark.</p></div>
+        <div class="notice"><b>Cómo iniciar:</b> completa la historia principal de Shinjuku y acepta la continuación hacia West Shinjuku (D-Reaper). La cadena desbloquea Office, East Shinjuku, Safe Area y Shinjuku Park.</div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>West Shinjuku (D-Reaper)</h4><p>Primer campo. ADR-02 a ADR-05 aparecen aproximadamente entre los niveles 121–125; ADR-06, ADR-07 y ADR-08 son raids de campo entre 127–129.</p></article>
+          <article class="map-card"><h4>Office</h4><p>Centro de investigación que conecta Shinjuku Station y Shinjuku Park (D-Reaper) mediante Yamaki Mitsuo.</p></article>
+          <article class="map-card"><h4>East Shinjuku (D-Reaper)</h4><p>Se desbloquea con la misión de Yamaki sobre los Digimon desaparecidos. Los ADR comunes están aproximadamente entre 131–135 y los raids entre 137–139.</p></article>
+          <article class="map-card"><h4>Safe Area</h4><p>Se desbloquea durante “Tamers, assemble!”. Es el acceso a D-Reaper Area con Takato.</p></article>
+          <article class="map-card"><h4>Shinjuku Park</h4><p>Campo final desbloqueado después de D-Reaper Area. Es diferente de la mazmorra Shinjuku Park (D-Reaper), accesible desde Office.</p></article>
+          <article class="map-card"><h4>Farmeo y progresión</h4><ul><li>Reinforced Memory Card: misiones diarias.</li><li>D-Reaper Data, True Data y Enrichment Data: ADR-06/07/08.</li><li>Matrix Energy: Shinjuku Station y Shinjuku Park.</li><li>Safe Energy: D-Reaper Area.</li></ul><p>Estos materiales participan en la progresión del D-Ark Limited Edition.</p></article>
+        </div>
+      `,
+      "block.mapas.extras": `
+        <div class="map-guide-header"><h3>Zonas complementarias</h3><p>Áreas permanentes fuera de la ruta lineal principal que ofrecen misiones, farmeo o desafíos propios.</p></div>
+        <div class="map-card-grid">
+          <article class="map-card"><h4>Xros Wars</h4><ul><li>Green Zone</li><li>Green Zone Advanced</li><li>Miso Village</li></ul><p>Progresión regional vinculada a los Digimon y sistemas de Xros Wars.</p></article>
+          <article class="map-card"><h4>Shadow Labyrinth</h4><ul><li>Shadow Labyrinth</li><li>Shadow Labyrinth Hard</li></ul><p>Contenido independiente con su propio flujo de entrada.</p></article>
+          <article class="map-card"><h4>Invocación y desafíos</h4><p>D-Terminal Underground Summon Square, Colosseum Stadium y Digimon Attribute Arena son zonas de actividad, no campos normales de campaña.</p></article>
+          <article class="map-card"><h4>No incluidos</h4><p>Mapas temporales de eventos, áreas eliminadas, zonas de GM y regiones posteriores a The D-Reaper y Spiral Mountain están fuera del alcance actual.</p></article>
+        </div>
+      `,
       "sistemas.h2": "Sistemas",
       "sistemas.p": "Consulta los sistemas exclusivos y las principales funciones de progresión de Digital Galaxy.",
       "sistemas.btn.estrelas": "Sistema de Estrellas",
@@ -6451,6 +6884,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   // ====== UI helpers ======
   let openDungeonId = null;
   let heroTemplate = "";
+  let openMapaId = null;
+  let mapaHeroTemplate = "";
   let openNovatoId = null;
   let novatoHeroTemplate = "";
   let openEventoId = null;
@@ -6557,6 +6992,26 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     hydrateTranslatedHtml(target, currentLanguage);
     content.innerHTML = target.innerHTML;
     openDungeonId = id;
+    applyTranslations(currentLanguage);
+  }
+
+  function resetMapaView(){
+    const content = document.getElementById('map-content');
+    if (!content) return;
+    content.innerHTML = mapaHeroTemplate;
+    openMapaId = null;
+    applyTranslations(currentLanguage);
+  }
+
+  function toggleMapa(id){
+    const content = document.getElementById('map-content');
+    if (!content) return;
+    if (openMapaId === id) { resetMapaView(); return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    hydrateTranslatedHtml(target, currentLanguage);
+    content.innerHTML = target.innerHTML;
+    openMapaId = id;
     applyTranslations(currentLanguage);
   }
 
@@ -6707,6 +7162,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
   const SEARCH_HANDLER_SECTIONS = {
     toggleDungeonInfo: 'dungeons',
+    toggleMapa: 'mapas',
     toggleNovato: 'novato',
     toggleEvento: 'eventos',
     toggleSistema: 'sistemas',
@@ -6743,8 +7199,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     if (isMainSection) {
       clone.querySelectorAll(
-        '.nav, .novice-block, .digimon-info, .event-block, .system-block, .npc-block, ' +
-        '#dungeon-content, #novice-content, #event-content, #system-content, #npc-content'
+        '.nav, .novice-block, .digimon-info, .map-block, .event-block, .system-block, .npc-block, ' +
+        '#dungeon-content, #map-content, #novice-content, #event-content, #system-content, #npc-content'
       )
         .forEach(element => element.remove());
     }
@@ -6780,7 +7236,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       let sectionId = '';
       let externalUrl = '';
 
-      const match = command.match(/^(showSection|toggleDungeonInfo|toggleNovato|toggleEvento|toggleSistema|toggleNpc)\(['"]([^'"]+)['"]\)/);
+      const match = command.match(/^(showSection|toggleDungeonInfo|toggleMapa|toggleNovato|toggleEvento|toggleSistema|toggleNpc)\(['"]([^'"]+)['"]\)/);
       if (match) {
         handler = match[1];
         targetId = match[2];
@@ -6963,6 +7419,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     } else {
       showSection(entry.sectionId);
       if (entry.handler === 'toggleDungeonInfo') toggleDungeonInfo(entry.targetId);
+      if (entry.handler === 'toggleMapa') toggleMapa(entry.targetId);
       if (entry.handler === 'toggleNovato') toggleNovato(entry.targetId);
       if (entry.handler === 'toggleEvento') toggleEvento(entry.targetId);
       if (entry.handler === 'toggleSistema') toggleSistema(entry.targetId);
@@ -7317,6 +7774,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     if (target) {
       target.classList.add('active');
       if (id === 'dungeons') { resetDungeonView(); firePortal(); }
+      if (id === 'mapas') resetMapaView();
       if (id === 'novato') { resetNovatoView(); resetarMascoteNovato(); }
       if (id === 'eventos') resetEventView();
       if (id === 'sistemas') resetSistemaView();
@@ -7341,6 +7799,9 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     const heroEl = document.getElementById('dungeon-hero');
     if (heroEl) heroTemplate = heroEl.outerHTML;
+
+    const mapHero = document.getElementById('map-hero');
+    if (mapHero) mapaHeroTemplate = mapHero.outerHTML;
 
     const novHero = document.getElementById('novato-hero');
     if (novHero) novatoHeroTemplate = novHero.outerHTML;
