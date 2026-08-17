@@ -531,6 +531,114 @@
       letter-spacing:.04em;
     }
 
+    #guias-missoes .mission-layout{
+      display:grid;
+      grid-template-columns:260px minmax(0,1fr);
+      gap:20px;
+      align-items:start;
+      margin-top:10px;
+    }
+    #guias-missoes .mission-nav{ display:flex; flex-direction:column; gap:10px; }
+    #guias-missoes .mission-nav button{ width:100%; text-align:left; }
+    #mission-content{
+      min-width:0;
+      min-height:460px;
+      padding:18px;
+      border:1px solid var(--cor-destaque-secundaria);
+      border-radius:12px;
+      background-color:var(--cor-fundo-secao);
+      box-shadow:0 0 22px rgba(0,229,255,.12) inset;
+    }
+    #guias-missoes .mission-block{ display:none; }
+    .mission-hero{
+      display:grid;
+      place-items:center;
+      min-height:420px;
+      padding:34px;
+      text-align:center;
+      border-radius:10px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255,196,0,.13), transparent 42%),
+        linear-gradient(145deg, rgba(8,25,52,.92), rgba(4,13,29,.96));
+    }
+    .mission-hero-mark{
+      display:grid;
+      place-items:center;
+      width:92px;
+      height:92px;
+      margin:0 auto 18px;
+      border:1px solid rgba(255,196,0,.7);
+      border-radius:24px;
+      color:#ffe27a;
+      font-size:42px;
+      box-shadow:0 0 28px rgba(0,229,255,.22), 0 0 0 8px rgba(0,229,255,.05);
+    }
+    .quest-guide-header{
+      margin-bottom:18px;
+      padding:18px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:10px;
+      background:linear-gradient(135deg, rgba(0,229,255,.09), rgba(255,196,0,.05));
+    }
+    .quest-guide-header h3{ margin-top:0; }
+    .quest-route{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:8px;
+      margin:14px 0 20px;
+    }
+    .quest-route span{
+      padding:7px 10px;
+      border:1px solid rgba(0,229,255,.34);
+      border-radius:999px;
+      background:rgba(0,0,0,.18);
+    }
+    .quest-route b{ color:#ffe27a; }
+    .quest-step-list{ display:grid; gap:10px; margin:14px 0 22px; }
+    .quest-step{
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr);
+      gap:11px;
+      align-items:start;
+      padding:13px 14px;
+      border:1px solid rgba(0,229,255,.22);
+      border-radius:10px;
+      background:rgba(0,0,0,.17);
+      cursor:pointer;
+    }
+    .quest-step:hover{ border-color:rgba(0,229,255,.48); }
+    .quest-step input{
+      width:18px;
+      height:18px;
+      margin-top:2px;
+      accent-color:var(--cor-destaque-primaria);
+    }
+    .quest-step.is-complete{ opacity:.68; border-color:rgba(103,218,147,.42); }
+    .quest-step.is-complete .quest-step-title{ text-decoration:line-through; }
+    .quest-step-title{ display:block; color:#ffe27a; font-weight:800; }
+    .quest-step small{ display:block; margin-top:4px; color:rgba(234,242,255,.82); line-height:1.45; }
+    .quest-unlock{
+      padding:12px 14px;
+      border-left:4px solid var(--cor-destaque-primaria);
+      border-radius:7px;
+      background:rgba(255,196,0,.08);
+    }
+    .quest-type-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:14px 0 22px;
+    }
+    .quest-type-card{
+      padding:13px;
+      border:1px solid rgba(0,229,255,.22);
+      border-radius:9px;
+      background:rgba(0,0,0,.17);
+    }
+    .quest-type-card strong{ color:#ffe27a; }
+    .quest-check-note{ color:rgba(234,242,255,.78); font-size:.86rem; }
+
     #novato .novice-layout{
       display: grid;
       grid-template-columns: 260px 1fr;
@@ -1534,6 +1642,9 @@
       #map-content{ min-height:360px; }
       .map-card-grid{ grid-template-columns:1fr; }
       .map-card-wide{ grid-column:auto; }
+      #guias-missoes .mission-layout{ grid-template-columns:1fr; }
+      #mission-content{ min-height:360px; }
+      .quest-type-grid{ grid-template-columns:1fr; }
       #novato .novice-layout{ grid-template-columns: 1fr; }
       #novice-content{ min-height: 320px; }
       #eventos .event-layout{ grid-template-columns: 1fr; }
@@ -2048,13 +2159,46 @@
       <p><a href="https://www.digimongalaxy.com/pages/Digimons/digimons/" target="_self" rel="noopener" data-i18n="digimons.open">Abrir página de Digimons</a></p>
     </div>
 
-    <!-- ===== GUIAS DE MISSÕES (antigo Rebalance) ===== -->
+    <!-- ===== GUIAS DE MISSÕES ===== -->
     <div id="guias-missoes" class="section">
       <h2 data-i18n="guias_missoes.h2">Guias de Missões</h2>
-      <div class="event-hero">
-        <h3 data-i18n="guias_missoes.soon_title">Conteúdo em breve</h3>
-        <p class="notice"><strong data-i18n="guias_missoes.soon_text">O conteúdo será inserido em breve.</strong></p>
+      <p data-i18n="guias_missoes.intro">Acompanhe a progressão permanente do servidor, dos tutoriais até The D-Reaper.</p>
+      <div class="mission-layout">
+        <div class="nav mission-nav">
+          <button onclick="toggleMissao('missao-rota')" data-i18n="guias_missoes.btn.rota">Como usar o guia</button>
+          <button onclick="toggleMissao('missao-inicio')" data-i18n="guias_missoes.btn.inicio">Início, Western e Maze</button>
+          <button onclick="toggleMissao('missao-file-server')" data-i18n="guias_missoes.btn.file_server">File Island e Server</button>
+          <button onclick="toggleMissao('missao-odaiba')" data-i18n="guias_missoes.btn.odaiba">Odaiba</button>
+          <button onclick="toggleMissao('missao-shinjuku')" data-i18n="guias_missoes.btn.shinjuku">Shinjuku e Digital Area</button>
+          <button onclick="toggleMissao('missao-spiral')" data-i18n="guias_missoes.btn.spiral">Spiral Mountain</button>
+          <button onclick="toggleMissao('missao-dreaper')" data-i18n="guias_missoes.btn.dreaper">The D-Reaper</button>
+          <button onclick="toggleMissao('missao-versandi')" data-i18n="guias_missoes.btn.versandi">Versandi e conteúdo opcional</button>
+          <button onclick="toggleMissao('missao-evolucao')" data-i18n="guias_missoes.btn.evolucao">Evolução e Jogress</button>
+          <button onclick="toggleMissao('missao-recorrentes')" data-i18n="guias_missoes.btn.recorrentes">Diárias e semanais</button>
+          <button onclick="toggleMissao('missao-ajuda')" data-i18n="guias_missoes.btn.ajuda">A missão não aparece</button>
+        </div>
+        <div id="mission-content">
+          <div id="mission-hero" class="mission-hero">
+            <div>
+              <div class="mission-hero-mark" aria-hidden="true">!</div>
+              <h3 data-i18n="guias_missoes.hero_title">Rota de missões do Digital Galaxy</h3>
+              <p data-i18n="guias_missoes.hero_text">Escolha uma região para ver a ordem, os requisitos e o conteúdo liberado.</p>
+              <p class="quest-check-note" data-i18n="guias_missoes.hero_check">Marque as etapas concluídas. O progresso fica salvo neste navegador.</p>
+            </div>
+          </div>
+        </div>
       </div>
+      <div id="missao-rota" class="mission-block"><div data-i18n-html="block.missoes.rota"></div></div>
+      <div id="missao-inicio" class="mission-block"><div data-i18n-html="block.missoes.inicio"></div></div>
+      <div id="missao-file-server" class="mission-block"><div data-i18n-html="block.missoes.file_server"></div></div>
+      <div id="missao-odaiba" class="mission-block"><div data-i18n-html="block.missoes.odaiba"></div></div>
+      <div id="missao-shinjuku" class="mission-block"><div data-i18n-html="block.missoes.shinjuku"></div></div>
+      <div id="missao-spiral" class="mission-block"><div data-i18n-html="block.missoes.spiral"></div></div>
+      <div id="missao-dreaper" class="mission-block"><div data-i18n-html="block.missoes.dreaper"></div></div>
+      <div id="missao-versandi" class="mission-block"><div data-i18n-html="block.missoes.versandi"></div></div>
+      <div id="missao-evolucao" class="mission-block"><div data-i18n-html="block.missoes.evolucao"></div></div>
+      <div id="missao-recorrentes" class="mission-block"><div data-i18n-html="block.missoes.recorrentes"></div></div>
+      <div id="missao-ajuda" class="mission-block"><div data-i18n-html="block.missoes.ajuda"></div></div>
     </div>
 
     <!-- ===== DUNGEONS ===== -->
@@ -2458,8 +2602,107 @@
       "novato.tabs.buffs": "Troca de itens",
       "novato.tabs.passes": "Resgate automático de passes",
       "guias_missoes.h2": "Guias de Missões",
-      "guias_missoes.soon_title": "Conteúdo em breve",
-      "guias_missoes.soon_text": "O conteúdo será inserido em breve.",
+      "guias_missoes.intro": "Acompanhe a progressão permanente do servidor, dos tutoriais até The D-Reaper.",
+      "guias_missoes.btn.rota": "Como usar o guia",
+      "guias_missoes.btn.inicio": "Início, Western e Maze",
+      "guias_missoes.btn.file_server": "File Island e Server",
+      "guias_missoes.btn.odaiba": "Odaiba",
+      "guias_missoes.btn.shinjuku": "Shinjuku e Digital Area",
+      "guias_missoes.btn.spiral": "Spiral Mountain",
+      "guias_missoes.btn.dreaper": "The D-Reaper",
+      "guias_missoes.btn.versandi": "Versandi e conteúdo opcional",
+      "guias_missoes.btn.evolucao": "Evolução e Jogress",
+      "guias_missoes.btn.recorrentes": "Diárias e semanais",
+      "guias_missoes.btn.ajuda": "A missão não aparece",
+      "guias_missoes.hero_title": "Rota de missões do Digital Galaxy",
+      "guias_missoes.hero_text": "Escolha uma região para ver a ordem, os requisitos e o conteúdo liberado.",
+      "guias_missoes.hero_check": "Marque as etapas concluídas. O progresso fica salvo neste navegador.",
+      "block.missoes.rota": `
+        <div class="quest-guide-header"><h3>Como usar este guia</h3><p>Este roteiro cobre as <strong>cadeias permanentes</strong> disponíveis no servidor até <strong>Spiral Mountain e The D-Reaper</strong>. Objetivos repetidos de derrotar, coletar ou conversar foram agrupados para que a ordem continue clara.</p><p class="notice">O nome de uma quest pode mudar conforme a tradução do cliente. Confirme o NPC, a região e a missão anterior quando o texto não for idêntico.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Roxa — Principal</strong><p>Avança a história e normalmente libera o próximo mapa.</p></div><div class="quest-type-card"><strong>Amarela — Subquest</strong><p>Entrega experiência, itens ou libera sistemas e dungeons.</p></div><div class="quest-type-card"><strong>Azul — Diária/Repetível</strong><p>Passes, materiais e recompensas recorrentes.</p></div><div class="quest-type-card"><strong>Semanal</strong><p>Reinicia no ciclo semanal e pode exigir o dia correspondente.</p></div></div>
+        <h4>Rota principal recomendada</h4><div class="quest-route"><span>DATS/Tutorial</span><b>›</b><span>Western</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku</span><b>›</b><span>Spiral Mountain</span><b>›</b><span>The D-Reaper</span></div>
+        <div class="quest-unlock"><strong>Regra prática:</strong> conclua primeiro todas as exclamações roxas. Antes de sair do mapa, aceite as amarelas próximas; várias delas são pré-requisitos escondidos de dungeons, NPCs e evoluções.</div>`,
+      "block.missoes.inicio": `
+        <div class="quest-guide-header"><h3>Início, Western e Digimon Maze</h3><p>Esta etapa ensina os sistemas básicos, registra o Tamer na DATS e prepara a conta para File Island.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="tutorial-basics"><span><span class="quest-step-title">Conclua o tutorial do Digivice</span><small>Faça as tarefas de batalha, Scan & Return, incubação, reforço e conclusão do tutorial. Não pule os diálogos que abrem inventário, archive e evolução.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dats-agent"><span><span class="quest-step-title">Torne-se um agente da DATS</span><small>Siga a linha do Diretor Hashima e dos NPCs do DATS Center até a aprovação e a missão para ir ao Digital World.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="western-route"><span><span class="quest-step-title">Limpe a rota de Western</span><small>Complete Western Village, Western Area: East/West, Digimon Farm, Wind Valley e áreas seguintes. Priorize as quests roxas e faça as amarelas que aparecem no mesmo trajeto.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="glacier-dark-tower"><span><span class="quest-step-title">Avance por Glacier e Dark Tower</span><small>Conclua as cadeias das áreas geladas e da Dark Tower para liberar NPCs, experiência e a progressão de nível intermediário.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="digimon-maze"><span><span class="quest-step-title">Conclua Digimon Maze</span><small>Faça Entrance, B1, B2 e os andares seguintes na ordem. Algumas portas só avançam depois de entregar a missão do andar anterior.</small></span></label>
+        </div><div class="quest-unlock"><strong>Próximo passo:</strong> no nível de Tamer 30, procure Elecmon em Village of the Beginning para iniciar <em>Welcome to the File Island</em>.</div>`,
+      "block.missoes.file_server": `
+        <div class="quest-guide-header"><h3>File Island e Server Continent</h3><p>Aqui começa a cadeia que leva de Silver Lake até Infinite Mountain e depois ao continente do servidor.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="file-welcome"><span><span class="quest-step-title">Welcome to the File Island</span><small>Tamer 30+: aceite com Elecmon em Village of the Beginning e fale com Agumon em Silver Lake.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="file-route"><span><span class="quest-step-title">Silver Lake até File Island Waterfront</span><small>Siga as principais por Silver Lake, Silent Forest, Lost Historic Site e File Island Waterfront. A linha de Waterfront pede Digimon por volta do nível 74.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="infinite-mountain"><span><span class="quest-step-title">Peace of File Island e Final Battle</span><small>Conclua a história de Infinite Mountain, incluindo a progressão de Leomon e Devimon. Essas cadeias são necessárias para o acesso normal ao Server Continent.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="server-route"><span><span class="quest-step-title">Desert, Canyon e Pyramid</span><small>Tamer 64+: continue por Server Continent Desert e Canyon até Pyramid. Usar um transporte pago não substitui as missões que liberam a sequência.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="nanomon-chain"><span><span class="quest-step-title">Nanomon Maze e Final Battle with Etemon</span><small>Em Pyramid, faça a cadeia de Gazimon, Ogremon, Rapidmon, Cyberdramon, Monochromon e Volcamon; derrote Etemon, conclua Nanomon Maze Normal e finalize a batalha com Etemon.</small></span></label>
+        </div><div class="quest-unlock"><strong>Libera:</strong> Nanomon Maze Hero/Hard após as conversas finais com Gennai e a rota para Odaiba a partir de <em>Final Battle with Etemon</em>.</div>`,
+      "block.missoes.odaiba": `
+        <div class="quest-guide-header"><h3>Odaiba — retorno ao mundo real</h3><p>Faça esta campanha na ordem: Camp Site, Valley of Light, Shibuya, Tokyo Tower, Minato City, Odaiba e Big Sight.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="odaiba-entry"><span><span class="quest-step-title">White-bearded Guru Shows Up</span><small>Depois de <em>Final Battle with Etemon</em>, Tamer 75+: fale com Mimi. No Tamer 80+, conclua <em>To the Real World!</em> e vá ao Camp Site.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="camp-valley"><span><span class="quest-step-title">Camp Site e Valley of Light</span><small>Conclua a linha do acampamento e as missões dos raids Aquilamon e Mammothmon. <em>Time to Head Odaiba!</em> libera as diárias da região.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="shibuya-tower"><span><span class="quest-step-title">Shibuya e Tokyo Tower</span><small>Tamer 85+: siga o sinal, enfrente Raremon, Phantomon e Myotismon e conclua <em>To Tokyo Tower!</em>, <em>Behind the memorable Shibuya…</em> e <em>Head to Observatory</em>.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="skullmeramon-access"><span><span class="quest-step-title">Tokyo Tower Observatory</span><small>Finalize as principais do Observatory. Depois, Taichi passa a conceder diariamente os passes da dungeon SkullMeramon.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="minato-odaiba"><span><span class="quest-step-title">Minato City e Odaiba</span><small>Tamer 90+: aceite <em>Time to Go Back Home…</em> com Matt. Após <em>Witness</em>, continue em Odaiba e libere Rainbow Bridge.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="big-sight"><span><span class="quest-step-title">Big Sight e dungeons de Myotismon</span><small>Após <em>To Big Sight</em>, aceite com Sora a cadeia do sequestro. Complete Fuji TV Rooftop e Venomous Vortex para transformar os passes correspondentes em missões diárias.</small></span></label>
+        </div><div class="quest-unlock"><strong>Libera:</strong> SkullMeramon, Myotismon, VenomMyotismon, Rainbow Bridge e a continuação para Shinjuku.</div>`,
+      "block.missoes.shinjuku": `
+        <div class="quest-guide-header"><h3>Shinjuku e Digital Area</h3><p>Conclua todas as principais de Shinjuku Day/Night antes de iniciar a incursão no Digital World.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="shinjuku-day-night"><span><span class="quest-step-title">Shinjuku West/East, Day e Night</span><small>Siga as missões roxas entre as quatro versões do mapa, Stadium e Road. A missão <em>Worry</em> libera a entrada da dungeon Stadium Normal com PawnChessmon W.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="digital-status-report"><span><span class="quest-step-title">Status Report</span><small>Com o parceiro acima do nível 99 e a linha de Culumon concluída em Shinjuku Western Area (Night), aceite <em>Status Report</em> com PawnChessmon W.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="digital-world-one"><span><span class="quest-step-title">To Digital World - 1</span><small>Reporte a Richard Sampson no DATS Center, aceite a próxima missão e volte a PawnChessmon W para iniciar Digital Area.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="digital-area-chain"><span><span class="quest-step-title">Complete a campanha de Digital Area</span><small>Faça as principais em sequência e as diárias que entregam DATS Mission Reports. Guarde os relatórios para as trocas com PawnChessmon B.</small></span></label>
+        </div><div class="quest-unlock"><strong>Atenção:</strong> Spiral Mountain usa como pré-requisito a conclusão de <em>Crisis on Digital World</em>.</div>`,
+      "block.missoes.spiral": `
+        <div class="quest-guide-header"><h3>Spiral Mountain</h3><p>Tamer 90+ e <em>Crisis on Digital World</em> concluída. Esta é uma cadeia linear; não abandone uma missão de mudança de mapa.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-forest"><span><span class="quest-step-title">Forest of Beginning</span><small>Inicie a campanha e conclua até <em>Rescue and Bait - 1</em>, que abre Marine Dragon Domain.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-marine"><span><span class="quest-step-title">Marine Dragon Domain</span><small>Complete a linha de MetalSeadramon e continue até a missão de Sora <em>To forest, to deeper forest</em>.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-marionette"><span><span class="quest-step-title">Forest e Front Yard of Marionette Mansion</span><small>Avance pela floresta; <em>We can’t defeat! - 1</em> abre o pátio. Conclua a cadeia de Puppetmon.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-metal"><span><span class="quest-step-title">Metal Empire e Underground City</span><small><em>To the Next Goal</em> abre Metal Empire; <em>Once Again</em> abre Underground City; <em>Numemon Rescue Operation - 5</em> libera Back of Empire.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-nightmare"><span><span class="quest-step-title">Top of Nightmare e Stage of Clown</span><small>Aceite <em>Spiral Mountain</em> com Taichi. Depois de <em>Last Hope - 3</em>, avance para Stage of Clown e conclua Piedmon.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="spiral-void"><span><span class="quest-step-title">Void Space e Lake of Beginning</span><small><em>In the Back of the Darkness</em> abre Void Space; <em>Unfinished Fight</em> libera a dungeon; <em>Back to Own Places - 1</em> leva ao Lake of Beginning.</small></span></label>
+        </div><div class="quest-unlock"><strong>Conclusão:</strong> terminar todas as principais de Spiral Mountain concede o título <em>A New World</em> e prepara a progressão para The D-Reaper.</div>`,
+      "block.missoes.dreaper": `
+        <div class="quest-guide-header"><h3>The D-Reaper</h3><p>Conteúdo endgame atual do servidor. Termine primeiro toda a campanha regular de Shinjuku.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-after-break"><span><span class="quest-step-title">After the break</span><small>Após <em>Return Together</em> de Takato em Shinjuku Western Area (Night), aceite a missão do Digivice para entrar em West Shinjuku (D-Reaper).</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-office-station"><span><span class="quest-step-title">Office e Shinjuku Station</span><small><em>Separate investigation</em> de PawnChessmon W abre o Office. <em>Urgent! Lots of D-Reaper appeared!</em> libera a entrada de Shinjuku Station.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-park-east"><span><span class="quest-step-title">Shinjuku Park e East Shinjuku</span><small><em>Missing Takato</em> abre o Park; a missão de Yamaki <em>Digimons disappeared in Tokyo Metropolitan</em> conduz ao lado leste.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-safe-area"><span><span class="quest-step-title">Safe Area</span><small>Aceite <em>Tamers, assemble!</em> com Henry e conclua a reunião dos Tamers.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-final-area"><span><span class="quest-step-title">D-Reaper Area</span><small>Depois de <em>Tamers, assemble!</em>, fale com Takato, conclua <em>D-Reaper Area</em> e finalize as principais do conteúdo.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dreaper-dark-prototype"><span><span class="quest-step-title">D-Ark Prototype e pós-história</span><small>Após todas as principais, procure Richard Sampson para a subquest do D-Ark Prototype Lv1. Faça diárias para Reinforced Memory Cards e materiais dos ADR/dungeons.</small></span></label>
+        </div><div class="quest-unlock"><strong>Materiais importantes:</strong> D-Reaper Data vem dos ADR; Matrix Energy das dungeons Station/Park; Safe Energy da D-Reaper Area.</div>`,
+      "block.missoes.versandi": `
+        <div class="quest-guide-header"><h3>Versandi e linhas opcionais</h3><p>Versandi não bloqueia a história principal, mas libera conteúdo X-Antibody, Royal Base e várias evoluções endgame.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="versandi-entry"><span><span class="quest-step-title">Inicie Versandi com Richard Sampson</span><small>Use um Digimon 99+ e siga a cadeia de investigação X-Antibody a partir do DATS Center.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="versandi-all-quests"><span><span class="quest-step-title">Complete roxas, amarelas e missões ocultas</span><small>A região possui muitas subquests. Se a linha parar, derrote inimigos próximos, verifique itens de missão no inventário e retorne aos NPCs anteriores.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="versandi-royal-base"><span><span class="quest-step-title">Libere Royal Base</span><small>Conclua a investigação de Dexmon e os requisitos da área. Consulte a aba Dungeons antes de entrar.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="optional-beasts"><span><span class="quest-step-title">Bestas Sagradas e Fanglongmon</span><small>Faça as quests de passe e acesso em D-Terminal/DATS. As rotas Easy/Normal e Hard podem usar NPCs diferentes.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="optional-shadow"><span><span class="quest-step-title">Shadow Labyrinth e Gankoomon</span><small>São linhas opcionais, úteis para materiais, evolução e recompensas semanais. Confirme os dias e tickets no NPC correspondente.</small></span></label>
+        </div><div class="quest-unlock"><strong>Eventos temporários:</strong> não entram nesta rota permanente. Consulte a aba Eventos para quests que podem desaparecer ou mudar.</div>`,
+      "block.missoes.evolucao": `
+        <div class="quest-guide-header"><h3>Missões de evolução e Jogress</h3><p>Essas linhas dependem do Digimon correto, nível, slot de evolução e, em alguns casos, da conclusão de Versandi ou de uma dungeon.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="evo-check-partner"><span><span class="quest-step-title">Confirme a linha evolutiva</span><small>Tenha o Digimon exigido, níveis de Tamer/Digimon e os espaços de evolução necessários. Alguns lados do Jogress precisam completar quests separadas.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="evo-calumon"><span><span class="quest-step-title">Verifique Calumon e o NPC da evolução</span><small>Omegamon, Alphamon Ouryuken, Examon, Fanglongmon, Silphymon, Millenniummon e outras Jogress começam em NPCs específicos. A disponibilidade pode variar no DGO.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="evo-both-sides"><span><span class="quest-step-title">Conclua os dois lados quando solicitado</span><small>Faça combate, coleta e dungeons na ordem e não descarte itens de quest. Depois, equipe ou abra o item evolutivo indicado.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="evo-x-antibody"><span><span class="quest-step-title">Linhas X-Antibody</span><small>Gankoomon, Alphamon Ouryuken X e Omegamon X podem exigir Digimon/Tamer 99+, Versandi, Dexmon, Royal Base e vários dias de missões.</small></span></label>
+        </div><div class="quest-unlock"><strong>Quando não iniciar:</strong> retire o Digimon do Archive, coloque-o como parceiro, confirme o lado correto da linha e converse novamente com Calumon/NPC inicial.</div>`,
+      "block.missoes.recorrentes": `
+        <div class="quest-guide-header"><h3>Diárias e semanais que valem acompanhar</h3><p>Priorize as missões que entregam acesso, evolução ou moeda. As recompensas podem ser ajustadas pelo servidor.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Passes automáticos</strong><p>Use Ticket Admission para os passes Easy/Normal e de evento compatíveis.</p></div><div class="quest-type-card"><strong>Passes Hard</strong><p>Resgate nos NPCs responsáveis, como o Diretor Hashima, ou no NPC específico da dungeon.</p></div><div class="quest-type-card"><strong>DATS Mission Reports</strong><p>Diárias de Digital Area; troque com PawnChessmon B.</p></div><div class="quest-type-card"><strong>D-Reaper</strong><p>Memory Cards, dados ADR e energias das dungeons/endgame.</p></div><div class="quest-type-card"><strong>Bestas e Fanglongmon</strong><p>Passes diários e materiais de craft; veja cada dungeon para o NPC atual.</p></div><div class="quest-type-card"><strong>Gankoomon</strong><p>Quest semanal e ticket obtido no próprio NPC.</p></div></div>
+        <div class="quest-unlock"><strong>Rotina curta:</strong> recolha Ticket Admission, passes Hard, missão semanal de Gankoomon e somente as diárias da região em que você está evoluindo. Isso evita lotar o rastreador com tarefas sem prioridade.</div>`,
+      "block.missoes.ajuda": `
+        <div class="quest-guide-header"><h3>A missão não apareceu?</h3><p>Verifique estes pontos na ordem. Quase todos os bloqueios vêm de um pré-requisito, nível ou NPC/mapa incorreto.</p></div>
+        <ol><li><strong>Entregue a missão anterior:</strong> concluir o objetivo não basta; volte ao NPC.</li><li><strong>Confira Tamer e Digimon:</strong> algumas linhas verificam os dois níveis e o parceiro ativo.</li><li><strong>Procure roxas e amarelas:</strong> uma subquest aparentemente opcional pode liberar o próximo NPC.</li><li><strong>Troque Day/Night ou canal:</strong> Shinjuku e alguns raids usam versões específicas do mapa.</li><li><strong>Olhe o inventário:</strong> use, abra ou entregue itens de quest; confirme espaço livre.</li><li><strong>Revise Archive e evolução:</strong> missões de Digimon exigem a espécie e o lado correto como parceiro.</li><li><strong>Cheque o reset:</strong> diárias e semanais só reaparecem depois da renovação do servidor.</li><li><strong>Considere a versão do DGO:</strong> nomes, recompensas e disponibilidade podem diferir do DMO global.</li></ol>
+        <p class="notice"><strong>Ainda travado?</strong> anote o nome exato da última missão concluída, o NPC, o mapa, nível do Tamer e do Digimon. Essas cinco informações identificam o pré-requisito ausente com muito mais precisão.</p>`,
       "alt.logo": "Logo Digital Galaxy",
       "alt.novato_banner": "Guia do Novato",
       "alt.gallantx": "Gallantmon X",
@@ -3899,8 +4142,82 @@
       "novato.tabs.buffs": "Item exchange",
       "novato.tabs.passes": "Automatic redemption of passes",
       "guias_missoes.h2": "Quest Guides",
-      "guias_missoes.soon_title": "Content coming soon",
-      "guias_missoes.soon_text": "The content will be inserted soon.",
+      "guias_missoes.intro": "Follow the server's permanent progression, from the tutorials through The D-Reaper.",
+      "guias_missoes.btn.rota": "How to use this guide",
+      "guias_missoes.btn.inicio": "Beginning, Western and Maze",
+      "guias_missoes.btn.file_server": "File Island and Server",
+      "guias_missoes.btn.odaiba": "Odaiba",
+      "guias_missoes.btn.shinjuku": "Shinjuku and Digital Area",
+      "guias_missoes.btn.spiral": "Spiral Mountain",
+      "guias_missoes.btn.dreaper": "The D-Reaper",
+      "guias_missoes.btn.versandi": "Versandi and optional content",
+      "guias_missoes.btn.evolucao": "Evolution and Jogress",
+      "guias_missoes.btn.recorrentes": "Daily and weekly quests",
+      "guias_missoes.btn.ajuda": "The quest does not appear",
+      "guias_missoes.hero_title": "Digital Galaxy quest route",
+      "guias_missoes.hero_text": "Choose a region to see its order, requirements, and unlocks.",
+      "guias_missoes.hero_check": "Mark completed steps. Progress is saved in this browser.",
+      "block.missoes.rota": `
+        <div class="quest-guide-header"><h3>How to use this guide</h3><p>This route covers the <strong>permanent quest chains</strong> available on the server through <strong>Spiral Mountain and The D-Reaper</strong>. Repeated defeat, collection, and dialogue objectives are grouped so the progression stays clear.</p><p class="notice">Quest names may change with the client translation. Check the NPC, region, and previous quest when the wording is not identical.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Purple — Main</strong><p>Advances the story and usually unlocks the next map.</p></div><div class="quest-type-card"><strong>Yellow — Subquest</strong><p>Provides XP, items, or unlocks systems and dungeons.</p></div><div class="quest-type-card"><strong>Blue — Daily/Repeatable</strong><p>Passes, materials, and recurring rewards.</p></div><div class="quest-type-card"><strong>Weekly</strong><p>Resets on the weekly cycle and may require its matching day.</p></div></div>
+        <h4>Recommended main route</h4><div class="quest-route"><span>DATS/Tutorial</span><b>›</b><span>Western</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku</span><b>›</b><span>Spiral Mountain</span><b>›</b><span>The D-Reaper</span></div>
+        <div class="quest-unlock"><strong>Rule of thumb:</strong> finish every purple exclamation mark first. Before leaving a map, accept nearby yellow quests; several are hidden prerequisites for dungeons, NPCs, and evolutions.</div>`,
+      "block.missoes.inicio": `
+        <div class="quest-guide-header"><h3>Beginning, Western and Digimon Maze</h3><p>This stage teaches the core systems, registers the Tamer with DATS, and prepares the account for File Island.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="tutorial-basics"><span><span class="quest-step-title">Complete the Digivice tutorial</span><small>Finish battle, Scan & Return, hatching, reinforcement, and tutorial completion tasks. Do not skip dialogue that unlocks inventory, Archive, and evolution.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="dats-agent"><span><span class="quest-step-title">Become a DATS Agent</span><small>Follow Director Hashima and the DATS Center NPCs through approval and the quest that sends you to the Digital World.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="western-route"><span><span class="quest-step-title">Clear the Western route</span><small>Complete Western Village, Western Area: East/West, Digimon Farm, Wind Valley, and the following areas. Prioritize purple quests and nearby yellow ones.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="glacier-dark-tower"><span><span class="quest-step-title">Advance through Glacier and Dark Tower</span><small>Complete the frozen-area and Dark Tower chains to unlock NPCs, experience, and mid-level progression.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="digimon-maze"><span><span class="quest-step-title">Complete Digimon Maze</span><small>Clear Entrance, B1, B2, and later floors in order. Some doors only progress after turning in the previous floor's quest.</small></span></label>
+        </div><div class="quest-unlock"><strong>Next step:</strong> at Tamer level 30, find Elecmon in Village of the Beginning to start <em>Welcome to the File Island</em>.</div>`,
+      "block.missoes.file_server": `
+        <div class="quest-guide-header"><h3>File Island and Server Continent</h3><p>This chain goes from Silver Lake to Infinite Mountain and then to Server Continent.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="file-welcome"><span><span class="quest-step-title">Welcome to the File Island</span><small>Tamer 30+: accept it from Elecmon in Village of the Beginning and speak with Agumon in Silver Lake.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="file-route"><span><span class="quest-step-title">Silver Lake to File Island Waterfront</span><small>Follow the main quests through Silver Lake, Silent Forest, Lost Historic Site, and Waterfront. The Waterfront line requires a Digimon around level 74.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="infinite-mountain"><span><span class="quest-step-title">Peace of File Island and Final Battle</span><small>Complete Infinite Mountain's story, including the Leomon and Devimon progression. These chains are required for normal Server Continent access.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="server-route"><span><span class="quest-step-title">Desert, Canyon, and Pyramid</span><small>Tamer 64+: continue through Server Continent Desert and Canyon to Pyramid. Paid transport does not replace the missions that unlock the continuing chain.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="nanomon-chain"><span><span class="quest-step-title">Nanomon Maze and Final Battle with Etemon</span><small>In Pyramid, clear the Gazimon, Ogremon, Rapidmon, Cyberdramon, Monochromon, and Volcamon chain; defeat Etemon, finish Nanomon Maze Normal, and complete the final Etemon battle.</small></span></label>
+        </div><div class="quest-unlock"><strong>Unlocks:</strong> Nanomon Maze Hero/Hard after the final Gennai dialogues and the Odaiba route after <em>Final Battle with Etemon</em>.</div>`,
+      "block.missoes.odaiba": `
+        <div class="quest-guide-header"><h3>Odaiba — return to the real world</h3><p>Complete this campaign in order: Camp Site, Valley of Light, Shibuya, Tokyo Tower, Minato City, Odaiba, and Big Sight.</p></div>
+        <div class="quest-step-list">
+          <label class="quest-step"><input type="checkbox" data-quest-check="odaiba-entry"><span><span class="quest-step-title">White-bearded Guru Shows Up</span><small>After <em>Final Battle with Etemon</em>, Tamer 75+: speak with Mimi. At Tamer 80+, complete <em>To the Real World!</em> and enter Camp Site.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="camp-valley"><span><span class="quest-step-title">Camp Site and Valley of Light</span><small>Finish the camp chain and Aquilamon/Mammothmon raid quests. <em>Time to Head Odaiba!</em> unlocks the region's dailies.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="shibuya-tower"><span><span class="quest-step-title">Shibuya and Tokyo Tower</span><small>Tamer 85+: follow the signal, face Raremon, Phantomon, and Myotismon, then finish <em>To Tokyo Tower!</em>, <em>Behind the memorable Shibuya…</em>, and <em>Head to Observatory</em>.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="skullmeramon-access"><span><span class="quest-step-title">Tokyo Tower Observatory</span><small>Finish the Observatory main quests. Taichi then provides the daily SkullMeramon dungeon passes.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="minato-odaiba"><span><span class="quest-step-title">Minato City and Odaiba</span><small>Tamer 90+: accept <em>Time to Go Back Home…</em> from Matt. After <em>Witness</em>, continue into Odaiba and unlock Rainbow Bridge.</small></span></label>
+          <label class="quest-step"><input type="checkbox" data-quest-check="big-sight"><span><span class="quest-step-title">Big Sight and Myotismon dungeons</span><small>After <em>To Big Sight</em>, accept Sora's kidnapping chain. Complete Fuji TV Rooftop and Venomous Vortex so their admission quests become daily.</small></span></label>
+        </div><div class="quest-unlock"><strong>Unlocks:</strong> SkullMeramon, Myotismon, VenomMyotismon, Rainbow Bridge, and the continuation into Shinjuku.</div>`,
+      "block.missoes.shinjuku": `
+        <div class="quest-guide-header"><h3>Shinjuku and Digital Area</h3><p>Finish every Shinjuku Day/Night main quest before starting the Digital World incursion.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="shinjuku-day-night"><span><span class="quest-step-title">Shinjuku West/East, Day and Night</span><small>Follow purple quests across all four map versions, Stadium, and Road. <em>Worry</em> unlocks Stadium Normal through PawnChessmon W.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-status-report"><span><span class="quest-step-title">Status Report</span><small>With a partner above level 99 and Culumon's Shinjuku Western Area (Night) chain complete, accept <em>Status Report</em> from PawnChessmon W.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-world-one"><span><span class="quest-step-title">To Digital World - 1</span><small>Report to Richard Sampson in DATS Center, accept the next quest, and return to PawnChessmon W to begin Digital Area.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-area-chain"><span><span class="quest-step-title">Complete the Digital Area campaign</span><small>Clear the main chain and the dailies that award DATS Mission Reports. Save them for PawnChessmon B exchanges.</small></span></label></div>
+        <div class="quest-unlock"><strong>Important:</strong> Spiral Mountain requires <em>Crisis on Digital World</em> to be complete.</div>`,
+      "block.missoes.spiral": `
+        <div class="quest-guide-header"><h3>Spiral Mountain</h3><p>Tamer 90+ with <em>Crisis on Digital World</em> complete. This chain is linear; do not abandon a map-transition quest.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="spiral-forest"><span><span class="quest-step-title">Forest of Beginning</span><small>Begin the campaign and complete <em>Rescue and Bait - 1</em> to open Marine Dragon Domain.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-marine"><span><span class="quest-step-title">Marine Dragon Domain</span><small>Complete the MetalSeadramon chain and continue to Sora's <em>To forest, to deeper forest</em>.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-marionette"><span><span class="quest-step-title">Forest and Front Yard of Marionette Mansion</span><small><em>We can’t defeat! - 1</em> opens the yard. Finish the Puppetmon chain.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-metal"><span><span class="quest-step-title">Metal Empire and Underground City</span><small><em>To the Next Goal</em> opens Metal Empire; <em>Once Again</em> opens Underground City; <em>Numemon Rescue Operation - 5</em> unlocks Back of Empire.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-nightmare"><span><span class="quest-step-title">Top of Nightmare and Stage of Clown</span><small>Accept <em>Spiral Mountain</em> from Taichi. After <em>Last Hope - 3</em>, enter Stage of Clown and finish Piedmon.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-void"><span><span class="quest-step-title">Void Space and Lake of Beginning</span><small><em>In the Back of the Darkness</em> opens Void Space; <em>Unfinished Fight</em> unlocks its dungeon; <em>Back to Own Places - 1</em> leads to Lake of Beginning.</small></span></label></div>
+        <div class="quest-unlock"><strong>Completion:</strong> all Spiral Mountain main quests award the <em>A New World</em> title and prepare the D-Reaper progression.</div>`,
+      "block.missoes.dreaper": `
+        <div class="quest-guide-header"><h3>The D-Reaper</h3><p>The server's current endgame content. Finish the regular Shinjuku campaign first.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-after-break"><span><span class="quest-step-title">After the break</span><small>After Takato's <em>Return Together</em> in Shinjuku Western Area (Night), accept the Digivice quest to enter West Shinjuku (D-Reaper).</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-office-station"><span><span class="quest-step-title">Office and Shinjuku Station</span><small>PawnChessmon W's <em>Separate investigation</em> opens Office. <em>Urgent! Lots of D-Reaper appeared!</em> unlocks Shinjuku Station.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-park-east"><span><span class="quest-step-title">Shinjuku Park and East Shinjuku</span><small><em>Missing Takato</em> opens the Park; Yamaki's <em>Digimons disappeared in Tokyo Metropolitan</em> leads east.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-safe-area"><span><span class="quest-step-title">Safe Area</span><small>Accept Henry's <em>Tamers, assemble!</em> and complete the Tamer meeting.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-final-area"><span><span class="quest-step-title">D-Reaper Area</span><small>After <em>Tamers, assemble!</em>, speak with Takato, complete <em>D-Reaper Area</em>, and finish the current main chain.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-dark-prototype"><span><span class="quest-step-title">D-Ark Prototype and post-story</span><small>After every main quest, find Richard Sampson for the D-Ark Prototype Lv1 subquest. Run dailies for Reinforced Memory Cards and ADR/dungeon materials.</small></span></label></div>
+        <div class="quest-unlock"><strong>Key materials:</strong> D-Reaper Data comes from ADRs; Matrix Energy from Station/Park dungeons; Safe Energy from D-Reaper Area.</div>`,
+      "block.missoes.versandi": `
+        <div class="quest-guide-header"><h3>Versandi and optional chains</h3><p>Versandi does not block the main story, but it unlocks X-Antibody content, Royal Base, and several endgame evolutions.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="versandi-entry"><span><span class="quest-step-title">Start Versandi with Richard Sampson</span><small>Use a level 99+ Digimon and follow the X-Antibody investigation from DATS Center.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="versandi-all-quests"><span><span class="quest-step-title">Clear purple, yellow, and hidden quests</span><small>If the chain stops, defeat nearby enemies, check quest items in your inventory, and revisit earlier NPCs.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="versandi-royal-base"><span><span class="quest-step-title">Unlock Royal Base</span><small>Complete the Dexmon investigation and area requirements. Check the Dungeons tab before entering.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="optional-beasts"><span><span class="quest-step-title">Holy Beasts and Fanglongmon</span><small>Complete access/pass quests in D-Terminal/DATS. Easy/Normal and Hard routes may use different NPCs.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="optional-shadow"><span><span class="quest-step-title">Shadow Labyrinth and Gankoomon</span><small>Optional chains for materials, evolution, and weekly rewards. Check the day and ticket with the matching NPC.</small></span></label></div>
+        <div class="quest-unlock"><strong>Temporary events:</strong> they are not part of this permanent route. See Events for quests that may change or disappear.</div>`,
+      "block.missoes.evolucao": `
+        <div class="quest-guide-header"><h3>Evolution and Jogress quests</h3><p>These chains require the correct Digimon, levels, evolution slot, and sometimes Versandi or dungeon completion.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="evo-check-partner"><span><span class="quest-step-title">Check the evolution line</span><small>Have the required Digimon, Tamer/Digimon levels, and open evolution slots. Some Jogress sides have separate quest chains.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-calumon"><span><span class="quest-step-title">Check Calumon and the evolution NPC</span><small>Omegamon, Alphamon Ouryuken, Examon, Fanglongmon, Silphymon, Millenniummon, and other Jogress lines begin at specific NPCs. DGO availability may vary.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-both-sides"><span><span class="quest-step-title">Complete both sides when required</span><small>Do combat, collection, and dungeon steps in order and keep quest items. Equip or open the stated evolution item afterward.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-x-antibody"><span><span class="quest-step-title">X-Antibody lines</span><small>Gankoomon, Alphamon Ouryuken X, and Omegamon X may require Tamer/Digimon 99+, Versandi, Dexmon, Royal Base, and multiple quest days.</small></span></label></div>
+        <div class="quest-unlock"><strong>If it will not start:</strong> remove the Digimon from Archive, set it as partner, verify the correct side, and speak to Calumon/the starting NPC again.</div>`,
+      "block.missoes.recorrentes": `
+        <div class="quest-guide-header"><h3>Daily and weekly priorities</h3><p>Prioritize quests that grant access, evolution, or currency. Server rewards may be adjusted.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Automatic passes</strong><p>Use Ticket Admission for supported Easy/Normal and event passes.</p></div><div class="quest-type-card"><strong>Hard passes</strong><p>Claim them from responsible NPCs such as Director Hashima or the dungeon NPC.</p></div><div class="quest-type-card"><strong>DATS Mission Reports</strong><p>Digital Area dailies; exchange with PawnChessmon B.</p></div><div class="quest-type-card"><strong>D-Reaper</strong><p>Memory Cards, ADR data, and endgame dungeon energies.</p></div><div class="quest-type-card"><strong>Beasts and Fanglongmon</strong><p>Daily passes and craft materials; check each dungeon for the current NPC.</p></div><div class="quest-type-card"><strong>Gankoomon</strong><p>Weekly quest and ticket obtained from Gankoomon.</p></div></div>
+        <div class="quest-unlock"><strong>Short routine:</strong> collect Ticket Admission, Hard passes, the Gankoomon weekly, and only the dailies for your current progression area.</div>`,
+      "block.missoes.ajuda": `
+        <div class="quest-guide-header"><h3>The quest did not appear?</h3><p>Check these items in order. Most blocks come from a prerequisite, level, or wrong NPC/map.</p></div>
+        <ol><li><strong>Turn in the previous quest:</strong> completing the objective is not enough.</li><li><strong>Check Tamer and Digimon:</strong> some lines verify both levels and the active partner.</li><li><strong>Find purple and yellow marks:</strong> a seemingly optional subquest may unlock the next NPC.</li><li><strong>Switch Day/Night or channel:</strong> Shinjuku and some raids use specific map versions.</li><li><strong>Check inventory:</strong> use, open, or turn in quest items and keep free slots.</li><li><strong>Review Archive and evolution:</strong> Digimon quests require the correct species and side as partner.</li><li><strong>Check reset:</strong> dailies and weeklies only return after server reset.</li><li><strong>Account for DGO changes:</strong> names, rewards, and availability may differ from global DMO.</li></ol>
+        <p class="notice"><strong>Still stuck?</strong> record the exact last completed quest, NPC, map, Tamer level, and Digimon level. Those details reveal the missing prerequisite much faster.</p>`,
       "alt.logo": "Logo Digital Galaxy",
       "alt.novato_banner": "Newbie's Guide",
       "alt.gallantx": "Gallantmon X",
@@ -5340,8 +5657,66 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "novato.tabs.buffs": "Intercambio de objetos",
       "novato.tabs.passes": "Redención automática de pases",
       "guias_missoes.h2": "Guías de misiones",
-      "guias_missoes.soon_title": "Contenido próximamente",
-      "guias_missoes.soon_text": "El contenido se insertará pronto.",
+      "guias_missoes.intro": "Sigue la progresión permanente del servidor, desde los tutoriales hasta The D-Reaper.",
+      "guias_missoes.btn.rota": "Cómo usar la guía",
+      "guias_missoes.btn.inicio": "Inicio, Western y Maze",
+      "guias_missoes.btn.file_server": "File Island y Server",
+      "guias_missoes.btn.odaiba": "Odaiba",
+      "guias_missoes.btn.shinjuku": "Shinjuku y Digital Area",
+      "guias_missoes.btn.spiral": "Spiral Mountain",
+      "guias_missoes.btn.dreaper": "The D-Reaper",
+      "guias_missoes.btn.versandi": "Versandi y contenido opcional",
+      "guias_missoes.btn.evolucao": "Evolución y Jogress",
+      "guias_missoes.btn.recorrentes": "Diarias y semanales",
+      "guias_missoes.btn.ajuda": "La misión no aparece",
+      "guias_missoes.hero_title": "Ruta de misiones de Digital Galaxy",
+      "guias_missoes.hero_text": "Elige una región para ver el orden, los requisitos y sus desbloqueos.",
+      "guias_missoes.hero_check": "Marca las etapas completadas. El progreso se guarda en este navegador.",
+      "block.missoes.rota": `
+        <div class="quest-guide-header"><h3>Cómo usar esta guía</h3><p>Esta ruta cubre las <strong>cadenas permanentes</strong> disponibles en el servidor hasta <strong>Spiral Mountain y The D-Reaper</strong>. Los objetivos repetidos de derrotar, recolectar o hablar están agrupados para mantener clara la progresión.</p><p class="notice">Los nombres pueden variar según la traducción del cliente. Comprueba NPC, región y misión anterior cuando el texto no sea idéntico.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Morada — Principal</strong><p>Avanza la historia y normalmente desbloquea el siguiente mapa.</p></div><div class="quest-type-card"><strong>Amarilla — Secundaria</strong><p>Da experiencia, objetos o desbloquea sistemas y dungeons.</p></div><div class="quest-type-card"><strong>Azul — Diaria/Repetible</strong><p>Pases, materiales y recompensas recurrentes.</p></div><div class="quest-type-card"><strong>Semanal</strong><p>Se reinicia en el ciclo semanal y puede exigir el día correspondiente.</p></div></div>
+        <h4>Ruta principal recomendada</h4><div class="quest-route"><span>DATS/Tutorial</span><b>›</b><span>Western</span><b>›</b><span>File Island</span><b>›</b><span>Server Continent</span><b>›</b><span>Odaiba</span><b>›</b><span>Shinjuku</span><b>›</b><span>Spiral Mountain</span><b>›</b><span>The D-Reaper</span></div>
+        <div class="quest-unlock"><strong>Regla práctica:</strong> completa primero todas las exclamaciones moradas. Antes de dejar un mapa, acepta las amarillas cercanas; varias son requisitos ocultos de dungeons, NPCs y evoluciones.</div>`,
+      "block.missoes.inicio": `
+        <div class="quest-guide-header"><h3>Inicio, Western y Digimon Maze</h3><p>Esta etapa enseña los sistemas básicos, registra al Tamer en DATS y prepara la cuenta para File Island.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="tutorial-basics"><span><span class="quest-step-title">Completa el tutorial del Digivice</span><small>Haz las tareas de combate, Scan & Return, incubación, refuerzo y finalización. No omitas diálogos que desbloquean inventario, Archive y evolución.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dats-agent"><span><span class="quest-step-title">Conviértete en agente de DATS</span><small>Sigue al Director Hashima y a los NPCs de DATS Center hasta la aprobación y la misión que lleva al Digital World.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="western-route"><span><span class="quest-step-title">Completa la ruta de Western</span><small>Termina Western Village, Western Area East/West, Digimon Farm, Wind Valley y las zonas siguientes. Prioriza las moradas y las amarillas del mismo trayecto.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="glacier-dark-tower"><span><span class="quest-step-title">Avanza por Glacier y Dark Tower</span><small>Completa las cadenas de las áreas heladas y Dark Tower para desbloquear NPCs y la progresión intermedia.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digimon-maze"><span><span class="quest-step-title">Completa Digimon Maze</span><small>Haz Entrance, B1, B2 y los pisos siguientes en orden. Algunas puertas solo avanzan al entregar la misión anterior.</small></span></label></div>
+        <div class="quest-unlock"><strong>Siguiente paso:</strong> con Tamer 30, busca a Elecmon en Village of the Beginning para iniciar <em>Welcome to the File Island</em>.</div>`,
+      "block.missoes.file_server": `
+        <div class="quest-guide-header"><h3>File Island y Server Continent</h3><p>Esta cadena va desde Silver Lake hasta Infinite Mountain y luego al continente del servidor.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="file-welcome"><span><span class="quest-step-title">Welcome to the File Island</span><small>Tamer 30+: acepta con Elecmon en Village of the Beginning y habla con Agumon en Silver Lake.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="file-route"><span><span class="quest-step-title">Silver Lake hasta File Island Waterfront</span><small>Sigue las principales por Silver Lake, Silent Forest, Lost Historic Site y Waterfront. La línea de Waterfront requiere un Digimon cercano al nivel 74.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="infinite-mountain"><span><span class="quest-step-title">Peace of File Island y Final Battle</span><small>Completa la historia de Infinite Mountain, incluida la progresión de Leomon y Devimon. Es necesaria para el acceso normal a Server Continent.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="server-route"><span><span class="quest-step-title">Desert, Canyon y Pyramid</span><small>Tamer 64+: sigue por Server Continent Desert y Canyon hasta Pyramid. El transporte de pago no reemplaza las misiones de desbloqueo.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="nanomon-chain"><span><span class="quest-step-title">Nanomon Maze y Final Battle with Etemon</span><small>En Pyramid, completa las cadenas de Gazimon, Ogremon, Rapidmon, Cyberdramon, Monochromon y Volcamon; derrota a Etemon, completa Nanomon Maze Normal y la batalla final.</small></span></label></div>
+        <div class="quest-unlock"><strong>Desbloquea:</strong> Nanomon Maze Hero/Hard después de los diálogos finales con Gennai y la ruta a Odaiba tras <em>Final Battle with Etemon</em>.</div>`,
+      "block.missoes.odaiba": `
+        <div class="quest-guide-header"><h3>Odaiba — regreso al mundo real</h3><p>Completa la campaña en orden: Camp Site, Valley of Light, Shibuya, Tokyo Tower, Minato City, Odaiba y Big Sight.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="odaiba-entry"><span><span class="quest-step-title">White-bearded Guru Shows Up</span><small>Tras <em>Final Battle with Etemon</em>, Tamer 75+: habla con Mimi. Con Tamer 80+, termina <em>To the Real World!</em> y entra en Camp Site.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="camp-valley"><span><span class="quest-step-title">Camp Site y Valley of Light</span><small>Completa el campamento y los raids Aquilamon/Mammothmon. <em>Time to Head Odaiba!</em> desbloquea las diarias.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="shibuya-tower"><span><span class="quest-step-title">Shibuya y Tokyo Tower</span><small>Tamer 85+: sigue la señal, enfrenta a Raremon, Phantomon y Myotismon y completa <em>To Tokyo Tower!</em>, <em>Behind the memorable Shibuya…</em> y <em>Head to Observatory</em>.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="skullmeramon-access"><span><span class="quest-step-title">Tokyo Tower Observatory</span><small>Finaliza las principales. Después Taichi entrega diariamente los pases de SkullMeramon.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="minato-odaiba"><span><span class="quest-step-title">Minato City y Odaiba</span><small>Tamer 90+: acepta <em>Time to Go Back Home…</em> con Matt. Después de <em>Witness</em>, sigue a Odaiba y desbloquea Rainbow Bridge.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="big-sight"><span><span class="quest-step-title">Big Sight y dungeons de Myotismon</span><small>Tras <em>To Big Sight</em>, acepta con Sora la cadena del secuestro. Completa Fuji TV Rooftop y Venomous Vortex para convertir sus pases en misiones diarias.</small></span></label></div>
+        <div class="quest-unlock"><strong>Desbloquea:</strong> SkullMeramon, Myotismon, VenomMyotismon, Rainbow Bridge y la continuación hacia Shinjuku.</div>`,
+      "block.missoes.shinjuku": `
+        <div class="quest-guide-header"><h3>Shinjuku y Digital Area</h3><p>Completa todas las principales Day/Night de Shinjuku antes de iniciar la incursión al Digital World.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="shinjuku-day-night"><span><span class="quest-step-title">Shinjuku West/East, Day y Night</span><small>Sigue las moradas entre las cuatro versiones, Stadium y Road. <em>Worry</em> desbloquea Stadium Normal con PawnChessmon W.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-status-report"><span><span class="quest-step-title">Status Report</span><small>Con compañero 99+ y la cadena de Culumon terminada en Shinjuku Western Area (Night), acepta con PawnChessmon W.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-world-one"><span><span class="quest-step-title">To Digital World - 1</span><small>Informa a Richard Sampson en DATS Center, acepta la siguiente misión y vuelve con PawnChessmon W.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="digital-area-chain"><span><span class="quest-step-title">Completa la campaña de Digital Area</span><small>Haz la cadena principal y las diarias de DATS Mission Reports. Guárdalos para PawnChessmon B.</small></span></label></div>
+        <div class="quest-unlock"><strong>Atención:</strong> Spiral Mountain requiere completar <em>Crisis on Digital World</em>.</div>`,
+      "block.missoes.spiral": `
+        <div class="quest-guide-header"><h3>Spiral Mountain</h3><p>Tamer 90+ y <em>Crisis on Digital World</em> completada. La cadena es lineal; no abandones misiones de cambio de mapa.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="spiral-forest"><span><span class="quest-step-title">Forest of Beginning</span><small>Completa hasta <em>Rescue and Bait - 1</em> para abrir Marine Dragon Domain.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-marine"><span><span class="quest-step-title">Marine Dragon Domain</span><small>Completa MetalSeadramon y sigue hasta <em>To forest, to deeper forest</em> de Sora.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-marionette"><span><span class="quest-step-title">Forest y Front Yard of Marionette Mansion</span><small><em>We can’t defeat! - 1</em> abre el patio. Completa la cadena de Puppetmon.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-metal"><span><span class="quest-step-title">Metal Empire y Underground City</span><small><em>To the Next Goal</em> abre Metal Empire; <em>Once Again</em> abre Underground City; <em>Numemon Rescue Operation - 5</em> desbloquea Back of Empire.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-nightmare"><span><span class="quest-step-title">Top of Nightmare y Stage of Clown</span><small>Acepta <em>Spiral Mountain</em> con Taichi. Después de <em>Last Hope - 3</em>, entra en Stage of Clown y termina Piedmon.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="spiral-void"><span><span class="quest-step-title">Void Space y Lake of Beginning</span><small><em>In the Back of the Darkness</em> abre Void Space; <em>Unfinished Fight</em> libera la dungeon; <em>Back to Own Places - 1</em> lleva al lago.</small></span></label></div>
+        <div class="quest-unlock"><strong>Final:</strong> todas las principales conceden el título <em>A New World</em> y preparan la progresión D-Reaper.</div>`,
+      "block.missoes.dreaper": `
+        <div class="quest-guide-header"><h3>The D-Reaper</h3><p>Contenido endgame actual del servidor. Primero termina toda la campaña normal de Shinjuku.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-after-break"><span><span class="quest-step-title">After the break</span><small>Tras <em>Return Together</em> de Takato en Shinjuku Western Area (Night), acepta la misión del Digivice para West Shinjuku (D-Reaper).</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-office-station"><span><span class="quest-step-title">Office y Shinjuku Station</span><small><em>Separate investigation</em> abre Office. <em>Urgent! Lots of D-Reaper appeared!</em> libera Shinjuku Station.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-park-east"><span><span class="quest-step-title">Shinjuku Park y East Shinjuku</span><small><em>Missing Takato</em> abre Park; <em>Digimons disappeared in Tokyo Metropolitan</em> de Yamaki conduce al este.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-safe-area"><span><span class="quest-step-title">Safe Area</span><small>Acepta <em>Tamers, assemble!</em> con Henry y reúne a los Tamers.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-final-area"><span><span class="quest-step-title">D-Reaper Area</span><small>Después habla con Takato, completa <em>D-Reaper Area</em> y termina la cadena principal actual.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="dreaper-dark-prototype"><span><span class="quest-step-title">D-Ark Prototype y poshistoria</span><small>Tras todas las principales, busca a Richard Sampson para D-Ark Prototype Lv1. Haz diarias para Memory Cards y materiales ADR/dungeon.</small></span></label></div>
+        <div class="quest-unlock"><strong>Materiales:</strong> D-Reaper Data de ADR; Matrix Energy de Station/Park; Safe Energy de D-Reaper Area.</div>`,
+      "block.missoes.versandi": `
+        <div class="quest-guide-header"><h3>Versandi y cadenas opcionales</h3><p>Versandi no bloquea la historia principal, pero libera X-Antibody, Royal Base y evoluciones endgame.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="versandi-entry"><span><span class="quest-step-title">Inicia Versandi con Richard Sampson</span><small>Usa un Digimon 99+ y sigue la investigación X-Antibody desde DATS Center.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="versandi-all-quests"><span><span class="quest-step-title">Completa moradas, amarillas y ocultas</span><small>Si la cadena se detiene, derrota enemigos cercanos, revisa objetos de misión y vuelve a NPCs anteriores.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="versandi-royal-base"><span><span class="quest-step-title">Desbloquea Royal Base</span><small>Completa la investigación de Dexmon y los requisitos. Consulta Dungeons antes de entrar.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="optional-beasts"><span><span class="quest-step-title">Bestias Sagradas y Fanglongmon</span><small>Haz las quests de acceso/pase en D-Terminal/DATS. Easy/Normal y Hard pueden usar NPCs distintos.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="optional-shadow"><span><span class="quest-step-title">Shadow Labyrinth y Gankoomon</span><small>Cadenas opcionales para materiales, evolución y recompensas semanales. Verifica día y ticket.</small></span></label></div>
+        <div class="quest-unlock"><strong>Eventos temporales:</strong> no forman parte de esta ruta. Consulta Eventos para quests que pueden cambiar o desaparecer.</div>`,
+      "block.missoes.evolucao": `
+        <div class="quest-guide-header"><h3>Misiones de evolución y Jogress</h3><p>Exigen Digimon correcto, niveles, espacio de evolución y, a veces, Versandi o dungeons.</p></div>
+        <div class="quest-step-list"><label class="quest-step"><input type="checkbox" data-quest-check="evo-check-partner"><span><span class="quest-step-title">Comprueba la línea evolutiva</span><small>Ten el Digimon requerido, niveles de Tamer/Digimon y espacios abiertos. Algunos lados Jogress tienen cadenas separadas.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-calumon"><span><span class="quest-step-title">Consulta Calumon y el NPC de evolución</span><small>Omegamon, Alphamon Ouryuken, Examon, Fanglongmon, Silphymon, Millenniummon y otros Jogress empiezan en NPCs específicos. La disponibilidad puede variar.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-both-sides"><span><span class="quest-step-title">Completa ambos lados cuando se pida</span><small>Haz combate, recolección y dungeons en orden. Conserva los objetos y usa el evolutivo indicado.</small></span></label><label class="quest-step"><input type="checkbox" data-quest-check="evo-x-antibody"><span><span class="quest-step-title">Líneas X-Antibody</span><small>Gankoomon, Alphamon Ouryuken X y Omegamon X pueden exigir Tamer/Digimon 99+, Versandi, Dexmon, Royal Base y varios días.</small></span></label></div>
+        <div class="quest-unlock"><strong>Si no inicia:</strong> retira el Digimon del Archive, úsalo como compañero, verifica el lado correcto y habla otra vez con Calumon/NPC inicial.</div>`,
+      "block.missoes.recorrentes": `
+        <div class="quest-guide-header"><h3>Prioridades diarias y semanales</h3><p>Prioriza acceso, evolución o monedas. Las recompensas pueden ser ajustadas por el servidor.</p></div>
+        <div class="quest-type-grid"><div class="quest-type-card"><strong>Pases automáticos</strong><p>Usa Ticket Admission para pases Easy/Normal y de evento compatibles.</p></div><div class="quest-type-card"><strong>Pases Hard</strong><p>Reclama con Director Hashima o el NPC específico.</p></div><div class="quest-type-card"><strong>DATS Mission Reports</strong><p>Diarias de Digital Area; cambia con PawnChessmon B.</p></div><div class="quest-type-card"><strong>D-Reaper</strong><p>Memory Cards, datos ADR y energías endgame.</p></div><div class="quest-type-card"><strong>Bestias y Fanglongmon</strong><p>Pases diarios y materiales; consulta cada dungeon.</p></div><div class="quest-type-card"><strong>Gankoomon</strong><p>Quest semanal y ticket en el propio NPC.</p></div></div>
+        <div class="quest-unlock"><strong>Rutina corta:</strong> recoge Ticket Admission, pases Hard, semanal de Gankoomon y solo las diarias de tu región actual.</div>`,
+      "block.missoes.ajuda": `
+        <div class="quest-guide-header"><h3>¿La misión no apareció?</h3><p>Comprueba estos puntos en orden. Casi todos los bloqueos son por requisito, nivel o NPC/mapa incorrecto.</p></div>
+        <ol><li><strong>Entrega la anterior:</strong> completar el objetivo no basta.</li><li><strong>Comprueba Tamer y Digimon:</strong> algunas cadenas verifican ambos niveles y compañero activo.</li><li><strong>Busca marcas moradas y amarillas:</strong> una secundaria puede desbloquear al siguiente NPC.</li><li><strong>Cambia Day/Night o canal:</strong> Shinjuku y ciertos raids usan versiones específicas.</li><li><strong>Revisa inventario:</strong> usa, abre o entrega objetos y deja espacios libres.</li><li><strong>Revisa Archive y evolución:</strong> necesitas especie y lado correctos como compañero.</li><li><strong>Comprueba el reset:</strong> diarias y semanales vuelven tras la renovación.</li><li><strong>Considera cambios de DGO:</strong> nombres, recompensas y disponibilidad pueden diferir del DMO global.</li></ol>
+        <p class="notice"><strong>¿Sigues bloqueado?</strong> anota última misión completada, NPC, mapa, nivel de Tamer y nivel de Digimon. Esos datos revelan el requisito faltante.</p>`,
       "alt.logo": "Logotipo Galaxia Digital",
       "alt.novato_banner": "Guía para principiantes",
       "alt.gallantx": "Gallantmon X",
@@ -6886,6 +7261,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   let heroTemplate = "";
   let openMapaId = null;
   let mapaHeroTemplate = "";
+  let openMissaoId = null;
+  let missaoHeroTemplate = "";
   let openNovatoId = null;
   let novatoHeroTemplate = "";
   let openEventoId = null;
@@ -6901,6 +7278,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   function refreshOpenTranslatedContent() {
     const openPanels = [
       [openDungeonId, 'dungeon-content'],
+      [openMissaoId, 'mission-content'],
       [openNovatoId, 'novice-content'],
       [openEventoId, 'event-content'],
       [openSistemaId, 'system-content'],
@@ -6914,6 +7292,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (!source || !content) return;
       hydrateTranslatedHtml(source, currentLanguage);
       content.innerHTML = source.innerHTML;
+      if (contentId === 'mission-content') initQuestChecklist(content);
     });
   }
 
@@ -7013,6 +7392,64 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     content.innerHTML = target.innerHTML;
     openMapaId = id;
     applyTranslations(currentLanguage);
+  }
+
+  const QUEST_PROGRESS_KEY = 'digital-galaxy-quest-progress-v1';
+
+  function readQuestProgress() {
+    try {
+      return JSON.parse(localStorage.getItem(QUEST_PROGRESS_KEY) || '{}');
+    } catch (error) {
+      console.warn('Não foi possível ler o progresso das missões.', error);
+      return {};
+    }
+  }
+
+  function writeQuestProgress(progress) {
+    try {
+      localStorage.setItem(QUEST_PROGRESS_KEY, JSON.stringify(progress));
+    } catch (error) {
+      console.warn('Não foi possível salvar o progresso das missões.', error);
+    }
+  }
+
+  function initQuestChecklist(root = document) {
+    const progress = readQuestProgress();
+    root.querySelectorAll('[data-quest-check]').forEach(checkbox => {
+      const id = checkbox.dataset.questCheck;
+      checkbox.checked = Boolean(progress[id]);
+      checkbox.closest('.quest-step')?.classList.toggle('is-complete', checkbox.checked);
+      if (checkbox.dataset.questReady === '1') return;
+      checkbox.dataset.questReady = '1';
+      checkbox.addEventListener('change', () => {
+        const current = readQuestProgress();
+        if (checkbox.checked) current[id] = true;
+        else delete current[id];
+        writeQuestProgress(current);
+        checkbox.closest('.quest-step')?.classList.toggle('is-complete', checkbox.checked);
+      });
+    });
+  }
+
+  function resetMissaoView(){
+    const content = document.getElementById('mission-content');
+    if (!content) return;
+    content.innerHTML = missaoHeroTemplate;
+    openMissaoId = null;
+    applyTranslations(currentLanguage);
+  }
+
+  function toggleMissao(id){
+    const content = document.getElementById('mission-content');
+    if (!content) return;
+    if (openMissaoId === id) { resetMissaoView(); return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    hydrateTranslatedHtml(target, currentLanguage);
+    content.innerHTML = target.innerHTML;
+    openMissaoId = id;
+    applyTranslations(currentLanguage);
+    initQuestChecklist(content);
   }
 
   function resetNovatoView(){
@@ -7162,6 +7599,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
   const SEARCH_HANDLER_SECTIONS = {
     toggleDungeonInfo: 'dungeons',
+    toggleMissao: 'guias-missoes',
     toggleMapa: 'mapas',
     toggleNovato: 'novato',
     toggleEvento: 'eventos',
@@ -7199,8 +7637,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     if (isMainSection) {
       clone.querySelectorAll(
-        '.nav, .novice-block, .digimon-info, .map-block, .event-block, .system-block, .npc-block, ' +
-        '#dungeon-content, #map-content, #novice-content, #event-content, #system-content, #npc-content'
+        '.nav, .novice-block, .digimon-info, .mission-block, .map-block, .event-block, .system-block, .npc-block, ' +
+        '#dungeon-content, #mission-content, #map-content, #novice-content, #event-content, #system-content, #npc-content'
       )
         .forEach(element => element.remove());
     }
@@ -7236,7 +7674,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       let sectionId = '';
       let externalUrl = '';
 
-      const match = command.match(/^(showSection|toggleDungeonInfo|toggleMapa|toggleNovato|toggleEvento|toggleSistema|toggleNpc)\(['"]([^'"]+)['"]\)/);
+      const match = command.match(/^(showSection|toggleDungeonInfo|toggleMissao|toggleMapa|toggleNovato|toggleEvento|toggleSistema|toggleNpc)\(['"]([^'"]+)['"]\)/);
       if (match) {
         handler = match[1];
         targetId = match[2];
@@ -7419,6 +7857,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     } else {
       showSection(entry.sectionId);
       if (entry.handler === 'toggleDungeonInfo') toggleDungeonInfo(entry.targetId);
+      if (entry.handler === 'toggleMissao') toggleMissao(entry.targetId);
       if (entry.handler === 'toggleMapa') toggleMapa(entry.targetId);
       if (entry.handler === 'toggleNovato') toggleNovato(entry.targetId);
       if (entry.handler === 'toggleEvento') toggleEvento(entry.targetId);
@@ -7774,6 +8213,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     if (target) {
       target.classList.add('active');
       if (id === 'dungeons') { resetDungeonView(); firePortal(); }
+      if (id === 'guias-missoes') resetMissaoView();
       if (id === 'mapas') resetMapaView();
       if (id === 'novato') { resetNovatoView(); resetarMascoteNovato(); }
       if (id === 'eventos') resetEventView();
@@ -7802,6 +8242,9 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     const mapHero = document.getElementById('map-hero');
     if (mapHero) mapaHeroTemplate = mapHero.outerHTML;
+
+    const missionHero = document.getElementById('mission-hero');
+    if (missionHero) missaoHeroTemplate = missionHero.outerHTML;
 
     const novHero = document.getElementById('novato-hero');
     if (novHero) novatoHeroTemplate = novHero.outerHTML;
