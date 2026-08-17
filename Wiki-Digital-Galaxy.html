@@ -638,6 +638,68 @@
     }
     .quest-type-card strong{ color:#ffe27a; }
     .quest-check-note{ color:rgba(234,242,255,.78); font-size:.86rem; }
+    .quest-catalog-summary{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin:14px 0 18px;
+    }
+    .quest-catalog-stat{
+      padding:12px;
+      border:1px solid rgba(0,229,255,.24);
+      border-radius:9px;
+      background:rgba(0,0,0,.18);
+      text-align:center;
+    }
+    .quest-catalog-stat strong{ display:block; color:#ffe27a; font-size:1.25rem; }
+    .quest-catalog-group{ margin:14px 0; }
+    .quest-catalog-group > summary{
+      padding:13px 15px;
+      border:1px solid rgba(255,196,0,.42);
+      border-radius:10px;
+      color:#ffe27a;
+      background:rgba(255,196,0,.07);
+      cursor:pointer;
+      font-weight:800;
+    }
+    .quest-catalog-list{ display:grid; gap:10px; margin-top:10px; }
+    .quest-detail-card{
+      overflow:hidden;
+      border:1px solid rgba(0,229,255,.24);
+      border-radius:10px;
+      background:rgba(0,0,0,.17);
+    }
+    .quest-detail-card > summary{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      padding:12px 14px;
+      cursor:pointer;
+      list-style:none;
+    }
+    .quest-detail-card > summary::-webkit-details-marker{ display:none; }
+    .quest-detail-card > summary::before{ content:'+'; color:#00e5ff; font-weight:900; }
+    .quest-detail-card[open] > summary::before{ content:'−'; }
+    .quest-detail-card[open] > summary{ border-bottom:1px solid rgba(0,229,255,.18); }
+    .quest-detail-id{
+      flex:0 0 auto;
+      padding:3px 7px;
+      border-radius:999px;
+      color:#071326;
+      background:#ffe27a;
+      font-size:.72rem;
+      font-weight:900;
+    }
+    .quest-detail-title{ min-width:0; color:#eef6ff; font-weight:800; }
+    .quest-detail-body{ padding:13px 15px; }
+    .quest-detail-meta{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 14px; margin-bottom:10px; }
+    .quest-detail-meta p{ margin:0; }
+    .quest-objectives{ margin:8px 0 12px; padding-left:20px; }
+    .quest-objectives li{ margin:5px 0; }
+    .quest-complete-control{ margin:0; }
+    .quest-complete-control input{ accent-color:var(--cor-destaque-primaria); }
+    .quest-detail-card.is-complete{ opacity:.66; border-color:rgba(103,218,147,.48); }
+    .quest-detail-card.is-complete .quest-detail-title{ text-decoration:line-through; }
 
     #novato .novice-layout{
       display: grid;
@@ -1645,6 +1707,8 @@
       #guias-missoes .mission-layout{ grid-template-columns:1fr; }
       #mission-content{ min-height:360px; }
       .quest-type-grid{ grid-template-columns:1fr; }
+      .quest-catalog-summary{ grid-template-columns:1fr; }
+      .quest-detail-meta{ grid-template-columns:1fr; }
       #novato .novice-layout{ grid-template-columns: 1fr; }
       #novice-content{ min-height: 320px; }
       #eventos .event-layout{ grid-template-columns: 1fr; }
@@ -2166,6 +2230,7 @@
       <div class="mission-layout">
         <div class="nav mission-nav">
           <button onclick="toggleMissao('missao-rota')" data-i18n="guias_missoes.btn.rota">Como usar o guia</button>
+          <button onclick="toggleMissao('missao-silver-lake')" data-i18n="guias_missoes.btn.silver_lake">Silver Lake — missão por missão</button>
           <button onclick="toggleMissao('missao-inicio')" data-i18n="guias_missoes.btn.inicio">Início, Western e Maze</button>
           <button onclick="toggleMissao('missao-file-server')" data-i18n="guias_missoes.btn.file_server">File Island e Server</button>
           <button onclick="toggleMissao('missao-odaiba')" data-i18n="guias_missoes.btn.odaiba">Odaiba</button>
@@ -2189,6 +2254,7 @@
         </div>
       </div>
       <div id="missao-rota" class="mission-block"><div data-i18n-html="block.missoes.rota"></div></div>
+      <div id="missao-silver-lake" class="mission-block"><div id="silver-lake-quest-guide"></div></div>
       <div id="missao-inicio" class="mission-block"><div data-i18n-html="block.missoes.inicio"></div></div>
       <div id="missao-file-server" class="mission-block"><div data-i18n-html="block.missoes.file_server"></div></div>
       <div id="missao-odaiba" class="mission-block"><div data-i18n-html="block.missoes.odaiba"></div></div>
@@ -2604,6 +2670,7 @@
       "guias_missoes.h2": "Guias de Missões",
       "guias_missoes.intro": "Acompanhe a progressão permanente do servidor, dos tutoriais até The D-Reaper.",
       "guias_missoes.btn.rota": "Como usar o guia",
+      "guias_missoes.btn.silver_lake": "Silver Lake — missão por missão",
       "guias_missoes.btn.inicio": "Início, Western e Maze",
       "guias_missoes.btn.file_server": "File Island e Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -4144,6 +4211,7 @@
       "guias_missoes.h2": "Quest Guides",
       "guias_missoes.intro": "Follow the server's permanent progression, from the tutorials through The D-Reaper.",
       "guias_missoes.btn.rota": "How to use this guide",
+      "guias_missoes.btn.silver_lake": "Silver Lake — quest by quest",
       "guias_missoes.btn.inicio": "Beginning, Western and Maze",
       "guias_missoes.btn.file_server": "File Island and Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -5659,6 +5727,7 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "guias_missoes.h2": "Guías de misiones",
       "guias_missoes.intro": "Sigue la progresión permanente del servidor, desde los tutoriales hasta The D-Reaper.",
       "guias_missoes.btn.rota": "Cómo usar la guía",
+      "guias_missoes.btn.silver_lake": "Silver Lake — misión por misión",
       "guias_missoes.btn.inicio": "Inicio, Western y Maze",
       "guias_missoes.btn.file_server": "File Island y Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -7106,6 +7175,124 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     }
   };
 
+  // Nomes das quests permanecem iguais aos do cliente para facilitar a localização no jogo.
+  const qTalk = target => ({ kind: 'talk', target });
+  const qDefeat = (target, amount) => ({ kind: 'defeat', target, amount });
+  const qCollect = (item, amount, from = '') => ({ kind: 'collect', item, amount, from });
+  const qUse = (item, amount, target = '') => ({ kind: 'use', item, amount, target });
+
+  const SILVER_LAKE_QUESTS = [
+    { id:938, type:'main', title:'Welcome to the File Island.', giver:'Elecmon <D-Terminal>', dig:0, objectives:[qTalk('Agumon <Start Adventure> em Silver Lake')] },
+    { id:2873, type:'main', title:'How Do You Know Me', giver:'Agumon <Start Adventure>', objectives:[qTalk('Agumon')] },
+    { id:2874, type:'main', title:"Izzy's Voice", giver:'Agumon <Start Adventure>', pre:2873, objectives:[qDefeat('Tsunomon',5)] },
+    { id:2875, type:'main', title:'What Is This Place', giver:'Agumon <Start Adventure>', pre:2874, objectives:[qTalk('Agumon')] },
+    { id:2876, type:'side', title:'Need Flowers', giver:'Agumon <Start Adventure>', pre:2875, objectives:[qCollect('Red Blossom',5,'Upamon')] },
+    { id:2877, type:'side', title:"I'm hungry...", giver:'Agumon <Start Adventure>', pre:2875, objectives:[qCollect('Snack Pouch',1,'Tsunomon')] },
+    { id:2878, type:'side', title:'Flower Buddy', giver:'Agumon <Start Adventure>', pre:2875, objectives:[qDefeat('Tsunomon',3),qDefeat('Upamon',3)] },
+    { id:2879, type:'main', title:'Tell Me More, Tell Me More.', giver:'Agumon <Start Adventure>', pre:2875, objectives:[qTalk('Patamon <Cute>')] },
+    { id:2880, type:'main', title:"It wasn't always like this.", giver:'Patamon <Cute>', pre:2879, objectives:[qTalk('Patamon')] },
+    { id:2881, type:'main', title:'Black Cogwheels', giver:'Patamon <Cute>', pre:2880, objectives:[qTalk('Patamon')] },
+    { id:2882, type:'main', title:'Lost Notes', giver:'Patamon <Cute>', pre:2881, objectives:[qCollect('White Note',4,'Palmon')] },
+    { id:2883, type:'side', title:'A Reluctant Fight', giver:'Patamon <Cute>', pre:2881, objectives:[qDefeat('Koromon',5)] },
+    { id:2884, type:'daily', title:'Flower Garden', giver:'Patamon <Cute>', pre:2881, objectives:[qCollect('Red Floral Bine',3,'Koromon')] },
+    { id:2885, type:'daily', title:'Pretty Stones', giver:'Patamon <Cute>', objectives:[qCollect('White Pebble',3,'Tanemon')] },
+    { id:2886, type:'main', title:'View from the Top', giver:'Patamon <Cute>', pre:2882, objectives:[qTalk('Terriermon <Look into the distance>')] },
+    { id:2887, type:'daily', title:'Protect the Two-Way Wooded Path', giver:'Upamon <TongTong>', pre:2882, objectives:[qDefeat('Kunemon',4),qDefeat('Dokunemon (Leader)',4)] },
+    { id:2888, type:'side', title:'Garden Trowel', giver:'Upamon <TongTong>', pre:2882, objectives:[qCollect('Garden Trowel',1,'Kunemon')] },
+    { id:2889, type:'side', title:'Sapling Seeds!', giver:'Upamon <TongTong>', pre:2882, objectives:[qCollect('Sapling Seed',3,'Dokunemon (Leader)')] },
+    { id:2890, type:'main', title:'Telescope', giver:'Terriermon <Look into the distance>', pre:2886, objectives:[qCollect('Telescope',1,'Patamon')] },
+    { id:2891, type:'main', title:'What Is That', giver:'Terriermon <Look into the distance>', pre:2890, objectives:[qTalk('Terriermon')] },
+    { id:2892, type:'daily', title:'Defeat Kuwagamon', giver:'Terriermon <Look into the distance>', pre:2891, objectives:[qDefeat('Kuwagamon <Despotism of Highest Hill>',1)] },
+    { id:2893, type:'main', title:'Black Cogwheels', giver:'Terriermon <Look into the distance>', pre:2891, objectives:[qTalk('Armadimon <Teaches Attribute>')] },
+    { id:2894, type:'side', title:'Why I Am Here 1', giver:'Terriermon <Look into the distance>', pre:2891, objectives:[qTalk('Terriermon')] },
+    { id:2895, type:'side', title:'Why I Am Here 2', giver:'Terriermon <Look into the distance>', pre:2894, objectives:[qTalk('Salamon <Silver Lake>')] },
+    { id:2896, type:'side', title:'Happiest Moment of My Life', giver:'Terriermon <Look into the distance>', pre:2895, objectives:[qCollect('Yellow Note',1),qTalk('Lillymon <Arcane Wood>')] },
+    { id:2897, type:'main', title:'To Protect Terriermon', giver:'Salamon <Silver Lake>', objectives:[qTalk('Salamon')] },
+    { id:2898, type:'side', title:'We Must Protect Terriermon 1', giver:'Salamon <Silver Lake>', pre:2897, objectives:[qDefeat('Betamon',5)] },
+    { id:2899, type:'side', title:'We Must Protect Terriermon 2', giver:'Salamon <Silver Lake>', pre:2897, objectives:[qDefeat('Elecmon (Leader)',5)] },
+    { id:2900, type:'daily', title:'Something for Terriermon', giver:'Salamon <Silver Lake>', pre:2897, objectives:[qCollect('White Necklace Material',4,'Betamon')] },
+    { id:2901, type:'daily', title:'Nostalgia', giver:'Salamon <Silver Lake>', pre:2897, objectives:[qCollect('White Floral Bine',1,'Elecmon (Leader)')] },
+    { id:2902, type:'main', title:"[Attribute] Digimon's Basic Attributes", giver:'Armadimon <Teaches Attribute>', pre:2893, objectives:[qTalk('Armadimon')] },
+    { id:2903, type:'main', title:'[Attribute] Virus Prevails against Data', giver:'Armadimon <Teaches Attribute>', pre:2902, objectives:[qDefeat('Kiwimon (Data)',15)] },
+    { id:2904, type:'main', title:'[Attribute] Vaccine Prevails against Virus', giver:'Armadimon <Teaches Attribute>', pre:2902, objectives:[qDefeat('RedVegiemon (Virus)',15)] },
+    { id:2905, type:'main', title:'[Attribute] Data Prevails against Vaccine', giver:'Armadimon <Teaches Attribute>', pre:2902, objectives:[qDefeat('Tentomon (Vaccine)',15)] },
+    { id:2906, type:'main', title:'[Attribute] Special Attribute - Unknown', giver:'Armadimon <Teaches Attribute>', pre:[2903,2904,2905], objectives:[qTalk('Armadimon')] },
+    { id:2907, type:'daily', title:'You Must Become Stronger', giver:'Armadimon <Teaches Attribute>', pre:2902, objectives:[qCollect('Heavy Stone',15)] },
+    { id:2908, type:'main', title:'Symbol of Darkness - Black Cogwheels 1', giver:'Armadimon <Teaches Attribute>', pre:2906, objectives:[qTalk('Armadimon')] },
+    { id:2909, type:'main', title:'Symbol of Darkness - Black Cogwheels 2', giver:'Armadimon <Teaches Attribute>', pre:2908, objectives:[qTalk('Armadimon')] },
+    { id:2910, type:'main', title:"A Friend's Well-Being", giver:'Armadimon <Teaches Attribute>', pre:2909, objectives:[qTalk('Gabumon <Delicacy & Kind>')] },
+    { id:2911, type:'main', title:'What in the Digital World Happened', giver:'Gabumon <Delicacy & Kind>', objectives:[qTalk('Gabumon')] },
+    { id:2912, type:'main', title:"Piyomon's Well-Being", giver:'Gabumon <Delicacy & Kind>', pre:2911, objectives:[qTalk('Piyomon <Elegant>')] },
+    { id:2913, type:'daily', title:'Blown Away - Apple Seeds', giver:'Gabumon <Delicacy & Kind>', pre:2911, objectives:[qCollect('Apple Seed',3,'Birdramon')] },
+    { id:2914, type:'daily', title:'Blown Away - Grape Seeds', giver:'Gabumon <Delicacy & Kind>', pre:2911, objectives:[qCollect('Grape Seed',3,'Sabirdramon (Leader)')] },
+    { id:2915, type:'main', title:'Truth Be Told...', giver:'Piyomon <Elegant>', pre:2912, objectives:[qTalk('Piyomon')] },
+    { id:2916, type:'main', title:'Self-Obsessed', giver:'Piyomon <Elegant>', pre:2915, objectives:[qDefeat('Seadramon',5)] },
+    { id:2917, type:'main', title:'Piyomon Is Okay... In a Sense', giver:'Gabumon <Delicacy & Kind>', pre:2916, objectives:[qTalk('Gabumon')] },
+    { id:2918, type:'daily', title:'My Love for Thee', giver:'Piyomon <Elegant>', pre:2915, objectives:[qCollect('Gold Necklace Material',20,'Mushroomon')] },
+    { id:2919, type:'main', title:'To Defeat Kuwagamons', giver:'Gabumon <Delicacy & Kind>', pre:2917, objectives:[qTalk('Cherrymon <Smart>')] },
+    { id:2920, type:'main', title:'Identify the Enemy', giver:'Cherrymon <Smart>', pre:2919, objectives:[qTalk('Cherrymon')] },
+    { id:2921, type:'daily', title:'Showdown - Kuwagamon! (4 players recommended)', giver:'Cherrymon <Smart>', pre:2920, objectives:[qDefeat('Kuwagamon (Raid)',1)] },
+    { id:2922, type:'main', title:'Deeper into the File Island', giver:'Cherrymon <Smart>', pre:2920, objectives:[qTalk('Babamon em Silent Forest')] },
+    { id:2923, type:'daily', title:'Forest Feud - Trees', giver:'Cherrymon <Smart>', objectives:[qDefeat('Gotsumon',8),qDefeat('Rockmon (Leader)',5)] },
+    { id:2924, type:'daily', title:'Forest Feud - Rocks', giver:'Rockmon <Strong & Tough>', pre:2923, objectives:[qDefeat('Woodmon',8),qDefeat('Cherrymon (Leader)',5)] },
+    { id:2925, type:'daily', title:'Stop Fighting', giver:'Cherrymon <Smart>', pre:2924, objectives:[qTalk('Cherrymon')] },
+    { id:2926, type:'side', title:'Unknown Forest', giver:'Cherrymon <Smart>', pre:2920, objectives:[qTalk('Tanemon <Love Forest>')] },
+    { id:2927, type:'daily', title:'Forest Watcher', giver:'Tanemon <Love Forest>', objectives:[qUse('Bucket of Water',3,'DemiMeramon (Leader)')] },
+    { id:2928, type:'side', title:'Unknown Forest', giver:'Tanemon <Love Forest>', objectives:[qTalk('Tanemon')] },
+    { id:2929, type:'daily', title:'Before You Leave...', giver:'Tanemon <Love Forest>', objectives:[qDefeat('DemiMeramon (Leader)',3),qDefeat('Candlemon',8)] },
+    { id:2930, type:'daily', title:'To Protect the Forest', giver:'Tanemon <Love Forest>', objectives:[qCollect('Fence Material',10)] },
+    { id:2931, type:'side', title:'Forest Dust', giver:'Tanemon <Love Forest>', pre:2928, objectives:[qUse('White Four-Leaf Clover',1,'ponto indicado na Unknown Forest')] },
+    { id:2932, type:'side', title:'I Want to Leave', giver:'Lillymon <Arcane Wood>', objectives:[qDefeat('Lillymon',15)] },
+    { id:2933, type:'daily', title:'Hidden and Unknown', giver:'Lillymon <Arcane Wood>', pre:2932, objectives:[qDefeat('Lillymon <Protect Fire Flies>',1)] }
+  ];
+
+  const SILVER_LAKE_UI = {
+    pt:{ title:'Silver Lake — guia missão por missão', intro:'Dados conferidos no cliente atual do DGO. Os nomes das quests permanecem em inglês, exatamente como aparecem no jogo.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível 30+', digimon:'Digimon nível 44+', none:'Nenhuma quest anterior', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.', source:'Fonte: tabelas da versão atual do cliente Digital Galaxy Online.' },
+    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Data checked against the current DGO client. Quest names remain in English exactly as displayed in game.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level 30+', digimon:'Digimon level 44+', none:'No previous quest', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.', source:'Source: current Digital Galaxy Online client tables.' },
+    es:{ title:'Silver Lake — guía misión por misión', intro:'Datos comprobados en el cliente actual de DGO. Los nombres de las misiones se mantienen en inglés, exactamente como aparecen en el juego.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel 30+', digimon:'Digimon nivel 44+', none:'Ninguna misión anterior', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.', source:'Fuente: tablas del cliente actual de Digital Galaxy Online.' }
+  };
+
+  function fillQuestText(template, values) {
+    return Object.entries(values).reduce((text, [key, value]) => text.replaceAll(`{${key}}`, value), template);
+  }
+
+  function escapeQuestHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    })[character]);
+  }
+
+  function formatSilverLakeObjective(objective, ui) {
+    if (objective.kind === 'talk') return fillQuestText(ui.talk, { target:objective.target });
+    if (objective.kind === 'defeat') return fillQuestText(ui.defeat, { amount:objective.amount, target:objective.target });
+    if (objective.kind === 'collect') {
+      const from = objective.from ? fillQuestText(ui.from, { target:objective.from }) : '';
+      return fillQuestText(ui.collect, { amount:objective.amount, item:objective.item, from });
+    }
+    return fillQuestText(ui.use, { amount:objective.amount, item:objective.item, target:objective.target });
+  }
+
+  function renderSilverLakeQuestGuide() {
+    const root = document.querySelector('#missao-silver-lake > #silver-lake-quest-guide');
+    if (!root) return;
+    const ui = SILVER_LAKE_UI[currentLanguage] || SILVER_LAKE_UI.pt;
+    const questById = new Map(SILVER_LAKE_QUESTS.map(quest => [quest.id, quest]));
+    const groups = ['main','side','daily'];
+    const groupHtml = groups.map((type, groupIndex) => {
+      const quests = SILVER_LAKE_QUESTS.filter(quest => quest.type === type);
+      const cards = quests.map(quest => {
+        const prerequisites = quest.pre == null ? ui.none : (Array.isArray(quest.pre) ? quest.pre : [quest.pre])
+          .map(id => `#${id} — ${escapeQuestHtml(questById.get(id)?.title || id)}`).join('<br>');
+        const objectives = quest.objectives.map(objective => `<li>${escapeQuestHtml(formatSilverLakeObjective(objective, ui))}</li>`).join('');
+        const requirements = [ui.tamer, quest.dig === 0 ? '' : ui.digimon].filter(Boolean).join(' · ');
+        return `<details class="quest-detail-card quest-step"><summary><span class="quest-detail-id">#${quest.id}</span><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}:</strong> ${escapeQuestHtml(quest.giver)}</p><p><strong>${ui.requirements}:</strong> ${requirements}</p><p><strong>${ui.prerequisite}:</strong> ${prerequisites}</p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="silver-lake-${quest.id}"> ${ui.completed}</label></div></details>`;
+      }).join('');
+      return `<details class="quest-catalog-group"${groupIndex === 0 ? ' open' : ''}><summary>${ui[type]} (${quests.length})</summary><div class="quest-catalog-list">${cards}</div></details>`;
+    }).join('');
+    root.innerHTML = `<div class="quest-guide-header"><h3>${ui.title}</h3><p>${ui.intro}</p><div class="quest-catalog-summary"><div class="quest-catalog-stat"><strong>29</strong>${ui.main}</div><div class="quest-catalog-stat"><strong>15</strong>${ui.side}</div><div class="quest-catalog-stat"><strong>18</strong>${ui.daily}</div></div><p class="quest-check-note">${ui.source}</p></div>${groupHtml}`;
+    initQuestChecklist(root);
+  }
+
   // ====== i18n ENGINE ======
   const SUPPORTED_LANGUAGES = ['pt', 'en', 'es'];
   const LANGUAGE_LOCALES = {
@@ -7312,6 +7499,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   function setWikiLanguage(lang, persist = true) {
     currentLanguage = SUPPORTED_LANGUAGES.includes(lang) ? lang : 'pt';
     applyTranslations(currentLanguage);
+    renderSilverLakeQuestGuide();
     refreshOpenTranslatedContent();
     applyTranslations(currentLanguage);
 
@@ -7419,6 +7607,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       const id = checkbox.dataset.questCheck;
       checkbox.checked = Boolean(progress[id]);
       checkbox.closest('.quest-step')?.classList.toggle('is-complete', checkbox.checked);
+      checkbox.closest('.quest-detail-card')?.classList.toggle('is-complete', checkbox.checked);
       if (checkbox.dataset.questReady === '1') return;
       checkbox.dataset.questReady = '1';
       checkbox.addEventListener('change', () => {
@@ -7427,6 +7616,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         else delete current[id];
         writeQuestProgress(current);
         checkbox.closest('.quest-step')?.classList.toggle('is-complete', checkbox.checked);
+        checkbox.closest('.quest-detail-card')?.classList.toggle('is-complete', checkbox.checked);
       });
     });
   }
@@ -8277,6 +8467,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     });
 
     validateTranslationCatalogs();
+    renderSilverLakeQuestGuide();
     const languageSelect = document.getElementById('language-select');
     languageSelect?.addEventListener('change', event => {
       setWikiLanguage(event.target.value);
