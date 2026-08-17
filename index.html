@@ -681,19 +681,24 @@
     .quest-detail-card > summary::before{ content:'+'; color:#00e5ff; font-weight:900; }
     .quest-detail-card[open] > summary::before{ content:'−'; }
     .quest-detail-card[open] > summary{ border-bottom:1px solid rgba(0,229,255,.18); }
-    .quest-detail-id{
-      flex:0 0 auto;
-      padding:3px 7px;
-      border-radius:999px;
-      color:#071326;
-      background:#ffe27a;
-      font-size:.72rem;
-      font-weight:900;
-    }
     .quest-detail-title{ min-width:0; color:#eef6ff; font-weight:800; }
     .quest-detail-body{ padding:13px 15px; }
-    .quest-detail-meta{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 14px; margin-bottom:10px; }
-    .quest-detail-meta p{ margin:0; }
+    .quest-detail-meta{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:14px; }
+    .quest-detail-meta p{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:78px;
+      margin:0;
+      padding:10px;
+      border:1px solid rgba(0,229,255,.18);
+      border-radius:8px;
+      background:rgba(7,24,48,.52);
+      text-align:center;
+      line-height:1.4;
+    }
+    .quest-detail-meta strong{ display:block; margin-bottom:4px; color:#ffe27a; }
     .quest-objectives{ margin:8px 0 12px; padding-left:20px; }
     .quest-objectives li{ margin:5px 0; }
     .quest-complete-control{ margin:0; }
@@ -7247,9 +7252,9 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   ];
 
   const SILVER_LAKE_UI = {
-    pt:{ title:'Silver Lake — guia missão por missão', intro:'Dados conferidos no cliente atual do DGO. Os nomes das quests permanecem em inglês, exatamente como aparecem no jogo.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível 30+', digimon:'Digimon nível 44+', none:'Nenhuma quest anterior', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.', source:'Fonte: tabelas da versão atual do cliente Digital Galaxy Online.' },
-    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Data checked against the current DGO client. Quest names remain in English exactly as displayed in game.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level 30+', digimon:'Digimon level 44+', none:'No previous quest', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.', source:'Source: current Digital Galaxy Online client tables.' },
-    es:{ title:'Silver Lake — guía misión por misión', intro:'Datos comprobados en el cliente actual de DGO. Los nombres de las misiones se mantienen en inglés, exactamente como aparecen en el juego.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel 30+', digimon:'Digimon nivel 44+', none:'Ninguna misión anterior', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.', source:'Fuente: tablas del cliente actual de Digital Galaxy Online.' }
+    pt:{ title:'Silver Lake — guia missão por missão', intro:'Abra uma missão para consultar o NPC responsável, os requisitos e todos os objetivos necessários para concluí-la.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível 30+', digimon:'Digimon nível 44+', none:'Nenhuma quest anterior', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.' },
+    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Open a quest to check its starting NPC, requirements, and every objective needed to complete it.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level 30+', digimon:'Digimon level 44+', none:'No previous quest', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.' },
+    es:{ title:'Silver Lake — guía misión por misión', intro:'Abre una misión para consultar su NPC inicial, los requisitos y todos los objetivos necesarios para completarla.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel 30+', digimon:'Digimon nivel 44+', none:'Ninguna misión anterior', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.' }
   };
 
   function fillQuestText(template, values) {
@@ -7282,14 +7287,14 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       const quests = SILVER_LAKE_QUESTS.filter(quest => quest.type === type);
       const cards = quests.map(quest => {
         const prerequisites = quest.pre == null ? ui.none : (Array.isArray(quest.pre) ? quest.pre : [quest.pre])
-          .map(id => `#${id} — ${escapeQuestHtml(questById.get(id)?.title || id)}`).join('<br>');
+          .map(id => escapeQuestHtml(questById.get(id)?.title || '')).filter(Boolean).join('<br>');
         const objectives = quest.objectives.map(objective => `<li>${escapeQuestHtml(formatSilverLakeObjective(objective, ui))}</li>`).join('');
         const requirements = [ui.tamer, quest.dig === 0 ? '' : ui.digimon].filter(Boolean).join(' · ');
-        return `<details class="quest-detail-card quest-step"><summary><span class="quest-detail-id">#${quest.id}</span><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}:</strong> ${escapeQuestHtml(quest.giver)}</p><p><strong>${ui.requirements}:</strong> ${requirements}</p><p><strong>${ui.prerequisite}:</strong> ${prerequisites}</p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="silver-lake-${quest.id}"> ${ui.completed}</label></div></details>`;
+        return `<details class="quest-detail-card quest-step"><summary><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}</strong><span>${escapeQuestHtml(quest.giver)}</span></p><p><strong>${ui.requirements}</strong><span>${requirements}</span></p><p><strong>${ui.prerequisite}</strong><span>${prerequisites}</span></p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="silver-lake-${quest.id}"> ${ui.completed}</label></div></details>`;
       }).join('');
       return `<details class="quest-catalog-group"${groupIndex === 0 ? ' open' : ''}><summary>${ui[type]} (${quests.length})</summary><div class="quest-catalog-list">${cards}</div></details>`;
     }).join('');
-    root.innerHTML = `<div class="quest-guide-header"><h3>${ui.title}</h3><p>${ui.intro}</p><div class="quest-catalog-summary"><div class="quest-catalog-stat"><strong>29</strong>${ui.main}</div><div class="quest-catalog-stat"><strong>15</strong>${ui.side}</div><div class="quest-catalog-stat"><strong>18</strong>${ui.daily}</div></div><p class="quest-check-note">${ui.source}</p></div>${groupHtml}`;
+    root.innerHTML = `<div class="quest-guide-header"><h3>${ui.title}</h3><p>${ui.intro}</p><div class="quest-catalog-summary"><div class="quest-catalog-stat"><strong>29</strong>${ui.main}</div><div class="quest-catalog-stat"><strong>15</strong>${ui.side}</div><div class="quest-catalog-stat"><strong>18</strong>${ui.daily}</div></div></div>${groupHtml}`;
     initQuestChecklist(root);
   }
 
