@@ -2236,6 +2236,7 @@
         <div class="nav mission-nav">
           <button onclick="toggleMissao('missao-rota')" data-i18n="guias_missoes.btn.rota">Como usar o guia</button>
           <button onclick="toggleMissao('missao-silver-lake')" data-i18n="guias_missoes.btn.silver_lake">Silver Lake — missão por missão</button>
+          <button onclick="toggleMissao('missao-silent-forest')" data-i18n="guias_missoes.btn.silent_forest">Silent Forest — missão por missão</button>
           <button onclick="toggleMissao('missao-inicio')" data-i18n="guias_missoes.btn.inicio">Início, Western e Maze</button>
           <button onclick="toggleMissao('missao-file-server')" data-i18n="guias_missoes.btn.file_server">File Island e Server</button>
           <button onclick="toggleMissao('missao-odaiba')" data-i18n="guias_missoes.btn.odaiba">Odaiba</button>
@@ -2260,6 +2261,7 @@
       </div>
       <div id="missao-rota" class="mission-block"><div data-i18n-html="block.missoes.rota"></div></div>
       <div id="missao-silver-lake" class="mission-block"><div id="silver-lake-quest-guide"></div></div>
+      <div id="missao-silent-forest" class="mission-block"><div id="silent-forest-quest-guide"></div></div>
       <div id="missao-inicio" class="mission-block"><div data-i18n-html="block.missoes.inicio"></div></div>
       <div id="missao-file-server" class="mission-block"><div data-i18n-html="block.missoes.file_server"></div></div>
       <div id="missao-odaiba" class="mission-block"><div data-i18n-html="block.missoes.odaiba"></div></div>
@@ -2676,6 +2678,7 @@
       "guias_missoes.intro": "Acompanhe a progressão permanente do servidor, dos tutoriais até The D-Reaper.",
       "guias_missoes.btn.rota": "Como usar o guia",
       "guias_missoes.btn.silver_lake": "Silver Lake — missão por missão",
+      "guias_missoes.btn.silent_forest": "Silent Forest — missão por missão",
       "guias_missoes.btn.inicio": "Início, Western e Maze",
       "guias_missoes.btn.file_server": "File Island e Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -4217,6 +4220,7 @@
       "guias_missoes.intro": "Follow the server's permanent progression, from the tutorials through The D-Reaper.",
       "guias_missoes.btn.rota": "How to use this guide",
       "guias_missoes.btn.silver_lake": "Silver Lake — quest by quest",
+      "guias_missoes.btn.silent_forest": "Silent Forest — quest by quest",
       "guias_missoes.btn.inicio": "Beginning, Western and Maze",
       "guias_missoes.btn.file_server": "File Island and Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -5733,6 +5737,7 @@ In most cases, there is no damage reduction or way to survive by taking this ski
       "guias_missoes.intro": "Sigue la progresión permanente del servidor, desde los tutoriales hasta The D-Reaper.",
       "guias_missoes.btn.rota": "Cómo usar la guía",
       "guias_missoes.btn.silver_lake": "Silver Lake — misión por misión",
+      "guias_missoes.btn.silent_forest": "Silent Forest — misión por misión",
       "guias_missoes.btn.inicio": "Inicio, Western y Maze",
       "guias_missoes.btn.file_server": "File Island y Server",
       "guias_missoes.btn.odaiba": "Odaiba",
@@ -7185,9 +7190,11 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   const qDefeat = (target, amount) => ({ kind: 'defeat', target, amount });
   const qCollect = (item, amount, from = '') => ({ kind: 'collect', item, amount, from });
   const qUse = (item, amount, target = '') => ({ kind: 'use', item, amount, target });
+  const qVisit = target => ({ kind: 'visit', target });
+  const qLocalized = (pt, en, es) => ({ pt, en, es });
 
   const SILVER_LAKE_QUESTS = [
-    { id:938, type:'main', title:'Welcome to the File Island.', giver:'Elecmon <D-Terminal>', dig:0, objectives:[qTalk('Agumon <Start Adventure> em Silver Lake')] },
+    { id:938, type:'main', title:'Welcome to the File Island.', giver:'Elecmon <D-Terminal>', dig:0, objectives:[qTalk(qLocalized('Agumon <Start Adventure> em Silver Lake','Agumon <Start Adventure> in Silver Lake','Agumon <Start Adventure> en Silver Lake'))] },
     { id:2873, type:'main', title:'How Do You Know Me', giver:'Agumon <Start Adventure>', objectives:[qTalk('Agumon')] },
     { id:2874, type:'main', title:"Izzy's Voice", giver:'Agumon <Start Adventure>', pre:2873, objectives:[qDefeat('Tsunomon',5)] },
     { id:2875, type:'main', title:'What Is This Place', giver:'Agumon <Start Adventure>', pre:2874, objectives:[qTalk('Agumon')] },
@@ -7237,7 +7244,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     { id:2919, type:'main', title:'To Defeat Kuwagamons', giver:'Gabumon <Delicacy & Kind>', pre:2917, objectives:[qTalk('Cherrymon <Smart>')] },
     { id:2920, type:'main', title:'Identify the Enemy', giver:'Cherrymon <Smart>', pre:2919, objectives:[qTalk('Cherrymon')] },
     { id:2921, type:'daily', title:'Showdown - Kuwagamon! (4 players recommended)', giver:'Cherrymon <Smart>', pre:2920, objectives:[qDefeat('Kuwagamon (Raid)',1)] },
-    { id:2922, type:'main', title:'Deeper into the File Island', giver:'Cherrymon <Smart>', pre:2920, objectives:[qTalk('Babamon em Silent Forest')] },
+    { id:2922, type:'main', title:'Deeper into the File Island', giver:'Cherrymon <Smart>', pre:2920, objectives:[qTalk(qLocalized('Babamon em Silent Forest','Babamon in Silent Forest','Babamon en Silent Forest'))] },
     { id:2923, type:'daily', title:'Forest Feud - Trees', giver:'Cherrymon <Smart>', objectives:[qDefeat('Gotsumon',8),qDefeat('Rockmon (Leader)',5)] },
     { id:2924, type:'daily', title:'Forest Feud - Rocks', giver:'Rockmon <Strong & Tough>', pre:2923, objectives:[qDefeat('Woodmon',8),qDefeat('Cherrymon (Leader)',5)] },
     { id:2925, type:'daily', title:'Stop Fighting', giver:'Cherrymon <Smart>', pre:2924, objectives:[qTalk('Cherrymon')] },
@@ -7246,15 +7253,68 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     { id:2928, type:'side', title:'Unknown Forest', giver:'Tanemon <Love Forest>', objectives:[qTalk('Tanemon')] },
     { id:2929, type:'daily', title:'Before You Leave...', giver:'Tanemon <Love Forest>', objectives:[qDefeat('DemiMeramon (Leader)',3),qDefeat('Candlemon',8)] },
     { id:2930, type:'daily', title:'To Protect the Forest', giver:'Tanemon <Love Forest>', objectives:[qCollect('Fence Material',10)] },
-    { id:2931, type:'side', title:'Forest Dust', giver:'Tanemon <Love Forest>', pre:2928, objectives:[qUse('White Four-Leaf Clover',1,'ponto indicado na Unknown Forest')] },
+    { id:2931, type:'side', title:'Forest Dust', giver:'Tanemon <Love Forest>', pre:2928, objectives:[qUse('White Four-Leaf Clover',1,qLocalized('ponto indicado na Unknown Forest','marked location in Unknown Forest','punto indicado en Unknown Forest'))] },
     { id:2932, type:'side', title:'I Want to Leave', giver:'Lillymon <Arcane Wood>', objectives:[qDefeat('Lillymon',15)] },
     { id:2933, type:'daily', title:'Hidden and Unknown', giver:'Lillymon <Arcane Wood>', pre:2932, objectives:[qDefeat('Lillymon <Protect Fire Flies>',1)] }
   ];
 
+  const SILENT_FOREST_QUESTS = [
+    { id:2984, type:'main', title:'Corruption of Hope Island', giver:'Babamon <Guide>', pre:2922, dig:54, objectives:[qDefeat('Meramon',10),qDefeat('Meramon (Leader)',10)] },
+    { id:2985, type:'main', title:'Treasure of Hope Island', giver:'Jijimon <Guide>', pre:2922, dig:54, objectives:[qCollect('Treasure of Hope Forest',5,'Meramon')] },
+    { id:2986, type:'main', title:'[Attribute] Fire!', giver:'auto', pre:2906, dig:54, objectives:[qCollect('Fire Attribute Item',5,'Meramon')] },
+    { id:2987, type:'main', title:'[Wanted - Meramon (Captain)]', giver:'auto', pre:2921, dig:54, objectives:[qDefeat('Meramon (Captain)',1)] },
+    { id:2988, type:'main', title:'Photographic Evidence', giver:'Jijimon <Guide>', pre:2922, dig:54, objectives:[qUse('Camera (Meramon)',3,'Meramon')] },
+    { id:2989, type:'main', title:'Unknown Object', giver:'Jijimon <Guide>', pre:[2984,2985,2988], dig:54, objectives:[qUse('Unknown Object',1,'Hope Forest')] },
+    { id:2990, type:'main', title:'I Know What This Is!', giver:'Babamon <Guide>', pre:2989, dig:54, objectives:[qDefeat('Meramon (Captain)',1)] },
+    { id:2991, type:'main', title:'Sitrep', giver:'Babamon <Guide>', pre:2990, dig:54, objectives:[qTalk('Elecmon <Babysitter>')] },
+    { id:2992, type:'main', title:'On the Same Side', giver:'Jijimon <Guide>', pre:2990, dig:54, objectives:[qUse('Flare',1,qLocalized('entrada de Dark Forest','entrance to Dark Forest','entrada de Dark Forest'))] },
+    { id:2993, type:'main', title:'Clubbing', giver:'Elecmon <Babysitter>', pre:[2991,2992], dig:57, objectives:[qCollect('Suspicious Object',5,'Goblimon')] },
+    { id:2994, type:'main', title:'From Somewhere...', giver:'Elecmon <Babysitter>', pre:[2991,2992], dig:57, objectives:[qCollect('Similar Object',5,'Sharmamon')] },
+    { id:2995, type:'main', title:'Gobli, Gobli, Goblimon!', giver:'Leomon <Lose Own Place>', pre:[2991,2992], dig:57, objectives:[qDefeat('Goblimon',5),qDefeat('Goblimon (Leader)',5)] },
+    { id:2996, type:'main', title:'Sharma, Sharma, Sharmamon!', giver:'Leomon <Lose Own Place>', pre:[2991,2992], dig:57, objectives:[qDefeat('Sharmamon',5),qDefeat('Sharmamon (Leader)',5)] },
+    { id:2999, type:'main', title:'We Need Data!!', giver:'Elecmon <Babysitter>', pre:[2991,2992], dig:57, objectives:[qUse('Camera',1,'Goblimon'),qUse('Camera',1,'Sharmamon')] },
+    { id:3000, type:'main', title:'Just a Minute...', giver:'Elecmon <Babysitter>', pre:[2993,2999], dig:60, objectives:[qVisit(qLocalized('Cemetery Forest, ao sul','Cemetery Forest, to the south','Cemetery Forest, al sur'))] },
+    { id:3001, type:'main', title:'Ghosts??', giver:'Leomon <Lose Own Place>', pre:[2993,2999], dig:60, objectives:[qDefeat('Bakemon',10),qDefeat('Bakemon (Leader)',10)] },
+    { id:3002, type:'main', title:'[Wanted - Bakemon (Captain)]', giver:'auto', pre:[3023,3024], dig:60, objectives:[qDefeat('Bakemon (Captain)',1)] },
+    { id:3003, type:'main', title:'Amitabha...', giver:'Leomon <Lose Own Place>', pre:3001, dig:60, objectives:[qDefeat('Soulmon (Gravekeeper)',1)] },
+    { id:3004, type:'main', title:'Hideout??!', giver:'Elecmon <Babysitter>', pre:[3003,3000], dig:60, objectives:[qVisit(qLocalized('Ogremon Hideout, ao nordeste','Ogremon Hideout, to the northeast','Ogremon Hideout, al noreste'))] },
+    { id:3005, type:'main', title:'The Culprit - Ogremon', giver:'Elecmon <Babysitter>', pre:[3000,3003], dig:60, objectives:[qDefeat('Ogremon',10),qDefeat('Ogremon (Leader)',10)] },
+    { id:3006, type:'main', title:'[Wanted - Ogremon (Captain)]', giver:'auto', pre:3002, dig:60, objectives:[qDefeat('Ogremon (Captain)',1)] },
+    { id:3007, type:'main', title:'[Attribute] Water!', giver:'auto', pre:3025, dig:60, objectives:[qCollect('Water Attribute Item',5,qLocalized('Digimons da praia ao sul','Digimons on the southern beach','Digimons de la playa al sur'))] },
+    { id:3008, type:'main', title:'Well Done!', giver:'Leomon <Lose Own Place>', pre:3005, dig:60, objectives:[qTalk('Leomon <Patrol>')] },
+    { id:3009, type:'main', title:'To Battle Forest!', giver:'Elecmon <Babysitter>', pre:3004, dig:60, objectives:[qTalk(qLocalized('Leomon <Patrol> em Battle Forest','Leomon <Patrol> in Battle Forest','Leomon <Patrol> en Battle Forest'))] },
+    { id:3010, type:'main', title:'Outta My Way!', giver:'Leomon <Patrol>', pre:3008, dig:60, objectives:[qDefeat('Monzaemon',10),qDefeat('Monzaemon (Leader)',10)] },
+    { id:3011, type:'main', title:'Onward to the Ruins...', giver:'Leomon <Patrol>', pre:3010, dig:60, objectives:[qVisit(qLocalized('Lost Historic Site e procure Fruit Forest','Lost Historic Site and look for Fruit Forest','Lost Historic Site y busca Fruit Forest'))] },
+    { id:3023, type:'main', title:'[Wanted - Goblimon (Captain)]', giver:'auto', pre:2987, dig:54, objectives:[qDefeat('Goblimon (Captain)',1)] },
+    { id:3024, type:'main', title:'[Wanted - Sharmamon (Captain)]', giver:'auto', pre:2987, dig:54, objectives:[qDefeat('Sharmamon (Captain)',1)] },
+    { id:3025, type:'main', title:'[Attribute] Ice!', giver:'auto', pre:2986, dig:58, objectives:[qCollect('Ice Attribute Item',5,'Bakemon')] },
+    { id:3026, type:'main', title:'[Wanted - Monzaemon (Captain)]', giver:'auto', pre:3006, dig:60, objectives:[qDefeat('Monzaemon (Captain)',1)] },
+    { id:3014, type:'side', title:'Codename - 939_1', giver:'Pumpkinmon <Break up with friend>', dig:54, objectives:[qDefeat('Meramon',5),qDefeat('Meramon (Leader)',5)] },
+    { id:3015, type:'side', title:'Codename - 939_2', giver:'Pumpkinmon <Break up with friend>', pre:3014, dig:54, objectives:[qTalk('PawnChessmon B <DATS Member>')] },
+    { id:3017, type:'side', title:'Codename - 939_3', giver:'PawnChessmon B <DATS Member>', pre:3015, dig:54, objectives:[qTalk(qLocalized('Gotsumon <Break up with friend> em Dark Shadow Forest','Gotsumon <Break up with friend> in Dark Shadow Forest','Gotsumon <Break up with friend> en Dark Shadow Forest'))] },
+    { id:3018, type:'side', title:'Save Me', giver:'Gotsumon <Break up with friend>', pre:3017, dig:54, objectives:[qDefeat('Sharmamon',5),qDefeat('Goblimon',5)] },
+    { id:3019, type:'side', title:'Codename - 939_4', giver:'Gotsumon <Break up with friend>', pre:3018, dig:54, objectives:[qTalk('Pumpkinmon <Break up with friend>')] },
+    { id:3020, type:'side', title:'Ogremon?', giver:'Pumpkinmon <Break up with friend>', pre:3019, dig:60, objectives:[qVisit('Ogremon Hideout')] },
+    { id:3021, type:'side', title:'Codename - 939_5', giver:'Pumpkinmon <Break up with friend>', pre:3020, dig:60, objectives:[qTalk('Gotsumon <Break up with friend>')] },
+    { id:3027, type:'side', title:'Overpopulation', giver:'Yukidarumon <Event>', dig:58, objectives:[qCollect('DemiMeramon Growth Plate',10,'DemiMeramon')] },
+    { id:3012, type:'daily', title:'Lord of Fire (4 players recommended)', giver:'Elecmon <Babysitter>', dig:54, objectives:[qDefeat('Meramon (Raid)',1)] },
+    { id:3013, type:'daily', title:'Ogremon Expedition (8 players recommended)', giver:'Elecmon <Babysitter>', dig:54, objectives:[qDefeat('Ogremon (Raid)',1)] },
+    { id:3022, type:'daily', title:'[Daily] Codename - 939_0', giver:'Gotsumon <Break up with friend>', pre:3021, dig:60, objectives:[qDefeat('Ogremon',10),qDefeat('Ogremon (Leader)',10),qDefeat('Ogremon (Captain)',5)] },
+    { id:3028, type:'daily', title:'Phantom Devimon', giver:'Yukidarumon <Event>', dig:58, objectives:[qDefeat('Devimon (Phantom)',8)] },
+    { id:3029, type:'daily', title:'Impostor', giver:'Yukidarumon <Event>', dig:58, objectives:[qDefeat('Soulmon (Gravekeeper)',5)] },
+    { id:3030, type:'daily', title:'Waru, Waru, Waru...', giver:'Yukidarumon <Event>', dig:58, objectives:[qDefeat('WaruMonzaemon (Troublemaker)',5)] }
+  ];
+
   const SILVER_LAKE_UI = {
-    pt:{ title:'Silver Lake — guia missão por missão', intro:'Abra uma missão para consultar o NPC responsável, os requisitos e todos os objetivos necessários para concluí-la.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível 30+', digimon:'Digimon nível 44+', none:'Nenhuma quest anterior', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.' },
-    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Open a quest to check its starting NPC, requirements, and every objective needed to complete it.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level 30+', digimon:'Digimon level 44+', none:'No previous quest', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.' },
-    es:{ title:'Silver Lake — guía misión por misión', intro:'Abre una misión para consultar su NPC inicial, los requisitos y todos los objetivos necesarios para completarla.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel 30+', digimon:'Digimon nivel 44+', none:'Ninguna misión anterior', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.' }
+    pt:{ title:'Silver Lake — guia missão por missão', intro:'Abra uma missão para consultar o NPC responsável, os requisitos e todos os objetivos necessários para concluí-la.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível {level}+', digimon:'Digimon nível {level}+', none:'Nenhuma quest anterior', automatic:'Ativada automaticamente na área', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.', visit:'Vá até {target}.' },
+    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Open a quest to check its starting NPC, requirements, and every objective needed to complete it.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level {level}+', digimon:'Digimon level {level}+', none:'No previous quest', automatic:'Automatically activated in the area', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.', visit:'Go to {target}.' },
+    es:{ title:'Silver Lake — guía misión por misión', intro:'Abre una misión para consultar su NPC inicial, los requisitos y todos los objetivos necesarios para completarla.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel {level}+', digimon:'Digimon nivel {level}+', none:'Ninguna misión anterior', automatic:'Se activa automáticamente en el área', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.', visit:'Ve hasta {target}.' }
+  };
+
+  const SILENT_FOREST_HEADER = {
+    pt:{ title:'Silent Forest — guia missão por missão', intro:'A progressão começa com Babamon e avança por Hope Forest, Dark Forest, Cemetery Forest, Ogremon Hideout e Battle Forest.' },
+    en:{ title:'Silent Forest — quest-by-quest guide', intro:'The progression starts with Babamon and continues through Hope Forest, Dark Forest, Cemetery Forest, Ogremon Hideout, and Battle Forest.' },
+    es:{ title:'Silent Forest — guía misión por misión', intro:'La progresión comienza con Babamon y continúa por Hope Forest, Dark Forest, Cemetery Forest, Ogremon Hideout y Battle Forest.' }
   };
 
   function fillQuestText(template, values) {
@@ -7267,35 +7327,71 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     })[character]);
   }
 
-  function formatSilverLakeObjective(objective, ui) {
-    if (objective.kind === 'talk') return fillQuestText(ui.talk, { target:objective.target });
-    if (objective.kind === 'defeat') return fillQuestText(ui.defeat, { amount:objective.amount, target:objective.target });
+  function resolveQuestValue(value) {
+    if (value && typeof value === 'object') return value[currentLanguage] || value.pt || '';
+    return value || '';
+  }
+
+  function formatQuestObjective(objective, ui) {
+    const target = resolveQuestValue(objective.target);
+    if (objective.kind === 'talk') return fillQuestText(ui.talk, { target });
+    if (objective.kind === 'defeat') return fillQuestText(ui.defeat, { amount:objective.amount, target });
     if (objective.kind === 'collect') {
-      const from = objective.from ? fillQuestText(ui.from, { target:objective.from }) : '';
+      const source = resolveQuestValue(objective.from);
+      const from = source ? fillQuestText(ui.from, { target:source }) : '';
       return fillQuestText(ui.collect, { amount:objective.amount, item:objective.item, from });
     }
-    return fillQuestText(ui.use, { amount:objective.amount, item:objective.item, target:objective.target });
+    if (objective.kind === 'visit') return fillQuestText(ui.visit, { target });
+    return fillQuestText(ui.use, { amount:objective.amount, item:objective.item, target });
+  }
+
+  function renderQuestGuide({ rootSelector, quests, header, progressPrefix, defaultTamer = 0, defaultDigimon = 0 }) {
+    const root = document.querySelector(rootSelector);
+    if (!root) return;
+    const ui = SILVER_LAKE_UI[currentLanguage] || SILVER_LAKE_UI.pt;
+    const selectedHeader = header?.[currentLanguage] || header?.pt || ui;
+    const questById = new Map([...SILVER_LAKE_QUESTS, ...SILENT_FOREST_QUESTS].map(quest => [quest.id, quest]));
+    const groups = ['main','side','daily'];
+    const groupHtml = groups.map((type, groupIndex) => {
+      const groupQuests = quests.filter(quest => quest.type === type);
+      const cards = groupQuests.map(quest => {
+        const prerequisites = quest.pre == null ? ui.none : (Array.isArray(quest.pre) ? quest.pre : [quest.pre])
+          .map(id => escapeQuestHtml(questById.get(id)?.title || '')).filter(Boolean).join('<br>');
+        const objectives = quest.objectives.map(objective => `<li>${escapeQuestHtml(formatQuestObjective(objective, ui))}</li>`).join('');
+        const tamerLevel = quest.tamer ?? defaultTamer;
+        const digimonLevel = quest.dig ?? defaultDigimon;
+        const requirements = [
+          tamerLevel ? fillQuestText(ui.tamer, { level:tamerLevel }) : '',
+          digimonLevel ? fillQuestText(ui.digimon, { level:digimonLevel }) : ''
+        ].filter(Boolean).join(' · ');
+        const giver = quest.giver === 'auto' ? ui.automatic : quest.giver;
+        return `<details class="quest-detail-card quest-step"><summary><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}</strong><span>${escapeQuestHtml(giver)}</span></p><p><strong>${ui.requirements}</strong><span>${requirements}</span></p><p><strong>${ui.prerequisite}</strong><span>${prerequisites}</span></p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="${progressPrefix}-${quest.id}"> ${ui.completed}</label></div></details>`;
+      }).join('');
+      return `<details class="quest-catalog-group"${groupIndex === 0 ? ' open' : ''}><summary>${ui[type]} (${groupQuests.length})</summary><div class="quest-catalog-list">${cards}</div></details>`;
+    }).join('');
+    const counts = Object.fromEntries(groups.map(type => [type, quests.filter(quest => quest.type === type).length]));
+    root.innerHTML = `<div class="quest-guide-header"><h3>${selectedHeader.title}</h3><p>${selectedHeader.intro}</p><div class="quest-catalog-summary"><div class="quest-catalog-stat"><strong>${counts.main}</strong>${ui.main}</div><div class="quest-catalog-stat"><strong>${counts.side}</strong>${ui.side}</div><div class="quest-catalog-stat"><strong>${counts.daily}</strong>${ui.daily}</div></div></div>${groupHtml}`;
+    initQuestChecklist(root);
   }
 
   function renderSilverLakeQuestGuide() {
-    const root = document.querySelector('#missao-silver-lake > #silver-lake-quest-guide');
-    if (!root) return;
-    const ui = SILVER_LAKE_UI[currentLanguage] || SILVER_LAKE_UI.pt;
-    const questById = new Map(SILVER_LAKE_QUESTS.map(quest => [quest.id, quest]));
-    const groups = ['main','side','daily'];
-    const groupHtml = groups.map((type, groupIndex) => {
-      const quests = SILVER_LAKE_QUESTS.filter(quest => quest.type === type);
-      const cards = quests.map(quest => {
-        const prerequisites = quest.pre == null ? ui.none : (Array.isArray(quest.pre) ? quest.pre : [quest.pre])
-          .map(id => escapeQuestHtml(questById.get(id)?.title || '')).filter(Boolean).join('<br>');
-        const objectives = quest.objectives.map(objective => `<li>${escapeQuestHtml(formatSilverLakeObjective(objective, ui))}</li>`).join('');
-        const requirements = [ui.tamer, quest.dig === 0 ? '' : ui.digimon].filter(Boolean).join(' · ');
-        return `<details class="quest-detail-card quest-step"><summary><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}</strong><span>${escapeQuestHtml(quest.giver)}</span></p><p><strong>${ui.requirements}</strong><span>${requirements}</span></p><p><strong>${ui.prerequisite}</strong><span>${prerequisites}</span></p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="silver-lake-${quest.id}"> ${ui.completed}</label></div></details>`;
-      }).join('');
-      return `<details class="quest-catalog-group"${groupIndex === 0 ? ' open' : ''}><summary>${ui[type]} (${quests.length})</summary><div class="quest-catalog-list">${cards}</div></details>`;
-    }).join('');
-    root.innerHTML = `<div class="quest-guide-header"><h3>${ui.title}</h3><p>${ui.intro}</p><div class="quest-catalog-summary"><div class="quest-catalog-stat"><strong>29</strong>${ui.main}</div><div class="quest-catalog-stat"><strong>15</strong>${ui.side}</div><div class="quest-catalog-stat"><strong>18</strong>${ui.daily}</div></div></div>${groupHtml}`;
-    initQuestChecklist(root);
+    renderQuestGuide({
+      rootSelector:'#missao-silver-lake > #silver-lake-quest-guide',
+      quests:SILVER_LAKE_QUESTS,
+      header:SILVER_LAKE_UI,
+      progressPrefix:'silver-lake',
+      defaultTamer:30,
+      defaultDigimon:44
+    });
+  }
+
+  function renderSilentForestQuestGuide() {
+    renderQuestGuide({
+      rootSelector:'#missao-silent-forest > #silent-forest-quest-guide',
+      quests:SILENT_FOREST_QUESTS,
+      header:SILENT_FOREST_HEADER,
+      progressPrefix:'silent-forest'
+    });
   }
 
   // ====== i18n ENGINE ======
@@ -7505,6 +7601,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     currentLanguage = SUPPORTED_LANGUAGES.includes(lang) ? lang : 'pt';
     applyTranslations(currentLanguage);
     renderSilverLakeQuestGuide();
+    renderSilentForestQuestGuide();
     refreshOpenTranslatedContent();
     applyTranslations(currentLanguage);
 
@@ -8473,6 +8570,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
     validateTranslationCatalogs();
     renderSilverLakeQuestGuide();
+    renderSilentForestQuestGuide();
     const languageSelect = document.getElementById('language-select');
     languageSelect?.addEventListener('change', event => {
       setWikiLanguage(event.target.value);
