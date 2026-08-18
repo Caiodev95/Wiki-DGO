@@ -701,6 +701,26 @@
     .quest-detail-meta strong{ display:block; margin-bottom:4px; color:#ffe27a; }
     .quest-objectives{ margin:8px 0 12px; padding-left:20px; }
     .quest-objectives li{ margin:5px 0; }
+    .quest-rewards{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:8px 0 14px;
+      padding:0;
+      list-style:none;
+    }
+    .quest-rewards li{
+      padding:7px 10px;
+      border:1px solid rgba(255,196,0,.3);
+      border-radius:8px;
+      background:rgba(255,196,0,.07);
+      line-height:1.35;
+    }
+    .quest-rewards .quest-reward-choice{
+      flex-basis:100%;
+      border-color:rgba(0,229,255,.3);
+      background:rgba(0,229,255,.06);
+    }
     .quest-complete-control{ margin:0; }
     .quest-complete-control input{ accent-color:var(--cor-destaque-primaria); }
     .quest-detail-card.is-complete{ opacity:.66; border-color:rgba(103,218,147,.48); }
@@ -7305,10 +7325,117 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     { id:3030, type:'daily', title:'Waru, Waru, Waru...', giver:'Yukidarumon <Event>', dig:58, objectives:[qDefeat('WaruMonzaemon (Troublemaker)',5)] }
   ];
 
+  const QUEST_REWARD_ITEMS = {
+    6067:'Digiclone C', 6068:'Digiclone D', 9003:'Evoluter [Event]',
+    9007:'Inventory Expansion', 9008:'Warehouse Expansion', 9013:'Gold Banana [Event]',
+    9201:'Regular Megaphone [Event]', 9202:'High Rank Megaphone [Event]',
+    9496:'Jump Booster All Area', 9512:'Miracle Fruit', 9534:'Growth Fruit',
+    9766:'Chicken Combo [Event]', 9768:'Fruit of the Goddess [Event]',
+    9916:'Black Cogwheel Fragment', 9917:'Black Cogwheel', 21101:'HP Disk A',
+    28016:'Ice Attribute Data', 28017:'Water Attribute Data', 28018:'Fire Attribute Data',
+    28027:'Data Attribute Data', 28028:'Vaccine Attribute Data', 28029:'Virus Attribute Data',
+    70100:'Random Reinforced Mercenary DigiEgg [Event]',
+    91113:'Mystery Reinforced Mercenary DigiEgg [Vaccine]',
+    91114:'Mystery Reinforced Mercenary DigiEgg [Virus]',
+    91115:'Mystery Reinforced Mercenary DigiEgg [Data]', 97208:'Random DATA Box'
+  };
+
+  const QUEST_REWARDS = {
+    938:[['exp',100000]],
+    2873:[['bits',800],['exp',800000]],
+    2874:[['bits',9000],['exp',500000]],
+    2875:[['bits',800],['exp',500000],['choice',['item',9007,2],['item',9008,2],['item',9013,10]]],
+    2876:[['bits',1200],['exp',550000],['choice',['item',9007,2],['item',9008,2],['item',9003,3]]],
+    2877:[['bits',1200],['exp',550000],['choice',['item',9007,2],['item',9008,2],['item',9003,3]]],
+    2878:[['bits',1000],['exp',600000],['choice',['item',9007,2],['item',9008,2],['item',9003,4]]],
+    2879:[['bits',1000],['exp',600000],['choice',['item',9496,5],['item',9768,10],['item',9003,8]]],
+    2880:[['exp',650000],['bits',1000],['choice',['item',9013,10],['item',9496,5]]],
+    2881:[['exp',650000],['bits',1000],['choice',['item',9013,10]]],
+    2882:[['bits',12000],['exp',790000],['choice',['item',9007,2]]],
+    2883:[['exp',790000],['choice',['item',9008,2]]],
+    2884:[['exp',600000]], 2885:[['exp',600000]],
+    2886:[['bits',1000],['exp',600000]], 2887:[['exp',600000]],
+    2888:[['exp',700000],['choice',['item',9013,5],['item',9007,2],['item',9008,2]]],
+    2889:[['exp',700000],['choice',['item',9013,5],['item',9007,2],['item',9008,2]]],
+    2890:[['bits',1200],['exp',650000],['choice',['item',9003,3],['item',9496,5]]],
+    2891:[['exp',600000],['bits',1250],['choice',['item',9512,5]]],
+    2892:[['bits',3000],['item',9916,1],['exp',900000]],
+    2893:[['exp',600000],['bits',1000],['choice',['item',9007,1],['item',9008,1]]],
+    2894:[['bits',1000],['exp',600000],['choice',['item',9007,1],['item',9008,1]]],
+    2895:[['bits',1000],['exp',600000],['choice',['item',9007,1],['item',9008,1]]],
+    2896:[['exp',1500000],['bits',5000],['choice',['item',9013,10]]],
+    2897:[['exp',300000],['choice',['item',9007,2]]],
+    2898:[['exp',700000],['choice',['item',9013,15]]],
+    2899:[['exp',700000],['choice',['item',9013,15],['item',9008,2]]],
+    2900:[['exp',600000]], 2901:[['exp',600000]],
+    2902:[['exp',600000],['bits',1000],['choice',['item',9013,5]]],
+    2903:[['exp',750000],['bits',500],['item',28029,1],['choice',['item',91114,1]]],
+    2904:[['exp',750000],['bits',500],['item',28028,1],['choice',['item',91113,1]]],
+    2905:[['exp',750000],['bits',500],['item',28027,1],['choice',['item',91115,1]]],
+    2906:[['bits',1000],['exp',500000]], 2907:[['bits',800],['exp',750000]],
+    2908:[['bits',1000],['exp',500000]], 2909:[['exp',300000]], 2910:[['exp',300000]],
+    2911:[['bits',1000],['exp',500000],['choice',['item',9013,10]]],
+    2912:[['exp',700000],['bits',1000],['choice',['item',9013,10]]],
+    2913:[['exp',700000],['bits',1000]], 2914:[['exp',700000],['bits',1000]],
+    2915:[['exp',300000],['choice',['item',9013,5]]],
+    2916:[['exp',600000],['bits',800],['choice',['item',9007,1],['item',9008,1]]],
+    2917:[['exp',300000]], 2918:[['bits',800],['exp',750000]],
+    2919:[['exp',300000],['bits',1000],['choice',['item',97208,100]]],
+    2920:[['exp',350000],['item',21101,25]],
+    2921:[['bits',10000],['item',70100,1],['item',9916,5],['exp',1200000]],
+    2922:[['exp',300000],['choice',['item',9534,1]]],
+    2923:[['bits',800],['exp',720000]], 2924:[['bits',800],['exp',720000]],
+    2925:[['exp',500000]], 2926:[['exp',300000]], 2927:[['exp',500000]],
+    2928:[['exp',500000]], 2929:[['bits',1300],['exp',700000]],
+    2930:[['bits',700],['exp',650000]], 2931:[['exp',500000]],
+    2932:[['exp',700000],['bits',700]],
+    2933:[['bits',1200],['item',9916,1],['exp',1000000]],
+    2984:[['exp',2131116],['bits',1601],['choice',['item',9496,5],['item',9013,15]]],
+    2985:[['exp',2131116],['bits',1601],['choice',['item',9496,5],['item',9013,15]]],
+    2986:[['bits',1601],['exp',3131116],['item',28018,1]],
+    2987:[['bits',1601],['exp',3131116],['item',6068,1]],
+    2988:[['bits',1601],['exp',2131116],['choice',['item',9496,5],['item',9013,15]]],
+    2989:[['bits',10601],['exp',1131116]],
+    2990:[['bits',16001],['exp',2131116],['item',9201,1]],
+    2991:[['bits',1601],['exp',2131116],['item',9201,1]],
+    2992:[['bits',1601],['exp',2131116],['item',9201,1]],
+    2993:[['bits',1601],['exp',2131116],['item',9202,1]],
+    2994:[['bits',1601],['exp',2131116],['item',9202,1]],
+    2995:[['bits',1601],['exp',2131116],['item',9013,10]],
+    2996:[['bits',1601],['exp',2131116],['item',9013,10]],
+    2999:[['bits',1601],['exp',2131116],['choice',['item',9008,2],['item',9007,2]]],
+    3000:[['bits',1601],['exp',2131116],['choice',['item',9003,2]]],
+    3001:[['bits',1601],['exp',2131116],['item',97208,10]],
+    3002:[['bits',1601],['exp',3131116],['item',6068,1]],
+    3003:[['bits',1601],['exp',2131116],['choice',['item',9013,15]]],
+    3004:[['bits',1601],['exp',2131116],['choice',['item',9202,2]]],
+    3005:[['bits',1601],['exp',2131116],['choice',['item',9201,2]]],
+    3006:[['bits',1601],['exp',3131116],['item',6068,1]],
+    3007:[['bits',1601],['exp',3131116],['item',28017,1]],
+    3008:[['bits',16001],['exp',2131116]],
+    3009:[['bits',1601],['exp',2131116],['choice',['item',9007,1],['item',9008,1]]],
+    3010:[['bits',1601],['exp',2131116],['item',9201,2]],
+    3011:[['bits',1601],['exp',2131116],['choice',['item',9201,20]]],
+    3012:[['item',9766,10],['item',9917,1],['exp',1161866]],
+    3013:[['item',9766,20],['item',9917,1],['exp',1208893]],
+    3014:[['bits',1601],['exp',2131116]], 3015:[['bits',1601],['exp',131116]],
+    3017:[['bits',1601],['exp',2131116]], 3018:[['bits',1601],['exp',2131116]],
+    3019:[['bits',1601],['exp',2131116]], 3020:[['bits',1601],['exp',2131116]],
+    3021:[['bits',1601],['exp',2131116]], 3022:[['bits',16010],['exp',1704893]],
+    3023:[['bits',1601],['exp',3131116],['item',6068,1]],
+    3024:[['bits',1601],['exp',3131116],['item',6068,1]],
+    3025:[['bits',1601],['exp',3131116],['item',28016,1]],
+    3026:[['bits',1601],['exp',3131116],['item',6068,1]],
+    3027:[['bits',42321],['exp',2604521],['item',6067,2]],
+    3028:[['item',9766,40],['item',9916,2],['exp',2611617]],
+    3029:[['bits',1601],['item',9916,1],['exp',1784893]],
+    3030:[['bits',1601],['item',9916,1],['exp',1784893]]
+  };
+
   const SILVER_LAKE_UI = {
-    pt:{ title:'Silver Lake — guia missão por missão', intro:'Abra uma missão para consultar o NPC responsável, os requisitos e todos os objetivos necessários para concluí-la.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', completed:'Marcar como concluída', tamer:'Tamer nível {level}+', digimon:'Digimon nível {level}+', none:'Nenhuma quest anterior', automatic:'Ativada automaticamente na área', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.', visit:'Vá até {target}.' },
-    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Open a quest to check its starting NPC, requirements, and every objective needed to complete it.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', completed:'Mark as completed', tamer:'Tamer level {level}+', digimon:'Digimon level {level}+', none:'No previous quest', automatic:'Automatically activated in the area', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.', visit:'Go to {target}.' },
-    es:{ title:'Silver Lake — guía misión por misión', intro:'Abre una misión para consultar su NPC inicial, los requisitos y todos los objetivos necesarios para completarla.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', completed:'Marcar como completada', tamer:'Tamer nivel {level}+', digimon:'Digimon nivel {level}+', none:'Ninguna misión anterior', automatic:'Se activa automáticamente en el área', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.', visit:'Ve hasta {target}.' }
+    pt:{ title:'Silver Lake — guia missão por missão', intro:'Abra uma missão para consultar o NPC responsável, os requisitos e todos os objetivos necessários para concluí-la.', main:'Missões principais', side:'Missões secundárias', daily:'Missões diárias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Pré-requisito', objectives:'O que fazer', rewards:'Recompensas', bits:'{amount} Bits', exp:'{amount} EXP', chooseOne:'Escolha uma recompensa', completed:'Marcar como concluída', tamer:'Tamer nível {level}+', digimon:'Digimon nível {level}+', none:'Nenhuma quest anterior', automatic:'Ativada automaticamente na área', talk:'Fale com {target}.', defeat:'Derrote {amount}x {target}.', collect:'Obtenha {amount}x {item}{from}.', from:' derrotando {target}', use:'Use {amount}x {item} em {target}.', visit:'Vá até {target}.' },
+    en:{ title:'Silver Lake — quest-by-quest guide', intro:'Open a quest to check its starting NPC, requirements, and every objective needed to complete it.', main:'Main quests', side:'Side quests', daily:'Daily quests', giver:'Starting NPC', requirements:'Requirements', prerequisite:'Prerequisite', objectives:'What to do', rewards:'Rewards', bits:'{amount} Bits', exp:'{amount} EXP', chooseOne:'Choose one reward', completed:'Mark as completed', tamer:'Tamer level {level}+', digimon:'Digimon level {level}+', none:'No previous quest', automatic:'Automatically activated in the area', talk:'Talk to {target}.', defeat:'Defeat {amount}x {target}.', collect:'Obtain {amount}x {item}{from}.', from:' by defeating {target}', use:'Use {amount}x {item} on {target}.', visit:'Go to {target}.' },
+    es:{ title:'Silver Lake — guía misión por misión', intro:'Abre una misión para consultar su NPC inicial, los requisitos y todos los objetivos necesarios para completarla.', main:'Misiones principales', side:'Misiones secundarias', daily:'Misiones diarias', giver:'NPC inicial', requirements:'Requisitos', prerequisite:'Requisito previo', objectives:'Qué hacer', rewards:'Recompensas', bits:'{amount} Bits', exp:'{amount} EXP', chooseOne:'Elige una recompensa', completed:'Marcar como completada', tamer:'Tamer nivel {level}+', digimon:'Digimon nivel {level}+', none:'Ninguna misión anterior', automatic:'Se activa automáticamente en el área', talk:'Habla con {target}.', defeat:'Derrota a {amount}x {target}.', collect:'Obtén {amount}x {item}{from}.', from:' derrotando a {target}', use:'Usa {amount}x {item} en {target}.', visit:'Ve hasta {target}.' }
   };
 
   const SILENT_FOREST_HEADER = {
@@ -7345,6 +7472,19 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     return fillQuestText(ui.use, { amount:objective.amount, item:objective.item, target });
   }
 
+  function formatQuestReward(reward, ui) {
+    const locale = currentLanguage === 'en' ? 'en-US' : currentLanguage === 'es' ? 'es-ES' : 'pt-BR';
+    const number = value => new Intl.NumberFormat(locale).format(value);
+    if (reward[0] === 'bits') return fillQuestText(ui.bits, { amount:number(reward[1]) });
+    if (reward[0] === 'exp') return fillQuestText(ui.exp, { amount:number(reward[1]) });
+    if (reward[0] === 'item') {
+      const itemName = QUEST_REWARD_ITEMS[reward[1]] || `Item ${reward[1]}`;
+      return `${itemName} x${number(reward[2])}`;
+    }
+    const options = reward.slice(1).map(option => formatQuestReward(option, ui));
+    return `${ui.chooseOne}: ${options.join(' / ')}`;
+  }
+
   function renderQuestGuide({ rootSelector, quests, header, progressPrefix, defaultTamer = 0, defaultDigimon = 0 }) {
     const root = document.querySelector(rootSelector);
     if (!root) return;
@@ -7358,6 +7498,10 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         const prerequisites = quest.pre == null ? ui.none : (Array.isArray(quest.pre) ? quest.pre : [quest.pre])
           .map(id => escapeQuestHtml(questById.get(id)?.title || '')).filter(Boolean).join('<br>');
         const objectives = quest.objectives.map(objective => `<li>${escapeQuestHtml(formatQuestObjective(objective, ui))}</li>`).join('');
+        const rewards = (QUEST_REWARDS[quest.id] || []).map(reward => {
+          const className = reward[0] === 'choice' ? ' class="quest-reward-choice"' : '';
+          return `<li${className}>${escapeQuestHtml(formatQuestReward(reward, ui))}</li>`;
+        }).join('');
         const tamerLevel = quest.tamer ?? defaultTamer;
         const digimonLevel = quest.dig ?? defaultDigimon;
         const requirements = [
@@ -7365,7 +7509,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
           digimonLevel ? fillQuestText(ui.digimon, { level:digimonLevel }) : ''
         ].filter(Boolean).join(' · ');
         const giver = quest.giver === 'auto' ? ui.automatic : quest.giver;
-        return `<details class="quest-detail-card"><summary><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}</strong><span>${escapeQuestHtml(giver)}</span></p><p><strong>${ui.requirements}</strong><span>${requirements}</span></p><p><strong>${ui.prerequisite}</strong><span>${prerequisites}</span></p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="${progressPrefix}-${quest.id}"> ${ui.completed}</label></div></details>`;
+        return `<details class="quest-detail-card"><summary><span class="quest-detail-title">${escapeQuestHtml(quest.title)}</span></summary><div class="quest-detail-body"><div class="quest-detail-meta"><p><strong>${ui.giver}</strong><span>${escapeQuestHtml(giver)}</span></p><p><strong>${ui.requirements}</strong><span>${requirements}</span></p><p><strong>${ui.prerequisite}</strong><span>${prerequisites}</span></p></div><p><strong>${ui.objectives}:</strong></p><ul class="quest-objectives">${objectives}</ul><p><strong>${ui.rewards}:</strong></p><ul class="quest-rewards">${rewards}</ul><label class="quest-complete-control"><input type="checkbox" data-quest-check="${progressPrefix}-${quest.id}"> ${ui.completed}</label></div></details>`;
       }).join('');
       return `<details class="quest-catalog-group"${groupIndex === 0 ? ' open' : ''}><summary>${ui[type]} (${groupQuests.length})</summary><div class="quest-catalog-list">${cards}</div></details>`;
     }).join('');
