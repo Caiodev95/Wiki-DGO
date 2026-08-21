@@ -408,6 +408,83 @@
       padding:10px 12px; border:1px dashed rgba(255,196,0,.6); border-radius:8px;
       background: rgba(255,196,0,.08); margin: 8px 0 14px; font-size: 14px;
     }
+    .dungeon-combat-audit{
+      margin:0 0 24px;
+      padding:18px;
+      border:1px solid rgba(0,229,255,.62);
+      border-radius:14px;
+      background:
+        radial-gradient(circle at 100% 0,rgba(0,229,255,.14),transparent 38%),
+        linear-gradient(145deg,rgba(4,19,42,.96),rgba(8,31,59,.92));
+      box-shadow:0 12px 28px rgba(0,0,0,.24),0 0 22px rgba(0,229,255,.08) inset;
+    }
+    .dungeon-combat-audit h3{ margin:0 0 6px; color:#ffe27a; }
+    .dungeon-combat-audit-intro{ margin:0 0 14px; color:#c9d8e9; }
+    .dungeon-combat-mode{
+      margin-top:14px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:12px;
+      background:rgba(2,11,27,.55);
+    }
+    .dungeon-combat-mode h4{ margin:0 0 10px; color:#49e6ff; font-size:1rem; }
+    .dungeon-recommendation-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(120px,1fr));
+      gap:9px;
+      margin-bottom:12px;
+    }
+    .dungeon-recommendation-card{
+      padding:10px;
+      border:1px solid rgba(0,229,255,.18);
+      border-radius:9px;
+      background:rgba(0,229,255,.055);
+    }
+    .dungeon-recommendation-card span{
+      display:block;
+      margin-bottom:4px;
+      color:#a8b9cd;
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .dungeon-recommendation-card strong{ color:#fff3b2; font-size:.96rem; }
+    .dungeon-boss-table{ width:100%; border-collapse:collapse; margin-top:8px; }
+    .dungeon-boss-table th,.dungeon-boss-table td{
+      padding:8px 9px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:left;
+    }
+    .dungeon-boss-table th{ color:#ffe27a; font-size:.78rem; }
+    .dungeon-boss-table td:nth-child(2),.dungeon-boss-table td:nth-child(3){ white-space:nowrap; }
+    .dungeon-combat-notes{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+    .dungeon-combat-note{
+      padding:11px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,.045);
+      border-left:3px solid #ffc400;
+    }
+    .dungeon-combat-note strong{ display:block; margin-bottom:4px; color:#ffe27a; }
+    .dungeon-combat-note p{ margin:0; line-height:1.48; }
+    .dungeon-combat-warning{
+      margin:14px 0 0;
+      padding:9px 11px;
+      border-radius:9px;
+      color:#d8e4f2;
+      background:rgba(255,196,0,.08);
+      font-size:.82rem;
+    }
+    @media (max-width:760px){
+      .dungeon-recommendation-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .dungeon-combat-notes{ grid-template-columns:1fr; }
+      .dungeon-combat-audit{ padding:13px; }
+      .dungeon-boss-table{ font-size:.82rem; }
+    }
 
     #dungeons .dungeon-layout{
       display: grid;
@@ -4417,7 +4494,7 @@
           <li><strong>Elemento:</strong> Fire</li>
           <li><strong>Tipo de ataque:</strong> Short Attacker</li>
           <li><strong>Família:</strong> Nightmare Soldiers</li>
-          <li><strong>HP:</strong> 41.000.000</li>
+          <li><strong>HP:</strong> 41.020.000</li>
           <li><strong>Nível:</strong> 111</li>
         </ul>
 
@@ -5935,7 +6012,7 @@ In most cases, there is no damage reduction or way to survive by taking this ski
           <li><strong>Element:</strong> Fire</li>
           <li><strong>Attack Type:</strong> Short Attacker</li>
           <li><strong>Family:</strong> Nightmare Soldiers</li>
-          <li><strong>HP:</strong> 41.000.000</li>
+          <li><strong>HP:</strong> 41,020,000</li>
           <li><strong>Level:</strong> 111</li>
         </ul>
 
@@ -7437,7 +7514,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
           <li><strong>Elemento:</strong> Fire</li>
           <li><strong>Tipo de ataque:</strong> Short Attacker</li>
           <li><strong>Familia:</strong> Nightmare Soldiers</li>
-          <li><strong>HP:</strong> 41.000.000</li>
+          <li><strong>HP:</strong> 41.020.000</li>
           <li><strong>Nivel:</strong> 111</li>
         </ul>
 
@@ -7928,6 +8005,169 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       `
     }
   };
+
+  // Painel de combate das dungeons. Os números de recomendação são margens de
+  // segurança para uma party que executa as mecânicas corretamente, não travas de entrada.
+  const dungeonText = (pt, en, es) => ({ pt, en, es });
+  const dungeonMode = (name, level, hp, de, party, bosses = []) => ({ name, level, hp, de, party, bosses });
+  const dungeonBoss = (name, level, hp) => ({ name, level, hp });
+
+  const DUNGEON_COMBAT_UI = {
+    pt: {
+      title:'Planejamento de combate', intro:'Use este resumo para preparar o Digimon e entender o risco antes de consumir o passe.',
+      level:'Nível sugerido', hp:'HP sugerido', de:'DE sugerida', party:'Party', boss:'Boss', bossLevel:'Nível', bossHp:'HP',
+      mechanics:'Mecânicas decisivas', advantage:'Vantagem recomendada', warning:'Os valores de HP e DE são recomendações conservadoras. Skills de dano fixo, debuffs, enrage e círculos executados incorretamente podem exigir mais HP; DE não reduz todo tipo de skill.'
+    },
+    en: {
+      title:'Combat planning', intro:'Use this summary to prepare your Digimon and understand the risk before spending an entry pass.',
+      level:'Suggested level', hp:'Suggested HP', de:'Suggested DE', party:'Party', boss:'Boss', bossLevel:'Level', bossHp:'HP',
+      mechanics:'Key mechanics', advantage:'Recommended advantage', warning:'HP and DE values are conservative recommendations. Fixed damage skills, debuffs, enrage and failed circle mechanics may require more HP; DE does not reduce every type of skill.'
+    },
+    es: {
+      title:'Planificación de combate', intro:'Usa este resumen para preparar tu Digimon y conocer el riesgo antes de consumir el pase de entrada.',
+      level:'Nivel sugerido', hp:'HP sugerido', de:'DE sugerida', party:'Grupo', boss:'Boss', bossLevel:'Nivel', bossHp:'HP',
+      mechanics:'Mecánicas decisivas', advantage:'Ventaja recomendada', warning:'Los valores de HP y DE son recomendaciones conservadoras. Las skills de daño fijo, debuffs, enrage y círculos mal ejecutados pueden exigir más HP; la DE no reduce todos los tipos de skill.'
+    }
+  };
+
+  const DUNGEON_COMBAT_DATA = {
+    royalbase: {
+      modes:[
+        dungeonMode('Easy',100,45000,2000,4,[dungeonBoss('DexDorugoramon',99,2481300),dungeonBoss('Death-X-mon',99,6000000)]),
+        dungeonMode('Normal',110,70000,3000,4,[dungeonBoss('DexDorugoramon',99,9925200),dungeonBoss('Death-X-mon',99,24000000)])
+      ],
+      mechanics:dungeonText('Controle o cristal da primeira sala, elimine os DexDoruGreymon e os ovos para impedir buffs e entre na sala final já agrupado. No círculo de alvo do Death-X-mon, a party deve dividir o dano.','Manage the first-room crystal, clear DexDoruGreymon and eggs to prevent buffs, and enter the final room already grouped. The party must share Death-X-mon target-circle damage.','Controla el cristal de la primera sala, elimina DexDoruGreymon y huevos para impedir buffs y entra agrupado en la sala final. El grupo debe dividir el daño del círculo de Death-X-mon.'),
+      advantage:dungeonText('Priorize elemento Luz contra Death-X-mon. Alphamon Ouryuken X/Awaken, Omegamon X e Susanoomon Shin são boas opções quando disponíveis.','Prioritize Light against Death-X-mon. Alphamon Ouryuken X/Awaken, Omegamon X and Susanoomon Shin are strong options when available.','Prioriza Luz contra Death-X-mon. Alphamon Ouryuken X/Awaken, Omegamon X y Susanoomon Shin son buenas opciones cuando estén disponibles.')
+    },
+    'kaiser-lab': {
+      modes:[
+        dungeonMode('Easy',95,18000,1500,4,[dungeonBoss('Chimairamon',90,1056000)]),
+        dungeonMode('Normal',110,30000,2500,4,[dungeonBoss('BanchouLeomon',110,4224000),dungeonBoss('Chimairamon',110,5280000)])
+      ],
+      mechanics:dungeonText('A Dark Tower restringe evoluções; confirme que a forma escolhida pode permanecer ativa. Derrube as invocações rapidamente, pois algumas causam dano alto ou reduzem seu ataque.','The Dark Tower restricts evolutions, so confirm that your chosen form can remain active. Kill summons quickly because some deal heavy damage or reduce your attack.','La Dark Tower restringe evoluciones; confirma que la forma elegida puede permanecer activa. Elimina las invocaciones rápido porque algunas causan mucho daño o reducen tu ataque.'),
+      advantage:dungeonText('Os bosses são Data/Fogo: Vírus tem vantagem e Água amplia o dano elemental. Leviamon ou Leviamon X conseguem dupla vantagem; um Vírus forte continua sendo uma boa escolha.','Bosses are Data/Fire: Virus has attribute advantage and Water adds elemental advantage. Leviamon or Leviamon X can gain double advantage; a strong Virus Digimon is still a good choice.','Los bosses son Data/Fuego: Virus tiene ventaja y Agua añade ventaja elemental. Leviamon o Leviamon X logran doble ventaja; un Virus fuerte también funciona bien.')
+    },
+    devimon: {
+      modes:[dungeonMode('Normal',100,12000,1000,4,[dungeonBoss('Ogremon (Crack of Devimon)',99,1420420),dungeonBoss('Leomon (Crack of Devimon)',99,1900420),dungeonBoss('Devimon (Crack of Devimon)',99,2090460)])],
+      mechanics:dungeonText('Avance pelas três salas e preserve tempo para Devimon. O modo Normal não possui uma rotação complexa, mas o limite total é de 20 minutos.','Clear all three rooms while preserving time for Devimon. Normal mode has no complex rotation, but the entire run is limited to 20 minutes.','Avanza por las tres salas reservando tiempo para Devimon. El modo Normal no tiene una rotación compleja, pero la dungeon dura como máximo 20 minutos.'),
+      advantage:dungeonText('Os atributos mudam entre os três bosses. Um Digimon forte de Luz é a opção mais estável contra Devimon; ajuste o atributo caso seu dano caia nos chefes anteriores.','Attributes vary between the three bosses. A strong Light Digimon is the most stable option against Devimon; adapt the attribute if damage falls on earlier bosses.','Los atributos cambian entre los tres bosses. Un Digimon fuerte de Luz es la opción más estable contra Devimon; adapta el atributo si baja tu daño en los anteriores.')
+    },
+    myotismon: {
+      modes:[
+        dungeonMode('Easy',120,30000,3000,4,[dungeonBoss('Myotismon',120,8948000)]),
+        dungeonMode('Normal',125,60000,4000,4,[dungeonBoss('Myotismon',120,40383000)])
+      ],
+      mechanics:dungeonText('A rotação muda em 73%, 60% e 25%. Nightmare Wave deve ser evitada; High-Speed Dash divide o dano entre quem atacou o boss. Nightmare Lv.4 pode dobrar o dano de Crimson Lightning.','The rotation changes at 73%, 60% and 25%. Avoid Nightmare Wave; High-Speed Dash splits damage among players who attacked the boss. Nightmare Lv.4 can double Crimson Lightning damage.','La rotación cambia al 73%, 60% y 25%. Evita Nightmare Wave; High-Speed Dash divide el daño entre quienes atacaron al boss. Nightmare Lv.4 puede duplicar Crimson Lightning.'),
+      advantage:dungeonText('Myotismon é Vírus/Escuridão. Vacina/Luz oferece dupla vantagem: Alphamon Ouryuken X/Awaken, Omegamon X e Susanoomon Shin são opções indicadas.','Myotismon is Virus/Darkness. Vaccine/Light gains double advantage: Alphamon Ouryuken X/Awaken, Omegamon X and Susanoomon Shin are recommended options.','Myotismon es Virus/Oscuridad. Vacuna/Luz logra doble ventaja: Alphamon Ouryuken X/Awaken, Omegamon X y Susanoomon Shin son opciones recomendadas.')
+    },
+    venommyotismon: {
+      modes:[
+        dungeonMode('Easy',120,35000,3000,4,[dungeonBoss('VenomMyotismon',120,19684000)]),
+        dungeonMode('Normal',125,60000,4000,4,[dungeonBoss('VenomMyotismon',120,49210000)])
+      ],
+      mechanics:dungeonText('Abaixo de 70%, evite a sequência de cinco círculos no chão e faça o stack logo depois. Abaixo de 50%, separe os círculos grandes: sobreposição multiplica o dano.','Below 70%, avoid the five ground circles and stack immediately afterward. Below 50%, spread large circles because overlap multiplies damage.','Por debajo del 70%, evita los cinco círculos del suelo y agrúpate enseguida. Por debajo del 50%, separa los círculos grandes porque la superposición multiplica el daño.'),
+      advantage:dungeonText('VenomMyotismon é Vírus/Fogo. Vacina/Água tem dupla vantagem; Vikemon é um exemplo direto. Digimons Vacina/Luz de rank alto mantêm boa vantagem de atributo.','VenomMyotismon is Virus/Fire. Vaccine/Water gains double advantage; Vikemon is a direct example. High-rank Vaccine/Light Digimon still keep attribute advantage.','VenomMyotismon es Virus/Fuego. Vacuna/Agua logra doble ventaja; Vikemon es un ejemplo directo. Los Vacuna/Luz de rank alto conservan buena ventaja de atributo.')
+    },
+    skullmeramon: {
+      modes:[
+        dungeonMode('Easy',115,30000,3000,4,[dungeonBoss('SkullMeramon',111,16408000)]),
+        dungeonMode('Normal',120,45000,4000,4,[dungeonBoss('SkullMeramon',111,41020000)])
+      ],
+      mechanics:dungeonText('A luta troca de fase em 60% e 20%. Evite Blue AOE Circle, divida Big Target Circle e elimine os quatro Meramon invocados após 3 minutos. Burn combinado com Metallic Poison pode elevar Fire Breath a 32.000.','The fight changes at 60% and 20%. Avoid Blue AOE Circle, share Big Target Circle and kill the four Meramon summoned after 3 minutes. Burn combined with Metallic Poison can raise Fire Breath to 32,000.','La pelea cambia al 60% y 20%. Evita Blue AOE Circle, comparte Big Target Circle y elimina los cuatro Meramon invocados después de 3 minutos. Burn con Metallic Poison puede elevar Fire Breath a 32.000.'),
+      advantage:dungeonText('SkullMeramon é Data/Fogo. Vírus/Água possui dupla vantagem; Leviamon ou Leviamon X são exemplos, enquanto qualquer Vírus de rank alto mantém vantagem de atributo.','SkullMeramon is Data/Fire. Virus/Water gains double advantage; Leviamon or Leviamon X are examples, while any high-rank Virus keeps attribute advantage.','SkullMeramon es Data/Fuego. Virus/Agua logra doble ventaja; Leviamon o Leviamon X son ejemplos, mientras cualquier Virus de rank alto mantiene ventaja.')
+    },
+    nanomon: {
+      modes:[
+        dungeonMode('Easy',100,25000,2000,4,[dungeonBoss('Nanomon',99,2681040)]),
+        dungeonMode('Normal',110,45000,3000,4,[dungeonBoss('Nanomon',99,5362080),dungeonBoss('Etemon',99,5842080)])
+      ],
+      mechanics:dungeonText('Elimine as invocações para não acumular dano. Reserve burst para os 10% finais: Nanomon e Etemon podem usar uma skill de execução de alto dano logo antes de morrer.','Clear summons so their damage does not stack. Save burst for the final 10% because Nanomon and Etemon may use a heavy execution skill shortly before dying.','Elimina las invocaciones para que el daño no se acumule. Guarda burst para el 10% final porque Nanomon y Etemon pueden usar una skill de ejecución de alto daño.'),
+      advantage:dungeonText('Ambos são Vírus: Vacina tem vantagem. Vacina/Fogo funciona melhor contra Nanomon (Aço), e Vacina/Luz contra Etemon (Escuridão).','Both are Virus, so Vaccine has advantage. Vaccine/Fire performs better against Nanomon (Steel), and Vaccine/Light against Etemon (Darkness).','Ambos son Virus, así que Vacuna tiene ventaja. Vacuna/Fuego rinde mejor contra Nanomon (Acero), y Vacuna/Luz contra Etemon (Oscuridad).')
+    },
+    'scar-water-crystal': {
+      modes:[
+        dungeonMode('Easy',100,25000,2500,4,[dungeonBoss('MegaSeadramon',50,2520000),dungeonBoss('MarineDevimon',50,2880000),dungeonBoss('Xuanwumon',50,3120000)]),
+        dungeonMode('Normal',110,45000,3000,4,[dungeonBoss('MegaSeadramon',99,5040000),dungeonBoss('MarineDevimon',99,5760000),dungeonBoss('Xuanwumon',99,6240000)]),
+        dungeonMode('Hard',120,70000,3500,4,[dungeonBoss('MegaSeadramon',120,10080000),dungeonBoss('MarineDevimon',120,14400000),dungeonBoss('Xuanwumon',120,18720000)])
+      ],
+      mechanics:dungeonText('No círculo pequeno, junte para dividir o dano; no círculo grande, separe para não multiplicá-lo. Saia do veneno e, no Hard, elimine rapidamente os MarineDevimon invocados abaixo de 20%.','Stack in the small circle to share damage and spread for the large circle so it does not multiply. Leave poison zones and, on Hard, quickly kill MarineDevimon summoned below 20%.','Agrúpate en el círculo pequeño para dividir daño y sepárate en el grande para no multiplicarlo. Sal del veneno y, en Hard, elimina rápido los MarineDevimon invocados bajo el 20%.'),
+      advantage:dungeonText('O elemento Trovão é forte contra Água. Contra Xuanwumon, Data/Trovão dá dupla vantagem; contra MegaSeadramon, prefira Vírus/Trovão.','Thunder is strong against Water. Data/Thunder gains double advantage against Xuanwumon; prefer Virus/Thunder against MegaSeadramon.','Trueno es fuerte contra Agua. Data/Trueno logra doble ventaja contra Xuanwumon; prefiere Virus/Trueno contra MegaSeadramon.')
+    },
+    'descending-thunder-god': {
+      modes:[
+        dungeonMode('Easy',100,25000,2500,4,[dungeonBoss('Antylamon',50,8820000),dungeonBoss('Mihiramon',50,10080000),dungeonBoss('Majiramon',50,11340000),dungeonBoss('Qinglongmon',50,13440000)]),
+        dungeonMode('Normal',110,35000,3000,4,[dungeonBoss('Antylamon',99,12600000),dungeonBoss('Mihiramon',99,14400000),dungeonBoss('Majiramon',99,16200000),dungeonBoss('Qinglongmon',99,19200000)]),
+        dungeonMode('Hard',120,50000,3500,4,[dungeonBoss('Antylamon',120,10080000),dungeonBoss('Mihiramon',120,13248000),dungeonBoss('Majiramon',120,16848000),dungeonBoss('Qinglongmon',120,23040000)])
+      ],
+      mechanics:dungeonText('Mantenha a distância indicada pela skill, saia dos círculos múltiplos que aplicam Silence e elimine os quatro redemoinhos abaixo de 30%. Abaixo de 50%, o dano das skills aumenta.','Keep the distance required by each skill, leave multiple circles that inflict Silence, and kill the four whirlwinds below 30%. Skill damage increases below 50%.','Mantén la distancia indicada por cada skill, sal de los círculos múltiples que aplican Silence y elimina los cuatro remolinos bajo el 30%. El daño aumenta bajo el 50%.'),
+      advantage:dungeonText('Os bosses são Data. Vírus/Escuridão ajuda nos três primeiros; contra Qinglongmon (Trovão), Vírus/Aço oferece dupla vantagem. Chaosdramon X é um exemplo forte para o boss final.','Bosses are Data. Virus/Darkness helps against the first three; Virus/Steel gains double advantage against Qinglongmon (Thunder). Chaosdramon X is a strong final-boss example.','Los bosses son Data. Virus/Oscuridad ayuda en los tres primeros; Virus/Acero logra doble ventaja contra Qinglongmon (Trueno). Chaosdramon X es un buen ejemplo para el boss final.')
+    },
+    'trace-black-steel': {
+      modes:[
+        dungeonMode('Easy',100,25000,2500,4,[dungeonBoss('Sinduramon',50,840000),dungeonBoss('Blossomon',50,2520000),dungeonBoss('Baihumon',50,3300000)]),
+        dungeonMode('Normal',110,35000,3000,4,[dungeonBoss('Sinduramon',99,3840000),dungeonBoss('Blossomon',99,5040000),dungeonBoss('Baihumon',99,6600000)]),
+        dungeonMode('Hard',120,45000,3500,4,[dungeonBoss('Sinduramon',120,7680000),dungeonBoss('Blossomon',120,12672000),dungeonBoss('Baihumon',120,21600000)])
+      ],
+      mechanics:dungeonText('Derrube as torres antes que fortaleçam Baihumon. A sequência principal é veneno, círculo pequeno para stack e círculo grande para spread. Metallic Poison aumenta fortemente o dano recebido.','Destroy towers before they buff Baihumon. The main sequence is poison, small-circle stack, then large-circle spread. Metallic Poison greatly increases incoming damage.','Destruye las torres antes de que fortalezcan a Baihumon. La secuencia es veneno, stack en círculo pequeño y spread en círculo grande. Metallic Poison aumenta mucho el daño recibido.'),
+      advantage:dungeonText('Baihumon é Data/Aço. Vírus/Fogo oferece dupla vantagem; Daemon X é um exemplo direto. Outros Vírus de rank alto mantêm vantagem de atributo.','Baihumon is Data/Steel. Virus/Fire gains double advantage; Daemon X is a direct example. Other high-rank Virus Digimon keep attribute advantage.','Baihumon es Data/Acero. Virus/Fuego logra doble ventaja; Daemon X es un ejemplo directo. Otros Virus de rank alto mantienen ventaja de atributo.')
+    },
+    'fanglongmon-dungeon': {
+      modes:[
+        dungeonMode('Easy',110,90000,4000,4,[dungeonBoss('Xuanwumon',99,5125500),dungeonBoss('Zhuqiaomon',99,3396000),dungeonBoss('Baihumon',99,3396000),dungeonBoss('Qinglongmon',99,8016000),dungeonBoss('Fanglongmon',99,28800000)]),
+        dungeonMode('Normal',120,100000,5000,4,[dungeonBoss('Xuanwumon',99,17084400),dungeonBoss('Zhuqiaomon',99,11319600),dungeonBoss('Baihumon',99,11319600),dungeonBoss('Qinglongmon',99,26720000),dungeonBoss('Fanglongmon',99,96000000)])
+      ],
+      mechanics:dungeonText('A primeira sala reutiliza as mecânicas das quatro Bestas. Em Fanglongmon, faça stack no alvo de 80.000, evite os círculos azuis com Silence/Slow e finalize antes do HK de 10 minutos.','The first room reuses all Four Holy Beast mechanics. On Fanglongmon, stack the 80,000 target hit, avoid blue Silence/Slow circles, and finish before the 10-minute instant kill.','La primera sala reutiliza las mecánicas de las Cuatro Bestias. En Fanglongmon, comparte el golpe de 80.000, evita los círculos azules con Silence/Slow y termina antes del HK de 10 minutos.'),
+      advantage:dungeonText('Atributos variam na primeira sala. Fanglongmon é Data/Terra: leve um Vírus com skills de Vento para dupla vantagem no boss final ou seu Vírus de maior DPS.','Attributes vary in the first room. Fanglongmon is Data/Land: bring a Virus Digimon with Wind skills for double advantage on the final boss, or your highest-DPS Virus.','Los atributos cambian en la primera sala. Fanglongmon es Data/Tierra: usa un Virus con skills de Viento para doble ventaja final, o tu Virus de mayor DPS.')
+    },
+    'uprising-flame': {
+      modes:[
+        dungeonMode('Easy',100,25000,2500,4,[dungeonBoss('Birdramon',50,2520000),dungeonBoss('Garudamon',50,2880000),dungeonBoss('Phoenixmon',50,3000000),dungeonBoss('Zhuqiaomon',50,3600000)]),
+        dungeonMode('Normal',110,35000,3000,4,[dungeonBoss('Birdramon',99,5040000),dungeonBoss('Garudamon',99,5760000),dungeonBoss('Phoenixmon',99,6000000),dungeonBoss('Zhuqiaomon',99,7200000)]),
+        dungeonMode('Hard',120,45000,3500,4,[dungeonBoss('Birdramon',120,10080000),dungeonBoss('Garudamon',120,12672000),dungeonBoss('Phoenixmon',120,15000000),dungeonBoss('Zhuqiaomon',120,21600000)])
+      ],
+      mechanics:dungeonText('Evite a sequência de círculos de Burn em 79% e 39%. Abaixo de 64%, mate Piyomon, Hawkmon e Patamon para remover Degeneration, Return e Silence. O limite do confronto é de 7 minutos.','Avoid Burn-circle sequences at 79% and 39%. Below 64%, kill Piyomon, Hawkmon and Patamon to remove Degeneration, Return and Silence. The fight has a 7-minute limit.','Evita las secuencias de Burn al 79% y 39%. Bajo el 64%, elimina Piyomon, Hawkmon y Patamon para quitar Degeneration, Return y Silence. El combate tiene límite de 7 minutos.'),
+      advantage:dungeonText('Zhuqiaomon é Vírus/Fogo. Vacina/Água possui dupla vantagem; Vikemon é um exemplo. Alphamon Ouryuken X/Awaken e outros Vacina fortes mantêm vantagem de atributo.','Zhuqiaomon is Virus/Fire. Vaccine/Water gains double advantage; Vikemon is one example. Alphamon Ouryuken X/Awaken and other strong Vaccine Digimon retain attribute advantage.','Zhuqiaomon es Virus/Fuego. Vacuna/Agua logra doble ventaja; Vikemon es un ejemplo. Alphamon Ouryuken X/Awaken y otros Vacuna fuertes mantienen ventaja.')
+    },
+    Gankoomon: {
+      modes:[dungeonMode(dungeonText('Treino rotativo','Rotating training','Entrenamiento rotativo'),120,35000,3000,'1–4',[])],
+      mechanics:dungeonText('O encontro e as recompensas mudam conforme o dia. Confira a missão ativa antes de entrar; por isso não existe um único HP de boss aplicável à semana inteira.','The encounter and rewards change by day. Check the active quest before entering; therefore there is no single boss HP value for the entire week.','El encuentro y las recompensas cambian según el día. Revisa la misión activa antes de entrar; por eso no existe un único HP de boss para toda la semana.'),
+      advantage:dungeonText('Escolha o atributo que contra-ataca os inimigos exibidos na missão do dia. Para a primeira tentativa, priorize um Digimon nível 120+ com sustain e capacidade de eliminar grupos.','Choose the attribute that counters the enemies shown in the daily quest. For a first attempt, prioritize a level 120+ Digimon with sustain and group-clearing ability.','Elige el atributo que contrarreste a los enemigos de la misión del día. Para el primer intento, prioriza un Digimon nivel 120+ con sustain y capacidad de limpiar grupos.')
+    }
+  };
+
+  function localizedDungeonValue(value, lang = currentLanguage) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) return value[lang] || value.pt || '';
+    return value;
+  }
+
+  function formatDungeonNumber(value, lang = currentLanguage) {
+    return new Intl.NumberFormat(LANGUAGE_LOCALES[lang] || LANGUAGE_LOCALES.pt).format(value);
+  }
+
+  function renderDungeonCombatAudit(id, lang = currentLanguage) {
+    const data = DUNGEON_COMBAT_DATA[id];
+    if (!data) return '';
+    const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
+    const modes = data.modes.map(mode => {
+      const bossTable = mode.bosses.length ? `<table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td>${boss.name}</td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td></tr>`).join('')}</tbody></table>` : '';
+      return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)}</h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${formatDungeonNumber(mode.hp,lang)}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${formatDungeonNumber(mode.de,lang)}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.party}</span><strong>${mode.party}</strong></div></div>${bossTable}</article>`;
+    }).join('');
+    return `<section class="dungeon-combat-audit" aria-label="${ui.title}"><h3>${ui.title}</h3><p class="dungeon-combat-audit-intro">${ui.intro}</p>${modes}<div class="dungeon-combat-notes"><div class="dungeon-combat-note"><strong>${ui.mechanics}</strong><p>${localizedDungeonValue(data.mechanics,lang)}</p></div><div class="dungeon-combat-note"><strong>${ui.advantage}</strong><p>${localizedDungeonValue(data.advantage,lang)}</p></div></div><p class="dungeon-combat-warning">${ui.warning}</p></section>`;
+  }
+
+  function prependDungeonCombatAudit(content, id, lang = currentLanguage) {
+    const html = renderDungeonCombatAudit(id,lang);
+    if (!html || !content) return;
+    const body = content.querySelector('[data-i18n-html]') || content;
+    body.insertAdjacentHTML('afterbegin',html);
+  }
+
+  function getDungeonCombatSearchText(id, lang = currentLanguage) {
+    const data = DUNGEON_COMBAT_DATA[id];
+    if (!data) return '';
+    const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.level} ${mode.hp} ${formatDungeonNumber(mode.hp,lang)} ${mode.de} ${formatDungeonNumber(mode.de,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)}`).join(' ')}`).join(' ');
+    return `${modeText} ${localizedDungeonValue(data.mechanics,lang)} ${localizedDungeonValue(data.advantage,lang)}`;
+  }
 
   // Nomes das quests permanecem iguais aos do cliente para facilitar a localização no jogo.
   const qTalk = target => ({ kind: 'talk', target });
@@ -8490,7 +8730,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (value != null) el.textContent = value;
     });
     document.querySelectorAll("[data-i18n-html]").forEach(el => {
-      if (el.closest(".novice-block, .digimon-info, .event-block, .npc-block")) return;
+      if (el.closest(".novice-block, .digimon-info, .event-block, .npc-block, #dungeon-content, #mission-content, #novice-content, #event-content, #system-content, #npc-content")) return;
       const key = el.getAttribute("data-i18n-html");
       const value = dict[key] ?? I18N.pt[key];
       if (value != null) el.innerHTML = value;
@@ -8613,6 +8853,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       if (!source || !content) return;
       hydrateTranslatedHtml(source, currentLanguage);
       content.innerHTML = source.innerHTML;
+      if (contentId === 'dungeon-content') prependDungeonCombatAudit(content,sourceId,currentLanguage);
       if (contentId === 'mission-content') initQuestChecklist(content);
     });
   }
@@ -8694,6 +8935,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     if (!target) return;
     hydrateTranslatedHtml(target, currentLanguage);
     content.innerHTML = target.innerHTML;
+    prependDungeonCombatAudit(content,id,currentLanguage);
     openDungeonId = id;
     applyTranslations(currentLanguage);
   }
@@ -9021,7 +9263,8 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
       const source = document.getElementById(targetId);
       const title = cleanSearchText(button.textContent);
       const category = getSearchSectionTitle(sectionId);
-      const body = cloneSearchContent(source, handler === 'showSection');
+      const auditText = handler === 'toggleDungeonInfo' ? getDungeonCombatSearchText(targetId,currentLanguage) : '';
+      const body = cleanSearchText(`${cloneSearchContent(source, handler === 'showSection')} ${auditText}`);
       const aliases = SEARCH_SECTION_ALIASES[sectionId] || '';
 
       entries.push({
