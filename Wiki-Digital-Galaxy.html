@@ -2072,6 +2072,704 @@
       }
     }
 
+    /* ===== TEMA DIGITAL: INTERFACE D-TERMINAL / DIGIVICE ===== */
+    body.digimon-layout-preview {
+      --digimon-navy: #07152b;
+      --digimon-panel: rgba(9, 29, 56, .94);
+      --digimon-panel-2: rgba(12, 43, 77, .92);
+      --digimon-cyan: #18d8ff;
+      --digimon-blue: #1688ff;
+      --digimon-yellow: #ffca24;
+      --digimon-orange: #ff7a18;
+      --digimon-line: rgba(24, 216, 255, .52);
+      --digimon-soft-line: rgba(24, 216, 255, .18);
+      min-height: 100vh;
+      color: #edf8ff;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      background-attachment: fixed;
+    }
+
+    body.digimon-layout-preview::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(22, 136, 255, .18), transparent 34%),
+        linear-gradient(rgba(24, 216, 255, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 216, 255, .035) 1px, transparent 1px);
+      background-size: auto, 42px 42px, 42px 42px;
+      mask-image: linear-gradient(to bottom, #000 0 68%, transparent 100%);
+    }
+
+    body.digimon-layout-preview::after {
+      background:
+        linear-gradient(180deg, rgba(3, 10, 25, .68), rgba(3, 12, 29, .86)),
+        radial-gradient(circle at 50% 12%, rgba(8, 72, 135, .18), transparent 45%);
+      opacity: 1;
+    }
+
+    body.digimon-layout-preview .content {
+      max-width: 1180px;
+      padding: 18px 28px 52px;
+    }
+
+    body.digimon-layout-preview .logo-container {
+      width: min(310px, 72vw);
+      margin: 2px auto 2px;
+      filter: drop-shadow(0 0 18px rgba(24, 216, 255, .42));
+    }
+
+    body.digimon-layout-preview .logo-container::before,
+    body.digimon-layout-preview .logo-container::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 54px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--digimon-cyan));
+      box-shadow: 0 -7px 0 rgba(24, 216, 255, .22), 0 7px 0 rgba(24, 216, 255, .22);
+    }
+
+    body.digimon-layout-preview .logo-container::before { right: calc(100% + 18px); }
+    body.digimon-layout-preview .logo-container::after { left: calc(100% + 18px); transform: scaleX(-1); }
+
+    body.digimon-layout-preview h1.centered {
+      width: fit-content;
+      margin: 2px auto 16px;
+      padding: 7px 28px 9px;
+      color: #fff4a8;
+      font-size: clamp(1.55rem, 4vw, 2.15rem);
+      font-weight: 900;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 0 #6c3a00, 0 0 12px rgba(255, 202, 36, .55), 0 0 20px rgba(24, 216, 255, .48);
+      background:
+        linear-gradient(135deg, transparent 12px, rgba(7, 21, 43, .82) 12px) top left,
+        linear-gradient(225deg, transparent 12px, rgba(7, 21, 43, .82) 12px) top right;
+      background-size: 52% 100%;
+      background-repeat: no-repeat;
+      border-bottom: 2px solid var(--digimon-cyan);
+    }
+
+    body.digimon-layout-preview .top-header {
+      min-height: 34px;
+      margin-bottom: 8px;
+    }
+
+    body.digimon-layout-preview .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 6px 8px 6px 12px;
+      border: 1px solid var(--digimon-line);
+      border-radius: 3px;
+      background: rgba(4, 19, 40, .9);
+      box-shadow: inset 3px 0 0 var(--digimon-yellow), 0 8px 18px rgba(0, 0, 0, .25);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    body.digimon-layout-preview .lang-selector select {
+      padding: 6px 24px 6px 9px;
+      border-radius: 2px;
+      background-color: #0a294c;
+      border-color: rgba(24, 216, 255, .62);
+    }
+
+    body.digimon-layout-preview .wiki-search {
+      top: 22px;
+      right: clamp(18px, 3vw, 48px);
+    }
+
+    body.digimon-layout-preview .wiki-search-form {
+      min-height: 46px;
+      border: 1px solid rgba(24, 216, 255, .74);
+      border-radius: 3px;
+      background:
+        linear-gradient(90deg, rgba(22, 136, 255, .16), transparent 35%),
+        rgba(4, 17, 36, .96);
+      box-shadow: inset 4px 0 0 var(--digimon-cyan), 0 12px 30px rgba(0, 0, 0, .42);
+    }
+
+    body.digimon-layout-preview .wiki-search-submit {
+      color: #171500;
+      background: linear-gradient(180deg, #ffe76e, var(--digimon-yellow) 62%, #e69a08);
+      text-transform: uppercase;
+      letter-spacing: .045em;
+      clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    }
+
+    body.digimon-layout-preview .wiki-search-results {
+      border-radius: 3px;
+      border-color: var(--digimon-line);
+      background: rgba(3, 16, 34, .98);
+    }
+
+    body.digimon-layout-preview .content > .nav {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 auto 18px;
+      padding: 29px 16px 15px;
+      border: 1px solid rgba(24, 216, 255, .58);
+      border-radius: 4px;
+      background:
+        linear-gradient(135deg, rgba(24, 216, 255, .11), transparent 24%),
+        linear-gradient(180deg, rgba(12, 43, 77, .96), rgba(4, 17, 36, .96));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 14px 32px rgba(0, 0, 0, .35);
+    }
+
+    body.digimon-layout-preview .content > .nav::before {
+      content: "D-TERMINAL  //  DIGITAL ARCHIVE";
+      position: absolute;
+      top: 7px;
+      left: 15px;
+      color: var(--digimon-cyan);
+      font-size: .64rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+    }
+
+    body.digimon-layout-preview .content > .nav::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #5dff96;
+      box-shadow: -16px 0 0 var(--digimon-yellow), 0 0 10px #5dff96;
+    }
+
+    body.digimon-layout-preview .content > .nav button {
+      position: relative;
+      min-width: 104px;
+      margin: 0;
+      padding: 10px 17px 11px;
+      overflow: hidden;
+      border: 1px solid rgba(24, 216, 255, .48);
+      border-radius: 2px;
+      color: #eafaff;
+      background: linear-gradient(180deg, rgba(16, 64, 108, .98), rgba(7, 29, 57, .98));
+      box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .08);
+      font-size: .76rem;
+      font-weight: 900;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    }
+
+    body.digimon-layout-preview .content > .nav button::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--digimon-cyan);
+      box-shadow: 0 0 10px rgba(24, 216, 255, .65);
+    }
+
+    body.digimon-layout-preview .content > .nav button:hover,
+    body.digimon-layout-preview .content > .nav button.is-active {
+      color: #101000;
+      border-color: #ffe05c;
+      background: linear-gradient(180deg, #ffe66c, var(--digimon-yellow) 62%, #ef970b);
+      box-shadow: 0 0 18px rgba(255, 202, 36, .28), inset 0 -3px 0 rgba(147, 75, 0, .3);
+      transform: translateY(-2px);
+    }
+
+    body.digimon-layout-preview .content > .nav button:hover::before,
+    body.digimon-layout-preview .content > .nav button.is-active::before {
+      background: var(--digimon-orange);
+    }
+
+    body.digimon-layout-preview .section {
+      position: relative;
+      margin-top: 0;
+      padding: 27px;
+      overflow: hidden;
+      border: 1px solid rgba(24, 216, 255, .68);
+      border-radius: 4px;
+      background:
+        linear-gradient(135deg, rgba(24, 216, 255, .12) 0 2px, transparent 2px) 0 0 / 16px 16px no-repeat,
+        linear-gradient(225deg, rgba(255, 202, 36, .72) 0 2px, transparent 2px) 100% 0 / 20px 20px no-repeat,
+        linear-gradient(180deg, var(--digimon-panel-2), var(--digimon-panel));
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .46), inset 0 1px 0 rgba(255, 255, 255, .045);
+    }
+
+    body.digimon-layout-preview .section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: min(360px, 52%);
+      height: 4px;
+      background: linear-gradient(90deg, var(--digimon-yellow), var(--digimon-cyan), transparent);
+      box-shadow: 0 0 12px rgba(24, 216, 255, .38);
+    }
+
+    body.digimon-layout-preview .section::after {
+      content: "DATA LINK // ONLINE";
+      position: absolute;
+      top: 9px;
+      right: 14px;
+      color: rgba(24, 216, 255, .42);
+      font-size: .55rem;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    body.digimon-layout-preview .section > h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 11px;
+      padding-right: 120px;
+      color: #fff2a5;
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      font-style: italic;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 0 #774600, 0 0 10px rgba(24, 216, 255, .4);
+    }
+
+    body.digimon-layout-preview .section > h2::before {
+      content: "";
+      width: 12px;
+      height: 30px;
+      flex: 0 0 12px;
+      background: linear-gradient(180deg, var(--digimon-yellow), var(--digimon-orange));
+      clip-path: polygon(0 0, 100% 8px, 100% 100%, 0 calc(100% - 8px));
+      box-shadow: 0 0 12px rgba(255, 202, 36, .42);
+    }
+
+    body.digimon-layout-preview #inicio {
+      padding: 31px;
+      background:
+        radial-gradient(circle at 50% 0, rgba(22, 136, 255, .18), transparent 43%),
+        linear-gradient(180deg, var(--digimon-panel-2), var(--digimon-panel));
+    }
+
+    body.digimon-layout-preview #inicio > p {
+      color: #c8dbed;
+      line-height: 1.65;
+    }
+
+    body.digimon-layout-preview .home-quick-access {
+      border-top: 1px solid rgba(24, 216, 255, .24);
+    }
+
+    body.digimon-layout-preview .home-quick-access-header h3 {
+      color: #fff2a5;
+      font-style: italic;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-shadow: 0 0 11px rgba(24, 216, 255, .4);
+    }
+
+    body.digimon-layout-preview .home-quick-grid { gap: 14px; }
+
+    body.digimon-layout-preview .home-quick-card {
+      position: relative;
+      min-height: 112px;
+      padding: 16px 16px 16px 18px;
+      overflow: hidden;
+      border: 1px solid rgba(24, 216, 255, .38);
+      border-radius: 3px;
+      background:
+        linear-gradient(135deg, rgba(22, 136, 255, .19), transparent 45%),
+        linear-gradient(180deg, rgba(10, 42, 77, .96), rgba(5, 23, 47, .96));
+      box-shadow: inset 4px 0 0 var(--digimon-cyan), 0 12px 24px rgba(0, 0, 0, .28);
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 0 100%);
+    }
+
+    body.digimon-layout-preview .home-quick-card::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      bottom: 9px;
+      width: 34px;
+      height: 3px;
+      background: repeating-linear-gradient(90deg, var(--digimon-cyan) 0 5px, transparent 5px 8px);
+      opacity: .45;
+    }
+
+    body.digimon-layout-preview .home-quick-card:hover {
+      border-color: var(--digimon-yellow);
+      background:
+        linear-gradient(135deg, rgba(255, 202, 36, .14), transparent 45%),
+        linear-gradient(180deg, rgba(14, 54, 94, .98), rgba(6, 28, 55, .98));
+      box-shadow: inset 4px 0 0 var(--digimon-yellow), 0 14px 28px rgba(0, 0, 0, .34), 0 0 18px rgba(24, 216, 255, .13);
+    }
+
+    body.digimon-layout-preview .home-quick-card-icon {
+      border-radius: 50% 50% 44% 56%;
+      border: 2px solid var(--digimon-cyan);
+      background: radial-gradient(circle, rgba(24, 216, 255, .2), rgba(5, 28, 58, .95));
+      color: #9bf2ff;
+      box-shadow: inset 0 0 0 4px rgba(24, 216, 255, .06), 0 0 13px rgba(24, 216, 255, .24);
+    }
+
+    body.digimon-layout-preview .home-quick-card strong { color: #ffe166; text-transform: uppercase; letter-spacing: .025em; }
+
+    body.digimon-layout-preview .section .nav:not(.dungeon-nav):not(.mission-nav) {
+      padding: 8px;
+    }
+
+    body.digimon-layout-preview .section .nav button,
+    body.digimon-layout-preview .dungeon-nav button,
+    body.digimon-layout-preview .mission-nav button {
+      margin: 0;
+      border-radius: 2px;
+      border-color: rgba(24, 216, 255, .36);
+      color: #e7f8ff;
+      background: linear-gradient(180deg, rgba(12, 53, 91, .95), rgba(5, 26, 51, .95));
+      box-shadow: inset 3px 0 0 rgba(24, 216, 255, .72), 0 8px 16px rgba(0, 0, 0, .2);
+      text-transform: none;
+    }
+
+    body.digimon-layout-preview .section .nav button:hover,
+    body.digimon-layout-preview .section .nav button.active {
+      color: #171300;
+      border-color: #ffe064;
+      background: linear-gradient(180deg, #ffe879, var(--digimon-yellow));
+      box-shadow: inset 3px 0 0 var(--digimon-orange), 0 8px 18px rgba(0, 0, 0, .24);
+    }
+
+    body.digimon-layout-preview #guias-missoes .mission-nav,
+    body.digimon-layout-preview #dungeons .dungeon-nav {
+      padding: 12px;
+      border: 1px solid rgba(24, 216, 255, .24);
+      background: rgba(3, 17, 35, .58);
+      box-shadow: inset 0 0 24px rgba(24, 216, 255, .035);
+    }
+
+    body.digimon-layout-preview .quest-guide-header,
+    body.digimon-layout-preview .map-guide-header,
+    body.digimon-layout-preview .system-guide-header,
+    body.digimon-layout-preview .mission-hero,
+    body.digimon-layout-preview .npc-hero,
+    body.digimon-layout-preview .event-hero {
+      border-radius: 3px;
+      border: 1px solid rgba(24, 216, 255, .34);
+      background:
+        linear-gradient(90deg, rgba(22, 136, 255, .15), transparent 45%),
+        rgba(4, 20, 42, .78);
+      box-shadow: inset 4px 0 0 var(--digimon-yellow);
+    }
+
+    body.digimon-layout-preview .quest-catalog-group,
+    body.digimon-layout-preview .quest-detail-card,
+    body.digimon-layout-preview .map-route-card,
+    body.digimon-layout-preview .video-card,
+    body.digimon-layout-preview .transcendence-card {
+      border-radius: 3px;
+      border-color: rgba(24, 216, 255, .32);
+      background: linear-gradient(180deg, rgba(8, 37, 69, .94), rgba(4, 21, 43, .94));
+    }
+
+    body.digimon-layout-preview .quest-detail-card > summary::before { color: var(--digimon-yellow); }
+    body.digimon-layout-preview .quest-detail-card[open] { border-color: rgba(255, 202, 36, .55); }
+
+    body.digimon-layout-preview .notice {
+      border-left: 4px solid var(--digimon-yellow);
+      border-radius: 2px;
+      background: rgba(22, 136, 255, .11);
+    }
+
+    body.digimon-layout-preview .images img {
+      border-radius: 3px;
+      border: 1px solid rgba(24, 216, 255, .38);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+    }
+
+    body.digimon-layout-preview ::-webkit-scrollbar { width: 11px; height: 11px; }
+    body.digimon-layout-preview ::-webkit-scrollbar-track { background: #041329; }
+    body.digimon-layout-preview ::-webkit-scrollbar-thumb { background: linear-gradient(var(--digimon-cyan), var(--digimon-blue)); border: 3px solid #041329; }
+
+    @media (max-width: 1180px) {
+      body.digimon-layout-preview .wiki-search { margin-top: 7px; }
+      body.digimon-layout-preview .top-header { justify-content: center; }
+      body.digimon-layout-preview .logo-container::before,
+      body.digimon-layout-preview .logo-container::after { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      body.digimon-layout-preview .content { padding: 12px 12px 34px; }
+      body.digimon-layout-preview .content > .nav { padding: 29px 9px 11px; gap: 6px; }
+      body.digimon-layout-preview .content > .nav button { min-width: calc(50% - 4px); padding-inline: 9px; }
+      body.digimon-layout-preview .section { padding: 23px 14px 18px; }
+      body.digimon-layout-preview .section > h2 { padding-right: 0; font-size: 1.22rem; }
+      body.digimon-layout-preview .section::after { display: none; }
+      body.digimon-layout-preview h1.centered { padding-inline: 14px; font-size: 1.35rem; }
+    }
+
+    /* ===== TEMA DIGITAL: REDE ANCESTRAL DO DIGIMUNDO ===== */
+    body.yggdrasil-layout-preview {
+      --yggdrasil-green: #45f0b2;
+      --yggdrasil-teal: #20d7bd;
+      --yggdrasil-violet: #9a7cff;
+      --yggdrasil-deep: #061927;
+      isolation: isolate;
+    }
+
+    body.yggdrasil-layout-preview::before {
+      z-index: -2;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(56, 231, 178, .18), transparent 31%),
+        radial-gradient(circle at 76% 34%, rgba(144, 103, 255, .12), transparent 27%),
+        linear-gradient(rgba(69, 240, 178, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24, 216, 255, .03) 1px, transparent 1px);
+      background-size: auto, auto, 46px 46px, 46px 46px;
+    }
+
+    body.yggdrasil-layout-preview::after {
+      z-index: -1;
+      background:
+        linear-gradient(180deg, rgba(3, 13, 27, .43), rgba(2, 13, 29, .76) 68%, rgba(3, 10, 25, .88)),
+        radial-gradient(circle at 50% 24%, rgba(24, 216, 255, .06), transparent 48%);
+    }
+
+    body.yggdrasil-layout-preview .content {
+      z-index: 3;
+    }
+
+    .yggdrasil-world-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      isolation: isolate;
+    }
+
+    .yggdrasil-data-network {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .yggdrasil-data-network::before,
+    .yggdrasil-data-network::after {
+      content: "";
+      position: absolute;
+      inset: -25%;
+      pointer-events: none;
+    }
+
+    .yggdrasil-data-network::before {
+      background:
+        repeating-linear-gradient(118deg, transparent 0 82px, rgba(32, 215, 189, .055) 83px, transparent 85px 166px),
+        repeating-linear-gradient(62deg, transparent 0 118px, rgba(154, 124, 255, .04) 119px, transparent 121px 238px);
+      transform: translate3d(-4%, 0, 0);
+      animation: networkLattice 24s linear infinite;
+    }
+
+    .yggdrasil-data-network::after {
+      background:
+        radial-gradient(circle at 18% 32%, rgba(69, 240, 178, .65) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 18%, rgba(24, 216, 255, .58) 0 1px, transparent 2px),
+        radial-gradient(circle at 54% 76%, rgba(154, 124, 255, .56) 0 1px, transparent 2px);
+      background-size: 92px 92px, 137px 137px, 176px 176px;
+      opacity: .42;
+      animation: networkStars 18s linear infinite;
+    }
+
+    .network-glyph {
+      --glyph-color: var(--yggdrasil-green);
+      position: absolute;
+      top: 108%;
+      left: var(--x);
+      z-index: 2;
+      display: flex;
+      width: 38px;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      color: var(--glyph-color);
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale(var(--scale));
+      animation: dataGlyphDrift var(--duration) linear var(--delay) infinite;
+      will-change: transform, opacity;
+    }
+
+    .network-glyph[data-tone="violet"] { --glyph-color: var(--yggdrasil-violet); }
+    .network-glyph[data-tone="cyan"] { --glyph-color: var(--digimon-cyan); }
+
+    .ancient-alphabet-symbol {
+      display: block;
+      width: 36px;
+      height: 22px;
+      flex: 0 0 22px;
+      background-image: url("digital-world-glyph-alphabet.png");
+      background-repeat: no-repeat;
+      background-size: 357px 163px;
+      mix-blend-mode: screen;
+      filter: url(#glyph-luma-alpha) drop-shadow(0 0 3px #45f0b2) drop-shadow(0 0 6px rgba(69, 240, 178, .5));
+    }
+
+    .network-glyph[data-tone="cyan"] .ancient-alphabet-symbol {
+      filter: url(#glyph-luma-alpha) drop-shadow(0 0 3px #18d8ff) drop-shadow(0 0 6px rgba(24, 216, 255, .52));
+    }
+
+    .network-glyph[data-tone="violet"] .ancient-alphabet-symbol {
+      filter: url(#glyph-luma-alpha) drop-shadow(0 0 3px #9a7cff) drop-shadow(0 0 6px rgba(154, 124, 255, .52));
+    }
+
+    .network-glyph.is-team-member {
+      pointer-events: none;
+      outline: none;
+    }
+
+    .network-glyph.is-team-member.is-revealed,
+    .network-glyph.is-team-member:focus-visible {
+      z-index: 12;
+      opacity: .96 !important;
+      animation-play-state: paused;
+    }
+
+    .team-glyph-tooltip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 15000;
+      padding: 7px 11px 8px;
+      border: 1px solid var(--yggdrasil-green);
+      border-radius: 3px;
+      color: #f4ffff;
+      background: rgba(3, 18, 35, .96);
+      box-shadow: inset 3px 0 0 var(--yggdrasil-green), 0 8px 22px rgba(0, 0, 0, .52), 0 0 12px rgba(69, 240, 178, .35);
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .045em;
+      line-height: 1;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(5px) scale(.94);
+      transition: opacity .16s ease, transform .16s ease;
+      pointer-events: none;
+    }
+
+    .team-glyph-tooltip.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    body.yggdrasil-layout-preview .content > .nav {
+      border-color: rgba(69, 240, 178, .56);
+      background:
+        linear-gradient(135deg, rgba(69, 240, 178, .12), transparent 27%),
+        linear-gradient(225deg, rgba(154, 124, 255, .09), transparent 24%),
+        linear-gradient(180deg, rgba(10, 48, 70, .96), rgba(4, 20, 39, .96));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 14px 34px rgba(0, 0, 0, .42), 0 0 28px rgba(32, 215, 189, .08);
+    }
+
+    body.yggdrasil-layout-preview .content > .nav::before {
+      content: "ANCIENT DIGITAL RELAY  //  UNKNOWN PROTOCOL";
+      color: var(--yggdrasil-green);
+    }
+
+    body.yggdrasil-layout-preview .content > .nav::after {
+      background: var(--yggdrasil-green);
+      box-shadow: -16px 0 0 var(--yggdrasil-violet), 0 0 12px var(--yggdrasil-green);
+    }
+
+    body.yggdrasil-layout-preview .content > .nav button {
+      border-color: rgba(69, 240, 178, .42);
+      background: linear-gradient(180deg, rgba(15, 76, 91, .98), rgba(5, 34, 55, .98));
+    }
+
+    body.yggdrasil-layout-preview .content > .nav button::before {
+      background: linear-gradient(180deg, var(--yggdrasil-green), var(--digimon-cyan));
+    }
+
+    body.yggdrasil-layout-preview .section {
+      border-color: rgba(69, 240, 178, .56);
+      background:
+        linear-gradient(135deg, rgba(69, 240, 178, .12) 0 2px, transparent 2px) 0 0 / 16px 16px no-repeat,
+        linear-gradient(225deg, rgba(154, 124, 255, .76) 0 2px, transparent 2px) 100% 0 / 20px 20px no-repeat,
+        radial-gradient(circle at 86% 0, rgba(154, 124, 255, .08), transparent 32%),
+        linear-gradient(180deg, rgba(9, 43, 63, .96), rgba(5, 24, 43, .96));
+      box-shadow: 0 22px 52px rgba(0, 0, 0, .48), inset 0 1px 0 rgba(255, 255, 255, .05), 0 0 28px rgba(32, 215, 189, .07);
+    }
+
+    body.yggdrasil-layout-preview .section::before {
+      background: linear-gradient(90deg, var(--digimon-yellow), var(--yggdrasil-green), var(--yggdrasil-violet), transparent);
+    }
+
+    body.yggdrasil-layout-preview .section::after {
+      content: "RELIC NETWORK // SIGNAL ACTIVE";
+      color: rgba(69, 240, 178, .48);
+    }
+
+    body.yggdrasil-layout-preview #inicio {
+      background:
+        radial-gradient(circle at 50% 0, rgba(69, 240, 178, .13), transparent 43%),
+        radial-gradient(circle at 86% 8%, rgba(154, 124, 255, .08), transparent 30%),
+        linear-gradient(180deg, rgba(9, 43, 63, .96), rgba(5, 24, 43, .96));
+    }
+
+    body.yggdrasil-layout-preview .home-quick-card,
+    body.yggdrasil-layout-preview .quest-catalog-group,
+    body.yggdrasil-layout-preview .quest-detail-card,
+    body.yggdrasil-layout-preview .map-route-card,
+    body.yggdrasil-layout-preview .video-card,
+    body.yggdrasil-layout-preview .transcendence-card {
+      border-color: rgba(69, 240, 178, .31);
+      background:
+        linear-gradient(135deg, rgba(69, 240, 178, .1), transparent 42%),
+        linear-gradient(180deg, rgba(8, 47, 66, .95), rgba(4, 25, 45, .95));
+    }
+
+    body.yggdrasil-layout-preview .home-quick-card {
+      box-shadow: inset 4px 0 0 var(--yggdrasil-green), 0 12px 24px rgba(0, 0, 0, .3);
+    }
+
+    body.yggdrasil-layout-preview .home-quick-card-icon {
+      border-color: var(--yggdrasil-green);
+      background: radial-gradient(circle, rgba(69, 240, 178, .2), rgba(5, 30, 51, .96));
+      color: #baffdf;
+      box-shadow: inset 0 0 0 4px rgba(69, 240, 178, .055), 0 0 14px rgba(69, 240, 178, .25);
+    }
+
+    @keyframes dataGlyphDrift {
+      0% { transform: translate3d(0, 0, 0) scale(var(--scale)) rotate(-2deg); opacity: 0; }
+      8% { opacity: var(--alpha); }
+      78% { opacity: var(--alpha); }
+      100% { transform: translate3d(var(--drift), -145vh, 0) scale(var(--scale)) rotate(3deg); opacity: 0; }
+    }
+
+    @keyframes networkLattice {
+      from { transform: translate3d(-4%, 0, 0); }
+      to { transform: translate3d(4%, -7%, 0); }
+    }
+
+    @keyframes networkStars {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(34px, -46px, 0); }
+    }
+
+    @media (max-width: 720px) {
+      .network-glyph {
+        font-size: .55rem;
+      }
+
+      body.yggdrasil-layout-preview .content > .nav::before {
+        content: "ANCIENT RELAY // SIGNAL ACTIVE";
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -2098,7 +2796,24 @@
   </style>
 </head>
 
-<body class="wiki-intro-active">
+<body class="wiki-intro-active digimon-layout-preview yggdrasil-layout-preview">
+  <svg class="glyph-filter-definitions" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="glyph-luma-alpha" color-interpolation-filters="sRGB" x="-40%" y="-40%" width="180%" height="180%">
+        <feColorMatrix
+          type="matrix"
+          values="
+            0 0 0 0 1
+            0 0 0 0 1
+            0 0 0 0 1
+            .333 .333 .333 0 0"
+        />
+        <feComponentTransfer>
+          <feFuncA type="linear" slope="4" intercept="-2.15" />
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
   <div id="wiki-intro-overlay" role="dialog" aria-modal="true" aria-label="Abertura da Digital Galaxy Wiki">
     <video
       id="wiki-intro-video"
@@ -2121,6 +2836,10 @@
     >Pular introdução</button>
   </div>
   <noscript><style>#wiki-intro-overlay{display:none!important}body.wiki-intro-active{overflow:auto}</style></noscript>
+  <div class="yggdrasil-world-layer">
+    <div id="yggdrasil-data-network" class="yggdrasil-data-network"></div>
+  </div>
+  <div id="team-glyph-tooltip" class="team-glyph-tooltip" role="tooltip" aria-hidden="true"></div>
   <div class="content">
     <div class="logo-container glitch-wrapper">
       <div class="glitch">
@@ -2167,7 +2886,7 @@
     </div>
 
     <div class="nav">
-      <button onclick="showSection('inicio')" data-i18n="nav.inicio">Início</button>
+      <button class="is-active" onclick="showSection('inicio')" data-i18n="nav.inicio">Início</button>
       <button onclick="showSection('novato')" data-i18n="nav.novato">Área do Novato</button>
       <button onclick="redirectToDigimons()" data-i18n="nav.digimons">Digimons</button>
       <!-- MUDANÇA: Rebalance → Guias de Missões -->
@@ -8812,9 +9531,150 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     });
   }
 
+  function initYggdrasilDataNetwork() {
+    const network = document.getElementById('yggdrasil-data-network');
+    if (!network || network.childElementCount) return;
+
+    const teamNames = [
+      'Susamaru', 'Royal', 'Takamura', 'Tronco', 'Rick', 'Aelas',
+      'Gaomon', 'Majork', 'Aphrodite', 'Mei', 'Kyra', 'ShinobiCL',
+      'Trevoso', 'zKaito', 'Leleco', 'EduExtreme', 'Yayah', 'Dyan',
+      'Alamos', 'Grim', 'Avan', 'Xuxu', 'Arufonso', 'Oryx', 'Coovzx',
+      'Geatrum'
+    ];
+    const undecipheredSequences = [
+      'QMVXK', 'ZXTPR', 'NQWLV', 'CKJUZ',
+      'FQXRM', 'VTZKP', 'JXQWN', 'PKZMV'
+    ];
+    const glyphSequences = [...teamNames, ...undecipheredSequences];
+    const alphabetRows = ['ABCDEFG', 'HIJKLMN', 'OPQRSTU', 'VWXYZ'];
+    const rowOffsets = [4, 44, 82, 123];
+    const columnStep = 51;
+    const tones = ['green', 'cyan', 'violet'];
+
+    for (let index = 0; index < 34; index += 1) {
+      const glyph = document.createElement('span');
+      glyph.className = 'network-glyph';
+      glyph.dataset.tone = tones[index % tones.length];
+      const memberName = teamNames[index];
+      const xPosition = (index * 37 + 4) % 101;
+
+      if (memberName) {
+        glyph.classList.add('is-team-member');
+        if (xPosition > 72) glyph.classList.add('tooltip-left');
+        glyph.dataset.member = memberName;
+        glyph.tabIndex = 0;
+        glyph.setAttribute('role', 'img');
+        glyph.setAttribute('aria-label', `Glifos de ${memberName}`);
+      } else {
+        glyph.setAttribute('aria-hidden', 'true');
+      }
+
+      const encodedSequence = glyphSequences[index % glyphSequences.length]
+        .toUpperCase()
+        .replace(/[^A-Z]/g, '');
+
+      [...encodedSequence].forEach(letter => {
+        const rowIndex = alphabetRows.findIndex(row => row.includes(letter));
+        if (rowIndex < 0) return;
+
+        const columnIndex = alphabetRows[rowIndex].indexOf(letter);
+        const symbol = document.createElement('span');
+        symbol.className = 'ancient-alphabet-symbol';
+        symbol.style.backgroundPosition = `${-columnIndex * columnStep}px ${-rowOffsets[rowIndex]}px`;
+        glyph.appendChild(symbol);
+      });
+
+      glyph.style.setProperty('--x', `${xPosition}%`);
+      glyph.style.setProperty('--duration', `${15 + (index % 7) * 2.4}s`);
+      glyph.style.setProperty('--delay', `${-2.1 * (index % 13)}s`);
+      glyph.style.setProperty('--drift', `${((index % 7) - 3) * 34}px`);
+      glyph.style.setProperty('--scale', `${0.72 + (index % 5) * 0.12}`);
+      glyph.style.setProperty('--alpha', `${0.16 + (index % 4) * 0.045}`);
+      network.appendChild(glyph);
+    }
+
+    const tooltip = document.getElementById('team-glyph-tooltip');
+    const memberGlyphs = [...network.querySelectorAll('.network-glyph.is-team-member')];
+    let activeGlyph = null;
+    let pointerFrame = 0;
+    let pointerPosition = { x: 0, y: 0 };
+
+    const hideMemberName = () => {
+      activeGlyph?.classList.remove('is-revealed');
+      activeGlyph = null;
+      tooltip?.classList.remove('is-visible');
+      tooltip?.setAttribute('aria-hidden', 'true');
+    };
+
+    const revealMemberName = (glyph, x, y) => {
+      if (!tooltip || !glyph) return;
+      if (activeGlyph !== glyph) {
+        activeGlyph?.classList.remove('is-revealed');
+        activeGlyph = glyph;
+        activeGlyph.classList.add('is-revealed');
+        tooltip.textContent = glyph.dataset.member || '';
+      }
+
+      tooltip.classList.add('is-visible');
+      tooltip.setAttribute('aria-hidden', 'false');
+
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const padding = 12;
+      let left = x + 16;
+      let top = y - tooltipRect.height / 2;
+
+      if (left + tooltipRect.width > window.innerWidth - padding) {
+        left = x - tooltipRect.width - 16;
+      }
+
+      left = Math.max(padding, left);
+      top = Math.min(window.innerHeight - tooltipRect.height - padding, Math.max(padding, top));
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    };
+
+    document.addEventListener('pointermove', event => {
+      pointerPosition = { x: event.clientX, y: event.clientY };
+      if (pointerFrame) return;
+
+      pointerFrame = window.requestAnimationFrame(() => {
+        pointerFrame = 0;
+        const tolerance = 5;
+        const hoveredGlyph = memberGlyphs.find(glyph => {
+          const rect = glyph.getBoundingClientRect();
+          return pointerPosition.x >= rect.left - tolerance
+            && pointerPosition.x <= rect.right + tolerance
+            && pointerPosition.y >= rect.top - tolerance
+            && pointerPosition.y <= rect.bottom + tolerance;
+        });
+
+        if (hoveredGlyph) {
+          revealMemberName(hoveredGlyph, pointerPosition.x, pointerPosition.y);
+        } else if (!activeGlyph?.matches(':focus-visible')) {
+          hideMemberName();
+        }
+      });
+    });
+
+    network.addEventListener('focusin', event => {
+      const glyph = event.target.closest('.network-glyph.is-team-member');
+      if (!glyph) return;
+      const rect = glyph.getBoundingClientRect();
+      revealMemberName(glyph, rect.right, rect.top + rect.height / 2);
+    });
+
+    network.addEventListener('focusout', hideMemberName);
+    window.addEventListener('blur', hideMemberName);
+  }
+
   function showSection(id) {
     document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
     document.body.classList.toggle('mascote-novato-active', id === 'novato');
+    document.querySelectorAll('.content > .nav > button').forEach(button => button.classList.remove('is-active'));
+    const selectedNavButton = [...document.querySelectorAll('.content > .nav > button')]
+      .find(button => button.getAttribute('onclick')?.includes(`'${id}'`));
+    selectedNavButton?.classList.add('is-active');
 
     const target = document.getElementById(id);
     if (target) {
@@ -8842,6 +9702,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
   // ===== INIT =====
   window.addEventListener('DOMContentLoaded', () => {
+    initYggdrasilDataNetwork();
     initWikiIntro();
 
     const heroEl = document.getElementById('dungeon-hero');
