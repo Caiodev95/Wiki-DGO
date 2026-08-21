@@ -419,7 +419,6 @@
       box-shadow:0 12px 28px rgba(0,0,0,.24),0 0 22px rgba(0,229,255,.08) inset;
     }
     .dungeon-combat-audit h3{ margin:0 0 6px; color:#ffe27a; }
-    .dungeon-combat-audit-intro{ margin:0 0 14px; color:#c9d8e9; }
     .dungeon-combat-mode{
       margin-top:14px;
       padding:14px;
@@ -459,11 +458,7 @@
     .dungeon-boss-table th{ color:#ffe27a; font-size:.78rem; }
     .dungeon-boss-table td:nth-child(2),.dungeon-boss-table td:nth-child(3){ white-space:nowrap; }
     .dungeon-boss-table small{ display:block; margin-top:2px; color:#9fb2c9; white-space:nowrap; }
-    .dungeon-mode-file-reading{ margin:11px 0 0; color:#c8d7e8; font-size:.86rem; line-height:1.48; }
     .dungeon-combat-notes{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
       margin-top:14px;
     }
     .dungeon-combat-note{
@@ -474,17 +469,8 @@
     }
     .dungeon-combat-note strong{ display:block; margin-bottom:4px; color:#ffe27a; }
     .dungeon-combat-note p{ margin:0; line-height:1.48; }
-    .dungeon-combat-warning{
-      margin:14px 0 0;
-      padding:9px 11px;
-      border-radius:9px;
-      color:#d8e4f2;
-      background:rgba(255,196,0,.08);
-      font-size:.82rem;
-    }
     @media (max-width:760px){
       .dungeon-recommendation-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .dungeon-combat-notes{ grid-template-columns:1fr; }
       .dungeon-combat-audit{ padding:13px; }
       .dungeon-boss-table{ font-size:.82rem; }
     }
@@ -8022,22 +8008,19 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
 
   const DUNGEON_COMBAT_UI = {
     pt: {
-      title:'Dados de combate do DGO', intro:'Valores extraídos exclusivamente dos arquivos Monster, MonstersSkill, MapMonsterList, MapList e DigimonList do DGO.',
-      level:'Nível de referência', hp:'Piso técnico de HP*', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nível', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Maior skill', bossSkills:'Skills',
-      mechanics:'Leitura dos arquivos DGO', advantage:'Vantagem por atributo', notDeclared:'Não declarada', noDamage:'Sem dano registrado', map:'Mapa', fileReading:'As mecânicas exibidas abaixo são somente comportamentos mensuráveis nas tabelas: skills vinculadas, dano base e invocações. Percentuais de HP e nomes de rotações não são mostrados quando não existem no arquivo.',
-      warning:'* O piso técnico de HP é apenas 1 ponto acima do maior dano base de skill registrado no arquivo. Não considera ataques básicos, múltiplos acertos, debuffs, dano acumulado ou falhas de mecânica. O cliente DGO não declara um valor mínimo de DE para o jogador.'
+      title:'Dados de combate do DGO',
+      level:'Nível de referência', hp:'HP de referência', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nível', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Maior skill', bossSkills:'Skills',
+      advantage:'Melhores opções', notDeclared:'Não declarada', noDamage:'Sem dano registrado'
     },
     en: {
-      title:'DGO combat data', intro:'Values extracted exclusively from the DGO Monster, MonstersSkill, MapMonsterList, MapList and DigimonList files.',
-      level:'Reference level', hp:'Technical HP floor*', de:'Minimum DE', bosses:'Bosses', boss:'Boss', bossLevel:'Level', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Highest skill', bossSkills:'Skills',
-      mechanics:'DGO file reading', advantage:'Attribute advantage', notDeclared:'Not declared', noDamage:'No damage registered', map:'Map', fileReading:'The mechanics shown below are limited to measurable table data: linked skills, base damage and summons. HP thresholds and rotation names are omitted when they do not exist in the file.',
-      warning:'* The technical HP floor is only 1 point above the highest base skill damage stored in the file. It does not include basic attacks, multi-hits, debuffs, accumulated damage or failed mechanics. The DGO client does not declare a minimum player DE value.'
+      title:'DGO combat data',
+      level:'Reference level', hp:'Reference HP', de:'Minimum DE', bosses:'Bosses', boss:'Boss', bossLevel:'Level', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Highest skill', bossSkills:'Skills',
+      advantage:'Best options', notDeclared:'Not declared', noDamage:'No damage registered'
     },
     es: {
-      title:'Datos de combate del DGO', intro:'Valores extraídos exclusivamente de los archivos Monster, MonstersSkill, MapMonsterList, MapList y DigimonList del DGO.',
-      level:'Nivel de referencia', hp:'Piso técnico de HP*', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nivel', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Mayor skill', bossSkills:'Skills',
-      mechanics:'Lectura de archivos DGO', advantage:'Ventaja de atributo', notDeclared:'No declarada', noDamage:'Sin daño registrado', map:'Mapa', fileReading:'Las mecánicas mostradas se limitan a datos medibles de las tablas: skills vinculadas, daño base e invocaciones. Los porcentajes de HP y nombres de rotaciones se omiten cuando no existen en el archivo.',
-      warning:'* El piso técnico de HP es solo 1 punto superior al mayor daño base de skill guardado en el archivo. No incluye ataques básicos, múltiples golpes, debuffs, daño acumulado ni mecánicas fallidas. El cliente DGO no declara un valor mínimo de DE para el jugador.'
+      title:'Datos de combate del DGO',
+      level:'Nivel de referencia', hp:'HP de referencia', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nivel', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Mayor skill', bossSkills:'Skills',
+      advantage:'Mejores opciones', notDeclared:'No declarada', noDamage:'Sin daño registrado'
     }
   };
 
@@ -8047,7 +8030,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Easy','1704 / 1705',[dungeonBoss('DexDorugoramon',99,2481300,884,570,21220,6,'Virus','Darkness',1),dungeonBoss('Death-X-mon',99,6000000,1100,1000,44000,8,'Virus','Darkness')]),
         dungeonMode('Normal','1701 / 1702',[dungeonBoss('DexDorugoramon',99,9925200,3536,2500,42432,6,'Virus','Darkness'),dungeonBoss('Death-X-mon',99,24000000,4400,3000,33000,10,'Virus','Darkness')])
       ],
-      advantage:dungeonText('Os dois bosses estão registrados como Virus/Darkness. O DigimonList do DGO confirma como opções Vaccine: Alphamon Ouryuken (Awaken), Omegamon X e Susanoomon(Shin).','Both bosses are registered as Virus/Darkness. The DGO DigimonList confirms these Vaccine options: Alphamon Ouryuken (Awaken), Omegamon X and Susanoomon(Shin).','Ambos bosses están registrados como Virus/Darkness. DigimonList del DGO confirma estas opciones Vaccine: Alphamon Ouryuken (Awaken), Omegamon X y Susanoomon(Shin).')
+      advantage:dungeonText('Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light.','Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element.','Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light.')
     },
     'kaiser-lab': {
       modes:[
@@ -8055,39 +8038,39 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Normal','1111',[dungeonBoss('Chimairamon',90,1056000,250,300,880,5,'Data','Fire'),dungeonBoss('BanchouLeomon(Raid Boss)',90,1056000,250,300,1320,2,'Vaccine','Fire')]),
         dungeonMode('Hard','1112',[dungeonBoss('Chimairamon',110,5280000,500,9000,2100,7,'Data','Fire'),dungeonBoss('BanchouLeomon(Raid Boss)',110,4224000,500,9000,2050,4,'Vaccine','Fire'),dungeonBoss('DarkDramon',110,3168000,500,9000,1850,5,'Virus','Darkness')])
       ],
-      advantage:dungeonText('Os atributos variam por boss no DGO: Chimairamon é Data, BanchouLeomon é Vaccine e DarkDramon é Virus. Use Virus contra Chimairamon, Data contra BanchouLeomon e Vaccine contra DarkDramon.','Boss attributes vary in DGO: Chimairamon is Data, BanchouLeomon is Vaccine and DarkDramon is Virus. Use Virus against Chimairamon, Data against BanchouLeomon and Vaccine against DarkDramon.','Los atributos cambian por boss en DGO: Chimairamon es Data, BanchouLeomon es Vaccine y DarkDramon es Virus. Usa Virus contra Chimairamon, Data contra BanchouLeomon y Vaccine contra DarkDramon.')
+      advantage:dungeonText('Leviamon (Virus/Water) contra Chimairamon; Examon X (Data/Light) contra BanchouLeomon; Alphamon Ouryuken (Awaken) ou Omegamon X (Vaccine/Light) contra DarkDramon.','Leviamon (Virus/Water) against Chimairamon; Examon X (Data/Light) against BanchouLeomon; Alphamon Ouryuken (Awaken) or Omegamon X (Vaccine/Light) against DarkDramon.','Leviamon (Virus/Water) contra Chimairamon; Examon X (Data/Light) contra BanchouLeomon; Alphamon Ouryuken (Awaken) u Omegamon X (Vaccine/Light) contra DarkDramon.')
     },
     devimon: {
       modes:[dungeonMode('Normal','1308',[dungeonBoss('Ogremon (Crack of Devimon)',99,1420420,361,215,1000,1,'Virus','Darkness'),dungeonBoss('Leomon (Crack of Devimon)',99,1900420,363,510,1200,1,'Vaccine','Fire'),dungeonBoss('Devimon (Crack of Devimon)',99,2090460,365,525,2400,2,'Virus','Darkness')])],
-      advantage:dungeonText('Ogremon e Devimon estão registrados como Virus/Darkness; Leomon é Vaccine/Fire. Contra o boss final, o DigimonList do DGO confirma Alphamon Ouryuken (Awaken), Omegamon X e Susanoomon(Shin) como opções Vaccine. O modo Hard possui registros no cliente, mas permanece omitido enquanto o conteúdo está em ajuste.','Ogremon and Devimon are registered as Virus/Darkness; Leomon is Vaccine/Fire. Against the final boss, the DGO DigimonList confirms Alphamon Ouryuken (Awaken), Omegamon X and Susanoomon(Shin) as Vaccine options. Hard mode has client records but remains omitted while the content is being adjusted.','Ogremon y Devimon están registrados como Virus/Darkness; Leomon es Vaccine/Fire. Contra el boss final, DigimonList del DGO confirma Alphamon Ouryuken (Awaken), Omegamon X y Susanoomon(Shin) como opciones Vaccine. Hard tiene registros en el cliente, pero permanece omitido mientras se ajusta el contenido.')
+      advantage:dungeonText('Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light, ideais contra Devimon.','Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element, ideal against Devimon.','Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light, ideales contra Devimon.')
     },
     myotismon: {
       modes:[
         dungeonMode('Easy','214',[dungeonBoss('Myotismon',120,8948000,1259,48564,14090,19,'Virus','Darkness')]),
         dungeonMode('Normal','210',[dungeonBoss('Myotismon',120,40383000,2609,18128,62616,19,'Virus','Darkness')])
       ],
-      advantage:dungeonText('Myotismon está registrado como Virus/Darkness. Alphamon Ouryuken (Awaken), Omegamon X e Susanoomon(Shin) aparecem no DigimonList do DGO como Vaccine/Light.','Myotismon is registered as Virus/Darkness. Alphamon Ouryuken (Awaken), Omegamon X and Susanoomon(Shin) appear in the DGO DigimonList as Vaccine/Light.','Myotismon está registrado como Virus/Darkness. Alphamon Ouryuken (Awaken), Omegamon X y Susanoomon(Shin) aparecen en DigimonList del DGO como Vaccine/Light.')
+      advantage:dungeonText('Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light.','Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element.','Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light.')
     },
     venommyotismon: {
       modes:[
         dungeonMode('Easy','215',[dungeonBoss('Venom vamdemon',120,19684000,1487,26192,21697,14,'Virus','Fire')]),
         dungeonMode('Normal','211',[dungeonBoss('Venom vamdemon',120,49210000,2379,49124,45201,14,'Virus','Fire')])
       ],
-      advantage:dungeonText('VenomMyotismon está registrado como Virus/Fire. O DigimonList do DGO confirma opções Vaccine como Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) e Vikemon.','VenomMyotismon is registered as Virus/Fire. The DGO DigimonList confirms Vaccine options such as Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) and Vikemon.','VenomMyotismon está registrado como Virus/Fire. DigimonList del DGO confirma opciones Vaccine como Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) y Vikemon.')
+      advantage:dungeonText('Alphamon Ouryuken (Awaken) ou Omegamon X (Vaccine/Light) e Vikemon (Vaccine/Ice).','Alphamon Ouryuken (Awaken) or Omegamon X (Vaccine/Light), and Vikemon (Vaccine/Ice).','Alphamon Ouryuken (Awaken) u Omegamon X (Vaccine/Light), y Vikemon (Vaccine/Ice).')
     },
     skullmeramon: {
       modes:[
         dungeonMode('Easy','213',[dungeonBoss('SkullMeramon',111,16408000,1247,30202,13700,12,'Data','Fire',1)]),
         dungeonMode('Normal','205',[dungeonBoss('SkullMeramon',111,41020000,1996,30202,25000,15,'Data','Fire',3)])
       ],
-      advantage:dungeonText('SkullMeramon está registrado como Data/Fire. O DigimonList do DGO confirma como opções Virus: Omegamon Zwart D, Demon X, Chaosdramon X e Leviamon.','SkullMeramon is registered as Data/Fire. The DGO DigimonList confirms these Virus options: Omegamon Zwart D, Demon X, Chaosdramon X and Leviamon.','SkullMeramon está registrado como Data/Fire. DigimonList del DGO confirma estas opciones Virus: Omegamon Zwart D, Demon X, Chaosdramon X y Leviamon.')
+      advantage:dungeonText('Leviamon (Virus/Water) é a principal opção; Omegamon Zwart D (Virus/Darkness) e Chaosdramon X (Virus/Steel) também possuem vantagem de atributo.','Leviamon (Virus/Water) is the main option; Omegamon Zwart D (Virus/Darkness) and Chaosdramon X (Virus/Steel) also have attribute advantage.','Leviamon (Virus/Water) es la opción principal; Omegamon Zwart D (Virus/Darkness) y Chaosdramon X (Virus/Steel) también tienen ventaja de atributo.')
     },
     nanomon: {
       modes:[
         dungeonMode('Easy','1403',[dungeonBoss('Etemon',95,748800,520,220,0,0,'Virus','Darkness'),dungeonBoss('Nanomon',95,748800,520,220,0,0,'Virus','Steel')]),
         dungeonMode('Normal','1404',[dungeonBoss('Etemon',99,2921040,820,800,20000,4,'Virus','Darkness'),dungeonBoss('Nanomon',99,2681040,820,800,20000,3,'Virus','Steel')])
       ],
-      advantage:dungeonText('Etemon e Nanomon estão registrados como Virus; Etemon possui Darkness e Nanomon Steel. O DigimonList do DGO confirma Alphamon Ouryuken (Awaken), Omegamon X e Susanoomon(Shin) como opções Vaccine.','Etemon and Nanomon are registered as Virus; Etemon has Darkness and Nanomon Steel. The DGO DigimonList confirms Alphamon Ouryuken (Awaken), Omegamon X and Susanoomon(Shin) as Vaccine options.','Etemon y Nanomon están registrados como Virus; Etemon tiene Darkness y Nanomon Steel. DigimonList del DGO confirma Alphamon Ouryuken (Awaken), Omegamon X y Susanoomon(Shin) como opciones Vaccine.')
+      advantage:dungeonText('Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light.','Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element.','Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light.')
     },
     'scar-water-crystal': {
       modes:[
@@ -8095,7 +8078,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Normal','1600',[dungeonBoss('MegaSeadramon',99,5040000,840,20000,16000,5,'Data','Water'),dungeonBoss('Marin Devimon',99,5760000,920,25000,7000,5,'Virus','Water'),dungeonBoss('Xuanwumon',99,6240000,1000,30000,16000,9,'Vaccine','Water',1)]),
         dungeonMode('Hard','1610',[dungeonBoss('MegaSeadramon',120,10080000,1680,20000,48000,5,'Data','Water'),dungeonBoss('Marin Devimon',120,14400000,2300,25000,14000,5,'Virus','Water'),dungeonBoss('Xuanwumon',120,18720000,3000,30000,60000,4,'Vaccine','Water',1)])
       ],
-      advantage:dungeonText('Os atributos são mistos no DGO: MegaSeadramon é Data, Marin Devimon é Virus e Xuanwumon é Vaccine. Use respectivamente Virus, Vaccine e Data. O DigimonList confirma opções Data como Examon X, Fanglongmon(Shin) e Gabumon (Bond of Friendship).','DGO uses mixed attributes here: MegaSeadramon is Data, Marin Devimon is Virus and Xuanwumon is Vaccine. Use Virus, Vaccine and Data respectively. DigimonList confirms Data options such as Examon X, Fanglongmon(Shin) and Gabumon (Bond of Friendship).','DGO usa atributos mixtos aquí: MegaSeadramon es Data, Marin Devimon es Virus y Xuanwumon es Vaccine. Usa Virus, Vaccine y Data respectivamente. DigimonList confirma opciones Data como Examon X, Fanglongmon(Shin) y Gabumon (Bond of Friendship).')
+      advantage:dungeonText('Contra Xuanwumon, use Examon X (Data/Light), Fanglongmon(Shin) (Data/Earth) ou Gabumon (Bond of Friendship) (Data/Steel).','Against Xuanwumon, use Examon X (Data/Light), Fanglongmon(Shin) (Data/Earth) or Gabumon (Bond of Friendship) (Data/Steel).','Contra Xuanwumon, usa Examon X (Data/Light), Fanglongmon(Shin) (Data/Earth) o Gabumon (Bond of Friendship) (Data/Steel).')
     },
     'descending-thunder-god': {
       modes:[
@@ -8103,7 +8086,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Normal','1603',[dungeonBoss('Antylamon',99,12600000,880,60000,6000,2,'Data','Light'),dungeonBoss('Mihiramon',99,14400000,920,14464,42000,8,'Data','Light'),dungeonBoss('Majiramon',99,16200000,1000,34464,12000,8,'Data','Light'),dungeonBoss('Qinglongmon',99,19200000,1250,54464,15000,12,'Data','Thunder',1)]),
         dungeonMode('Hard','1613',[dungeonBoss('Antylamon',120,10080000,1760,15000,16000,7,'Data','Light'),dungeonBoss('Mihiramon',120,13248000,2116,20000,45600,8,'Data','Light'),dungeonBoss('Majiramon',120,16848000,2600,25000,31200,8,'Data','Light'),dungeonBoss('Qinglongmon',120,23040000,3750,30000,45000,12,'Data','Thunder',1)])
       ],
-      advantage:dungeonText('Todos os bosses estão registrados como Data. O DigimonList do DGO confirma Omegamon Zwart D, Demon X e Chaosdramon X como opções Virus; Chaosdramon X também possui Steel contra o Thunder de Qinglongmon.','All bosses are registered as Data. The DGO DigimonList confirms Omegamon Zwart D, Demon X and Chaosdramon X as Virus options; Chaosdramon X also has Steel against Qinglongmon\'s Thunder.','Todos los bosses están registrados como Data. DigimonList del DGO confirma Omegamon Zwart D, Demon X y Chaosdramon X como opciones Virus; Chaosdramon X también posee Steel contra el Thunder de Qinglongmon.')
+      advantage:dungeonText('Chaosdramon X (Virus/Steel) é a principal opção; Omegamon Zwart D (Virus/Darkness) e Demon X (Virus/Fire) também funcionam bem.','Chaosdramon X (Virus/Steel) is the main option; Omegamon Zwart D (Virus/Darkness) and Demon X (Virus/Fire) also work well.','Chaosdramon X (Virus/Steel) es la opción principal; Omegamon Zwart D (Virus/Darkness) y Demon X (Virus/Fire) también funcionan bien.')
     },
     'trace-black-steel': {
       modes:[
@@ -8111,14 +8094,14 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Normal','1602',[dungeonBoss('Sinduramon',99,3840000,880,25000,20000,7,'Data','Thunder'),dungeonBoss('Blossomon',99,5040000,1000,25000,25000,10,'Data','Wood'),dungeonBoss('Baihumon',99,6600000,1250,30000,30000,13,'Data','Steel')]),
         dungeonMode('Hard','1612',[dungeonBoss('Sinduramon',120,7680000,1760,25000,30000,7,'Data','Thunder'),dungeonBoss('Blossomon',120,12672000,2000,25000,30000,10,'Data','Wood'),dungeonBoss('Baihumon',120,21600000,3750,30000,45000,13,'Data','Steel')])
       ],
-      advantage:dungeonText('Sinduramon, Blossomon e Baihumon estão registrados como Data. O DigimonList do DGO confirma Omegamon Zwart D, Chaosdramon X e Demon X como opções Virus; Demon X possui Fire contra o Steel de Baihumon.','Sinduramon, Blossomon and Baihumon are registered as Data. The DGO DigimonList confirms Omegamon Zwart D, Chaosdramon X and Demon X as Virus options; Demon X has Fire against Baihumon\'s Steel.','Sinduramon, Blossomon y Baihumon están registrados como Data. DigimonList del DGO confirma Omegamon Zwart D, Chaosdramon X y Demon X como opciones Virus; Demon X posee Fire contra el Steel de Baihumon.')
+      advantage:dungeonText('Demon X (Virus/Fire) é a principal opção contra Baihumon; Omegamon Zwart D (Virus/Darkness) e Chaosdramon X (Virus/Steel) também possuem vantagem.','Demon X (Virus/Fire) is the main option against Baihumon; Omegamon Zwart D (Virus/Darkness) and Chaosdramon X (Virus/Steel) also have advantage.','Demon X (Virus/Fire) es la opción principal contra Baihumon; Omegamon Zwart D (Virus/Darkness) y Chaosdramon X (Virus/Steel) también tienen ventaja.')
     },
     'fanglongmon-dungeon': {
       modes:[
         dungeonMode('Easy','1615 / 1614',[dungeonBoss('Xuanwumon',99,5125500,3010,400,36000,10,'Vaccine','Water',2),dungeonBoss('Zhuqiaomon',99,3396000,2580,300,7200,12,'Virus','Fire',3),dungeonBoss('Baihumon',99,3396000,2580,300,18000,14,'Data','Steel',1),dungeonBoss('Qinglongmon',99,8016000,3190,500,18000,12,'Data','Thunder',2),dungeonBoss('Fanglongmon',99,28800000,5280,800,48000,15,'Data','Earth')]),
         dungeonMode('Normal','1609 / 1608',[dungeonBoss('Xuanwumon',99,17084400,5016,1425,60000,10,'Vaccine','Water',2),dungeonBoss('Zhuqiaomon',99,11319600,4296,945,12000,12,'Virus','Fire',3),dungeonBoss('Baihumon',99,11319600,4296,945,30000,14,'Data','Steel',1),dungeonBoss('Qinglongmon',99,26720000,5304,1655,30000,12,'Data','Thunder',2),dungeonBoss('Fanglongmon',99,96000000,8800,3000,80000,15,'Data','Earth')])
       ],
-      advantage:dungeonText('A primeira sala possui atributos mistos. Fanglongmon está registrado como Data/Earth; contra ele, o DigimonList do DGO confirma Omegamon Zwart D, Demon X e Chaosdramon X como opções Virus.','The first room has mixed attributes. Fanglongmon is registered as Data/Earth; against it, the DGO DigimonList confirms Omegamon Zwart D, Demon X and Chaosdramon X as Virus options.','La primera sala posee atributos mixtos. Fanglongmon está registrado como Data/Earth; contra él, DigimonList del DGO confirma Omegamon Zwart D, Demon X y Chaosdramon X como opciones Virus.')
+      advantage:dungeonText('Contra Fanglongmon, use Omegamon Zwart D (Virus/Darkness), Demon X (Virus/Fire) ou Chaosdramon X (Virus/Steel).','Against Fanglongmon, use Omegamon Zwart D (Virus/Darkness), Demon X (Virus/Fire) or Chaosdramon X (Virus/Steel).','Contra Fanglongmon, usa Omegamon Zwart D (Virus/Darkness), Demon X (Virus/Fire) o Chaosdramon X (Virus/Steel).')
     },
     'uprising-flame': {
       modes:[
@@ -8126,11 +8109,11 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
         dungeonMode('Normal','1601',[dungeonBoss('Birdramon',99,5040000,840,15000,15000,2,'Vaccine','Fire'),dungeonBoss('Garudamon',99,5760000,880,20000,12000,4,'Vaccine','Fire'),dungeonBoss('Phoenixmon',99,6000000,920,25000,5000,4,'Vaccine','Fire'),dungeonBoss('Zhuqiaomon',99,7200000,1000,30000,6000,11,'Virus','Fire',2)]),
         dungeonMode('Hard','1611',[dungeonBoss('Birdramon',120,10080000,1680,18000,22000,2,'Vaccine','Fire'),dungeonBoss('Garudamon',120,12672000,1950,20000,18000,4,'Vaccine','Fire'),dungeonBoss('Phoenixmon',120,15000000,2300,25000,7500,4,'Vaccine','Fire'),dungeonBoss('Zhuqiaomon',120,21600000,3000,30000,9000,11,'Virus','Fire',2)])
       ],
-      advantage:dungeonText('Birdramon, Garudamon e Phoenixmon estão registrados como Vaccine; Zhuqiaomon é Virus. Use Data nos três primeiros e Vaccine no boss final. O DigimonList confirma Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) e Vikemon como Vaccine.','Birdramon, Garudamon and Phoenixmon are registered as Vaccine; Zhuqiaomon is Virus. Use Data on the first three and Vaccine on the final boss. DigimonList confirms Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) and Vikemon as Vaccine.','Birdramon, Garudamon y Phoenixmon están registrados como Vaccine; Zhuqiaomon es Virus. Usa Data en los tres primeros y Vaccine en el boss final. DigimonList confirma Alphamon Ouryuken (Awaken), Omegamon X, Susanoomon(Shin) y Vikemon como Vaccine.')
+      advantage:dungeonText('Use Examon X (Data/Light) nos três primeiros bosses e Alphamon Ouryuken (Awaken) ou Omegamon X (Vaccine/Light) contra Zhuqiaomon.','Use Examon X (Data/Light) on the first three bosses and Alphamon Ouryuken (Awaken) or Omegamon X (Vaccine/Light) against Zhuqiaomon.','Usa Examon X (Data/Light) en los tres primeros bosses y Alphamon Ouryuken (Awaken) u Omegamon X (Vaccine/Light) contra Zhuqiaomon.')
     },
     Gankoomon: {
       modes:[dungeonMode(dungeonText('Treino rotativo','Rotating training','Entrenamiento rotativo'),'50',[dungeonBoss('Gankoomon',70,15300,691,6152,1129,3,'Data','Steel'),dungeonBoss('Kaiser Leomon',70,15300,691,6152,972,2,'No Attribute','Darkness'),dungeonBoss('Vritramon',70,15300,691,6152,972,2,'Vaccine','Fire'),dungeonBoss('Calamaramon',70,15300,691,6152,972,2,'No Attribute','Water'),dungeonBoss('Petaldramon',70,15300,691,6152,972,2,'No Attribute','Wood'),dungeonBoss('Sephirothmon',70,15300,691,6152,972,2,'No Attribute','Steel'),dungeonBoss('Gigasmon',70,15300,691,6152,972,2,'No Attribute','Earth'),dungeonBoss('Garummon',70,15300,691,6152,972,2,'No Attribute','Light')])],
-      advantage:dungeonText('O arquivo do mapa 50 registra encontros rotativos com atributos diferentes. Gankoomon é Data/Steel e Vritramon é Vaccine/Fire; os demais espíritos estão marcados como No Attribute. Ajuste o Digimon ao encontro ativo.','Map 50 stores rotating encounters with different attributes. Gankoomon is Data/Steel and Vritramon is Vaccine/Fire; the remaining spirits are marked as No Attribute. Match your Digimon to the active encounter.','El archivo del mapa 50 registra encuentros rotativos con atributos diferentes. Gankoomon es Data/Steel y Vritramon es Vaccine/Fire; los demás espíritus están marcados como No Attribute. Ajusta tu Digimon al encuentro activo.')
+      advantage:dungeonText('Contra Gankoomon, use Demon X (Virus/Fire). Contra Vritramon, use Examon X (Data/Light); nos demais encontros, priorize seu Digimon mais forte.','Against Gankoomon, use Demon X (Virus/Fire). Against Vritramon, use Examon X (Data/Light); in the remaining encounters, prioritize your strongest Digimon.','Contra Gankoomon, usa Demon X (Virus/Fire). Contra Vritramon, usa Examon X (Data/Light); en los demás encuentros, prioriza tu Digimon más fuerte.')
     }
   };
 
@@ -8143,15 +8126,6 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     return new Intl.NumberFormat(LANGUAGE_LOCALES[lang] || LANGUAGE_LOCALES.pt).format(value);
   }
 
-  function renderDungeonFileReading(mode, lang, ui) {
-    const skillCount = mode.bosses.reduce((total,boss) => total + (boss.skills || 0),0);
-    const summonCount = mode.bosses.reduce((total,boss) => total + (boss.summons || 0),0);
-    const damage = mode.hpFloor ? formatDungeonNumber(mode.hpFloor,lang) : ui.noDamage;
-    if (lang === 'en') return `${ui.map} ${mode.map}: ${skillCount} boss skill record(s), highest stored base damage ${damage}, and ${summonCount} summon record(s).`;
-    if (lang === 'es') return `${ui.map} ${mode.map}: ${skillCount} registro(s) de skills de boss, mayor daño base almacenado ${damage} y ${summonCount} registro(s) de invocación.`;
-    return `${ui.map} ${mode.map}: ${skillCount} registro(s) de skills de boss, maior dano base armazenado ${damage} e ${summonCount} registro(s) de invocação.`;
-  }
-
   function renderDungeonCombatAudit(id, lang = currentLanguage) {
     const data = DUNGEON_COMBAT_DATA[id];
     if (!data) return '';
@@ -8159,9 +8133,9 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     const modes = data.modes.map(mode => {
       const bossTable = mode.bosses.length ? `<div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td><strong>${boss.name}</strong><small>${boss.attribute} · ${boss.element}</small></td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td><td>${formatDungeonNumber(boss.at,lang)}</td><td>${formatDungeonNumber(boss.de,lang)}</td><td>${boss.skills}</td><td>${boss.maxSkill ? formatDungeonNumber(boss.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div>` : '';
       const hpFloor = mode.hpFloor ? `${formatDungeonNumber(mode.hpFloor + 1,lang)}+` : ui.notDeclared;
-      return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)} <small>(${ui.map} ${mode.map})</small></h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${hpFloor}</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${ui.notDeclared}</strong></div><div class="dungeon-recommendation-card"><span>${ui.bosses}</span><strong>${mode.bosses.length}</strong></div></div>${bossTable}<p class="dungeon-mode-file-reading">${renderDungeonFileReading(mode,lang,ui)}</p></article>`;
+      return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)}</h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${hpFloor}</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${ui.notDeclared}</strong></div><div class="dungeon-recommendation-card"><span>${ui.bosses}</span><strong>${mode.bosses.length}</strong></div></div>${bossTable}</article>`;
     }).join('');
-    return `<section class="dungeon-combat-audit" aria-label="${ui.title}"><h3>${ui.title}</h3><p class="dungeon-combat-audit-intro">${ui.intro}</p>${modes}<div class="dungeon-combat-notes"><div class="dungeon-combat-note"><strong>${ui.mechanics}</strong><p>${ui.fileReading}</p></div><div class="dungeon-combat-note"><strong>${ui.advantage}</strong><p>${localizedDungeonValue(data.advantage,lang)}</p></div></div><p class="dungeon-combat-warning">${ui.warning}</p></section>`;
+    return `<section class="dungeon-combat-audit" aria-label="${ui.title}"><h3>${ui.title}</h3>${modes}<div class="dungeon-combat-notes"><div class="dungeon-combat-note"><strong>${ui.advantage}</strong><p>${localizedDungeonValue(data.advantage,lang)}</p></div></div></section>`;
   }
 
   function prependDungeonCombatAudit(content, id, lang = currentLanguage) {
@@ -8176,7 +8150,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     if (!data) return '';
     const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
     const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.map} ${mode.level} ${mode.hpFloor} ${formatDungeonNumber(mode.hpFloor,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)} ${boss.at} ${boss.de} ${boss.maxSkill} ${boss.skills} ${boss.attribute} ${boss.element}`).join(' ')}`).join(' ');
-    return `${modeText} ${localizedDungeonValue(data.advantage,lang)} ${ui.fileReading}`;
+    return `${modeText} ${localizedDungeonValue(data.advantage,lang)}`;
   }
 
   // Nomes das quests permanecem iguais aos do cliente para facilitar a localização no jogo.
