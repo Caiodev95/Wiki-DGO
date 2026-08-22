@@ -458,6 +458,9 @@
     .dungeon-boss-table th{ color:#ffe27a; font-size:.78rem; }
     .dungeon-boss-table td:nth-child(2),.dungeon-boss-table td:nth-child(3){ white-space:nowrap; }
     .dungeon-boss-table small{ display:block; margin-top:2px; color:#9fb2c9; white-space:nowrap; }
+    .dungeon-encounter-section{ margin:14px 0 16px; }
+    .dungeon-encounter-section h5{ margin:0 0 4px; color:#ffe27a; font-size:.9rem; }
+    .dungeon-encounter-section p{ margin:0 0 8px; color:#c8d7e8; font-size:.86rem; }
     .dungeon-combat-notes{
       margin-top:14px;
     }
@@ -7998,39 +8001,55 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   // Painel construído exclusivamente com os arquivos de dados do DGO.
   const dungeonText = (pt, en, es) => ({ pt, en, es });
   const dungeonBoss = (name, level, hp, at, de, maxSkill, skills, attribute, element, summons = 0) => ({ name, level, hp, at, de, maxSkill, skills, attribute, element, summons });
-  const dungeonMode = (name, map, bosses = []) => ({
+  const dungeonEncounter = (name, hpMin, hpMax, atMin, atMax, deMin, deMax, maxSkill, attribute, element) => ({ name, hpMin, hpMax, atMin, atMax, deMin, deMax, maxSkill, attribute, element });
+  const dungeonMode = (name, map, bosses = [], encounters = []) => ({
     name,
     map,
     bosses,
+    encounters,
     level: Math.max(0,...bosses.map(boss => boss.level || 0)),
-    hpFloor: Math.max(0,...bosses.map(boss => boss.maxSkill || 0))
+    hpFloor: Math.max(0,...bosses.map(boss => boss.maxSkill || 0),...encounters.map(encounter => encounter.maxSkill || 0))
   });
 
   const DUNGEON_COMBAT_UI = {
     pt: {
       title:'Dados de combate do DGO',
       level:'Nível de referência', hp:'HP de referência', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nível', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Maior skill', bossSkills:'Skills',
-      advantage:'Melhores opções', notDeclared:'Não declarada', noDamage:'Sem dano registrado'
+      advantage:'Melhores opções', finalBosses:'Bosses finais', royalKnights:'Royal Knights da primeira sala', royalKnightsInfo:'Em cada entrada, 3 dos 6 Royal Knights são escolhidos aleatoriamente. Os atributos variam conforme a ordem do confronto.', notDeclared:'Não declarada', noDamage:'Sem dano registrado'
     },
     en: {
       title:'DGO combat data',
       level:'Reference level', hp:'Reference HP', de:'Minimum DE', bosses:'Bosses', boss:'Boss', bossLevel:'Level', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Highest skill', bossSkills:'Skills',
-      advantage:'Best options', notDeclared:'Not declared', noDamage:'No damage registered'
+      advantage:'Best options', finalBosses:'Final bosses', royalKnights:'First-room Royal Knights', royalKnightsInfo:'On each run, 3 of the 6 Royal Knights are selected at random. Their stats vary according to encounter order.', notDeclared:'Not declared', noDamage:'No damage registered'
     },
     es: {
       title:'Datos de combate del DGO',
       level:'Nivel de referencia', hp:'HP de referencia', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nivel', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Mayor skill', bossSkills:'Skills',
-      advantage:'Mejores opciones', notDeclared:'No declarada', noDamage:'Sin daño registrado'
+      advantage:'Mejores opciones', finalBosses:'Bosses finales', royalKnights:'Royal Knights de la primera sala', royalKnightsInfo:'En cada entrada, 3 de los 6 Royal Knights son seleccionados al azar. Sus atributos cambian según el orden del enfrentamiento.', notDeclared:'No declarada', noDamage:'Sin daño registrado'
     }
   };
 
   const DUNGEON_COMBAT_DATA = {
     royalbase: {
       modes:[
-        dungeonMode('Easy','1704 / 1705',[dungeonBoss('DexDorugoramon',99,2481300,884,570,21220,6,'Virus','Darkness',1),dungeonBoss('Death-X-mon',99,6000000,1100,1000,44000,8,'Virus','Darkness')]),
-        dungeonMode('Normal','1701 / 1702',[dungeonBoss('DexDorugoramon',99,9925200,3536,2500,42432,6,'Virus','Darkness'),dungeonBoss('Death-X-mon',99,24000000,4400,3000,33000,10,'Virus','Darkness')])
+        dungeonMode('Easy','1704 / 1705',[dungeonBoss('DexDorugoramon',99,2481300,884,570,21220,6,'Virus','Darkness',1),dungeonBoss('Death-X-mon',99,6000000,1100,1000,44000,8,'Virus','Darkness')],[
+          dungeonEncounter('LordKnightmon',2058000,2634000,740,812,350,450,6500,'Virus','Steel'),
+          dungeonEncounter('Dynasmon',2058000,2847400,740,836,350,480,33440,'Data','Fire'),
+          dungeonEncounter('Sleipmon',1886600,2634000,716,812,320,450,6500,'Vaccine','Light'),
+          dungeonEncounter('UlforceVeedramon',1725000,2431400,0,0,300,420,50,'Vaccine','Light'),
+          dungeonEncounter('Examon',2058000,2847400,740,836,350,480,33440,'Vaccine','Light'),
+          dungeonEncounter('Craniummon',2058000,2847400,740,836,350,480,6690,'Vaccine','Steel')
+        ]),
+        dungeonMode('Normal','1701 / 1702',[dungeonBoss('DexDorugoramon',99,9925200,3536,2500,42432,6,'Virus','Darkness'),dungeonBoss('Death-X-mon',99,24000000,4400,3000,33000,10,'Virus','Darkness')],[
+          dungeonEncounter('LordKnightmon',8232000,10536000,2960,3248,20000,20000,30000,'Virus','Steel'),
+          dungeonEncounter('Dynasmon',8232000,11389600,2960,3344,20000,20000,66880,'Data','Fire'),
+          dungeonEncounter('Sleipmon',7546400,10536000,2864,3248,20000,20000,12992,'Vaccine','Light'),
+          dungeonEncounter('UlforceVeedramon',6900000,9725600,0,0,20000,20000,0,'Vaccine','Light'),
+          dungeonEncounter('Examon',8232000,11389600,2960,3344,20000,20000,66880,'Vaccine','Light'),
+          dungeonEncounter('Craniummon',8232000,11389600,2960,3344,20000,20000,13376,'Vaccine','Steel')
+        ])
       ],
-      advantage:dungeonText('Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light.','Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element.','Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light.')
+      advantage:dungeonText('Os Royal Knights possuem atributos variados. Contra DexDorugoramon e Death-X-mon, use Alphamon Ouryuken (Awaken), Omegamon X ou Susanoomon(Shin) — atributo Vaccine e elemento Light.','The Royal Knights have mixed attributes. Against DexDorugoramon and Death-X-mon, use Alphamon Ouryuken (Awaken), Omegamon X or Susanoomon(Shin) — Vaccine attribute and Light element.','Los Royal Knights poseen atributos variados. Contra DexDorugoramon y Death-X-mon, usa Alphamon Ouryuken (Awaken), Omegamon X o Susanoomon(Shin) — atributo Vaccine y elemento Light.')
     },
     'kaiser-lab': {
       modes:[
@@ -8126,14 +8145,20 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     return new Intl.NumberFormat(LANGUAGE_LOCALES[lang] || LANGUAGE_LOCALES.pt).format(value);
   }
 
+  function formatDungeonRange(min, max, lang = currentLanguage) {
+    const start = formatDungeonNumber(min,lang);
+    return min === max ? start : `${start} – ${formatDungeonNumber(max,lang)}`;
+  }
+
   function renderDungeonCombatAudit(id, lang = currentLanguage) {
     const data = DUNGEON_COMBAT_DATA[id];
     if (!data) return '';
     const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
     const modes = data.modes.map(mode => {
-      const bossTable = mode.bosses.length ? `<div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td><strong>${boss.name}</strong><small>${boss.attribute} · ${boss.element}</small></td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td><td>${formatDungeonNumber(boss.at,lang)}</td><td>${formatDungeonNumber(boss.de,lang)}</td><td>${boss.skills}</td><td>${boss.maxSkill ? formatDungeonNumber(boss.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div>` : '';
+      const encounterTable = mode.encounters.length ? `<section class="dungeon-encounter-section"><h5>${ui.royalKnights}</h5><p>${ui.royalKnightsInfo}</p><div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.encounters.map(encounter => `<tr><td><strong>${encounter.name}</strong><small>${encounter.attribute} · ${encounter.element}</small></td><td>${formatDungeonRange(encounter.hpMin,encounter.hpMax,lang)}</td><td>${formatDungeonRange(encounter.atMin,encounter.atMax,lang)}</td><td>${formatDungeonRange(encounter.deMin,encounter.deMax,lang)}</td><td>${encounter.maxSkill ? formatDungeonNumber(encounter.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div></section>` : '';
+      const bossTable = mode.bosses.length ? `${mode.encounters.length ? `<div class="dungeon-encounter-section"><h5>${ui.finalBosses}</h5></div>` : ''}<div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td><strong>${boss.name}</strong><small>${boss.attribute} · ${boss.element}</small></td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td><td>${formatDungeonNumber(boss.at,lang)}</td><td>${formatDungeonNumber(boss.de,lang)}</td><td>${boss.skills}</td><td>${boss.maxSkill ? formatDungeonNumber(boss.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div>` : '';
       const hpFloor = mode.hpFloor ? `${formatDungeonNumber(mode.hpFloor + 1,lang)}+` : ui.notDeclared;
-      return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)}</h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${hpFloor}</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${ui.notDeclared}</strong></div><div class="dungeon-recommendation-card"><span>${ui.bosses}</span><strong>${mode.bosses.length}</strong></div></div>${bossTable}</article>`;
+      return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)}</h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${hpFloor}</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${ui.notDeclared}</strong></div><div class="dungeon-recommendation-card"><span>${mode.encounters.length ? ui.finalBosses : ui.bosses}</span><strong>${mode.bosses.length}</strong></div></div>${encounterTable}${bossTable}</article>`;
     }).join('');
     return `<section class="dungeon-combat-audit" aria-label="${ui.title}"><h3>${ui.title}</h3>${modes}<div class="dungeon-combat-notes"><div class="dungeon-combat-note"><strong>${ui.advantage}</strong><p>${localizedDungeonValue(data.advantage,lang)}</p></div></div></section>`;
   }
@@ -8149,7 +8174,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     const data = DUNGEON_COMBAT_DATA[id];
     if (!data) return '';
     const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
-    const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.map} ${mode.level} ${mode.hpFloor} ${formatDungeonNumber(mode.hpFloor,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)} ${boss.at} ${boss.de} ${boss.maxSkill} ${boss.skills} ${boss.attribute} ${boss.element}`).join(' ')}`).join(' ');
+    const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.map} ${mode.level} ${mode.hpFloor} ${formatDungeonNumber(mode.hpFloor,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)} ${boss.at} ${boss.de} ${boss.maxSkill} ${boss.skills} ${boss.attribute} ${boss.element}`).join(' ')} ${mode.encounters.map(encounter => `${encounter.name} ${encounter.hpMin} ${encounter.hpMax} ${encounter.atMin} ${encounter.atMax} ${encounter.deMin} ${encounter.deMax} ${encounter.maxSkill} ${encounter.attribute} ${encounter.element}`).join(' ')}`).join(' ');
     return `${modeText} ${localizedDungeonValue(data.advantage,lang)}`;
   }
 
