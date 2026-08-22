@@ -48,16 +48,16 @@
       right:auto;
       top:64%;
       width:clamp(150px,13vw,205px);
-      transform:translate(-58%,-50%);
-      z-index:0;
+      transform:translate(-66%,-50%);
+      z-index:2;
     }
     .home-digimon-veemon{
       right:0;
       left:auto;
       top:64%;
       width:clamp(150px,13vw,205px);
-      transform:translate(58%,-50%);
-      z-index:0;
+      transform:translate(66%,-50%);
+      z-index:2;
     }
     .home-digimon-gatomon{
       left:76%;
@@ -65,7 +65,7 @@
       top:0;
       bottom:auto;
       width:clamp(115px,10vw,150px);
-      transform:translate(-50%,-55%);
+      transform:translate(-50%,-68%);
       filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
       opacity:0;
       visibility:hidden;
@@ -3101,7 +3101,6 @@
     </div>
 
     <div class="nav">
-      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <button class="is-active" onclick="showSection('inicio')" data-i18n="nav.inicio">Início</button>
       <button onclick="showSection('novato')" data-i18n="nav.novato">Área do Novato</button>
       <button onclick="redirectToDigimons()" data-i18n="nav.digimons">Digimons</button>
@@ -3116,6 +3115,7 @@
     </div>
 
     <div class="home-section-shell">
+      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="" aria-hidden="true">
       <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="" aria-hidden="true">
       <div id="inicio" class="section active centered">
