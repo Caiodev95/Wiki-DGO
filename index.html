@@ -33,6 +33,56 @@
       pointer-events: none;
     }
 
+    .home-digimon-stage{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .35s ease,visibility .35s ease;
+    }
+    body.home-active .home-digimon-stage{
+      opacity:1;
+      visibility:visible;
+    }
+    .home-digimon{
+      position:absolute;
+      display:block;
+      max-width:none;
+      height:auto;
+      user-select:none;
+      filter:drop-shadow(0 0 18px rgba(24,216,255,.2));
+    }
+    .home-digimon-agumon{
+      left:0;
+      top:61%;
+      width:clamp(250px,23vw,360px);
+      transform:translate(-38%,-50%);
+    }
+    .home-digimon-veemon{
+      right:0;
+      top:61%;
+      width:clamp(250px,23vw,360px);
+      transform:translate(38%,-50%);
+    }
+    .home-digimon-gatomon{
+      left:57%;
+      top:clamp(350px,42vh,460px);
+      width:clamp(155px,14vw,220px);
+      transform:translate(-50%,-50%);
+      filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
+    }
+    @media (max-width:1180px){
+      .home-digimon-agumon,
+      .home-digimon-veemon{ width:clamp(210px,25vw,290px); }
+      .home-digimon-gatomon{ left:62%; width:clamp(145px,17vw,190px); }
+    }
+    @media (max-width:760px){
+      .home-digimon-stage{ display:none; }
+    }
+
     .content, .nav, .section { position: relative; z-index: 1; }
     h1, h2 {
       color: var(--cor-destaque-primaria);
@@ -2939,7 +2989,7 @@
   </style>
 </head>
 
-<body class="wiki-intro-active digimon-layout-preview yggdrasil-layout-preview">
+<body class="wiki-intro-active digimon-layout-preview yggdrasil-layout-preview home-active">
   <svg class="glyph-filter-definitions" width="0" height="0" aria-hidden="true" focusable="false">
     <defs>
       <filter id="glyph-luma-alpha" color-interpolation-filters="sRGB" x="-40%" y="-40%" width="180%" height="180%">
@@ -2983,6 +3033,11 @@
     <div id="yggdrasil-data-network" class="yggdrasil-data-network"></div>
   </div>
   <div id="team-glyph-tooltip" class="team-glyph-tooltip" role="tooltip" aria-hidden="true"></div>
+  <div class="home-digimon-stage" aria-hidden="true">
+    <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="">
+    <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="">
+    <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="">
+  </div>
   <div class="content">
     <div class="logo-container glitch-wrapper">
       <div class="glitch">
@@ -10025,6 +10080,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   function showSection(id) {
     document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
     document.body.classList.toggle('mascote-novato-active', id === 'novato');
+    document.body.classList.toggle('home-active', id === 'inicio');
     if (id !== 'dungeons') document.body.classList.remove('dungeon-expanded');
     document.querySelectorAll('.content > .nav > button').forEach(button => button.classList.remove('is-active'));
     const selectedNavButton = [...document.querySelectorAll('.content > .nav > button')]
