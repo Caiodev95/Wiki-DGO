@@ -57,7 +57,7 @@
     }
     .home-digimon-gatomon{
       right:18px;
-      bottom:18px;
+      bottom:70px;
       width:clamp(115px,10vw,150px);
       transform:translateY(0);
       filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
@@ -68,6 +68,14 @@
     body.home-active .home-digimon-gatomon{
       opacity:1;
       visibility:visible;
+    }
+    body.home-active .wiki-search{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+    @media (min-width:761px){
+      body.digimon-layout-preview .content{ margin-top:-60px; }
     }
     @media (max-width:760px){
       .home-digimon{ display:none; }
