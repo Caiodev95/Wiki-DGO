@@ -59,22 +59,6 @@
       transform:translate(66%,-50%);
       z-index:2;
     }
-    .home-digimon-gatomon{
-      left:76%;
-      right:auto;
-      top:0;
-      bottom:auto;
-      width:clamp(115px,10vw,150px);
-      transform:translate(-50%,-68%);
-      filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
-      opacity:0;
-      visibility:hidden;
-      transition:opacity .35s ease,visibility .35s ease;
-    }
-    body.home-active .home-digimon-gatomon{
-      opacity:1;
-      visibility:visible;
-    }
     .home-section-shell{
       position:relative;
       z-index:1;
@@ -3115,7 +3099,6 @@
     </div>
 
     <div class="home-section-shell">
-      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="" aria-hidden="true">
       <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="" aria-hidden="true">
       <div id="inicio" class="section active centered">
