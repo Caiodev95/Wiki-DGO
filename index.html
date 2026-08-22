@@ -33,54 +33,44 @@
       pointer-events: none;
     }
 
-    .home-digimon-stage{
-      position:fixed;
-      inset:0;
-      z-index:0;
-      overflow:hidden;
-      pointer-events:none;
-      opacity:0;
-      visibility:hidden;
-      transition:opacity .35s ease,visibility .35s ease;
-    }
-    body.home-active .home-digimon-stage{
-      opacity:1;
-      visibility:visible;
-    }
     .home-digimon{
       position:absolute;
       display:block;
       max-width:none;
       height:auto;
+      z-index:2;
+      pointer-events:none;
       user-select:none;
       filter:drop-shadow(0 0 18px rgba(24,216,255,.2));
     }
     .home-digimon-agumon{
       left:0;
-      top:61%;
-      width:clamp(250px,23vw,360px);
-      transform:translate(-38%,-50%);
+      top:64%;
+      width:clamp(150px,13vw,205px);
+      transform:translate(-58%,-50%);
     }
     .home-digimon-veemon{
       right:0;
-      top:61%;
-      width:clamp(250px,23vw,360px);
-      transform:translate(38%,-50%);
+      top:64%;
+      width:clamp(150px,13vw,205px);
+      transform:translate(58%,-50%);
     }
     .home-digimon-gatomon{
-      left:57%;
-      top:clamp(350px,42vh,460px);
-      width:clamp(155px,14vw,220px);
-      transform:translate(-50%,-50%);
+      right:18px;
+      bottom:18px;
+      width:clamp(115px,10vw,150px);
+      transform:translateY(0);
       filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .35s ease,visibility .35s ease;
     }
-    @media (max-width:1180px){
-      .home-digimon-agumon,
-      .home-digimon-veemon{ width:clamp(210px,25vw,290px); }
-      .home-digimon-gatomon{ left:62%; width:clamp(145px,17vw,190px); }
+    body.home-active .home-digimon-gatomon{
+      opacity:1;
+      visibility:visible;
     }
     @media (max-width:760px){
-      .home-digimon-stage{ display:none; }
+      .home-digimon{ display:none; }
     }
 
     .content, .nav, .section { position: relative; z-index: 1; }
@@ -146,7 +136,7 @@
     }
 
     .content { max-width: 1000px; margin: auto; padding: 20px; }
-    .top-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .top-header { position: relative; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     .wiki-search {
       position: fixed;
       top: 26px;
@@ -2907,6 +2897,7 @@
     }
 
     body.yggdrasil-layout-preview #inicio {
+      overflow: visible;
       background:
         radial-gradient(circle at 50% 0, rgba(69, 240, 178, .13), transparent 43%),
         radial-gradient(circle at 86% 8%, rgba(154, 124, 255, .08), transparent 30%),
@@ -3033,11 +3024,6 @@
     <div id="yggdrasil-data-network" class="yggdrasil-data-network"></div>
   </div>
   <div id="team-glyph-tooltip" class="team-glyph-tooltip" role="tooltip" aria-hidden="true"></div>
-  <div class="home-digimon-stage" aria-hidden="true">
-    <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="">
-    <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="">
-    <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="">
-  </div>
   <div class="content">
     <div class="logo-container glitch-wrapper">
       <div class="glitch">
@@ -3073,6 +3059,7 @@
 
     <div class="top-header">
       <div></div>
+      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <div class="lang-selector" aria-label="Language selector">
         <label for="language-select" data-i18n="lang.label">Idioma:</label>
         <select id="language-select" title="Selecione o idioma da Wiki" data-i18n-attr="title:lang.select_title">
@@ -3098,6 +3085,8 @@
     </div>
 
     <div id="inicio" class="section active centered">
+      <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="" aria-hidden="true">
+      <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="" aria-hidden="true">
       <h2 data-i18n="inicio.h2">Bem-vindo à Wiki DGO Brasil!</h2>
       <p data-i18n="inicio.p1">Aqui você encontrará...</p>
       <div class="home-quick-access">
