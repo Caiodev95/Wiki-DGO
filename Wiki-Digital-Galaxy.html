@@ -44,22 +44,26 @@
       filter:drop-shadow(0 0 18px rgba(24,216,255,.2));
     }
     .home-digimon-agumon{
-      left:0;
-      top:64%;
-      width:clamp(150px,13vw,205px);
-      transform:translate(-58%,-50%);
-    }
-    .home-digimon-veemon{
       right:0;
       top:64%;
       width:clamp(150px,13vw,205px);
       transform:translate(58%,-50%);
+      z-index:0;
+    }
+    .home-digimon-veemon{
+      left:0;
+      top:64%;
+      width:clamp(150px,13vw,205px);
+      transform:translate(-58%,-50%);
+      z-index:0;
     }
     .home-digimon-gatomon{
-      right:18px;
-      bottom:70px;
+      left:76%;
+      right:auto;
+      top:0;
+      bottom:auto;
       width:clamp(115px,10vw,150px);
-      transform:translateY(0);
+      transform:translate(-50%,-55%);
       filter:drop-shadow(0 0 20px rgba(154,124,255,.28));
       opacity:0;
       visibility:hidden;
@@ -68,6 +72,23 @@
     body.home-active .home-digimon-gatomon{
       opacity:1;
       visibility:visible;
+    }
+    .home-section-shell{
+      position:relative;
+      z-index:1;
+    }
+    .home-section-shell > .home-digimon{
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .35s ease,visibility .35s ease;
+    }
+    body.home-active .home-section-shell > .home-digimon{
+      opacity:1;
+      visibility:visible;
+    }
+    .home-section-shell > #inicio{
+      position:relative;
+      z-index:1;
     }
     body.home-active .wiki-search{
       opacity:0;
@@ -3067,7 +3088,6 @@
 
     <div class="top-header">
       <div></div>
-      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <div class="lang-selector" aria-label="Language selector">
         <label for="language-select" data-i18n="lang.label">Idioma:</label>
         <select id="language-select" title="Selecione o idioma da Wiki" data-i18n-attr="title:lang.select_title">
@@ -3079,6 +3099,7 @@
     </div>
 
     <div class="nav">
+      <img class="home-digimon home-digimon-gatomon" src="home-gatomon.png" alt="" aria-hidden="true">
       <button class="is-active" onclick="showSection('inicio')" data-i18n="nav.inicio">Início</button>
       <button onclick="showSection('novato')" data-i18n="nav.novato">Área do Novato</button>
       <button onclick="redirectToDigimons()" data-i18n="nav.digimons">Digimons</button>
@@ -3092,17 +3113,18 @@
       <button onclick="showSection('guias')" data-i18n="nav.guias">Vídeos</button>
     </div>
 
-    <div id="inicio" class="section active centered">
+    <div class="home-section-shell">
       <img class="home-digimon home-digimon-agumon" src="home-agumon.png" alt="" aria-hidden="true">
       <img class="home-digimon home-digimon-veemon" src="home-veemon.png" alt="" aria-hidden="true">
-      <h2 data-i18n="inicio.h2">Bem-vindo à Wiki DGO Brasil!</h2>
-      <p data-i18n="inicio.p1">Aqui você encontrará...</p>
-      <div class="home-quick-access">
-        <div class="home-quick-access-header">
-          <h3 data-i18n="inicio.quick_title">Acessos rápidos</h3>
-          <p data-i18n="inicio.quick_text">Encontre os conteúdos mais importantes sem percorrer todos os menus.</p>
-        </div>
-        <div class="home-quick-grid">
+      <div id="inicio" class="section active centered">
+        <h2 data-i18n="inicio.h2">Bem-vindo à Wiki DGO Brasil!</h2>
+        <p data-i18n="inicio.p1">Aqui você encontrará...</p>
+        <div class="home-quick-access">
+          <div class="home-quick-access-header">
+            <h3 data-i18n="inicio.quick_title">Acessos rápidos</h3>
+            <p data-i18n="inicio.quick_text">Encontre os conteúdos mais importantes sem percorrer todos os menus.</p>
+          </div>
+          <div class="home-quick-grid">
           <button class="home-quick-card" type="button" onclick="openHomeShortcut('novato')">
             <span class="home-quick-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"></circle><path d="M5 21c0-4 3-7 7-7s7 3 7 7"></path><path d="M12 10v4"></path></svg></span>
             <span><strong data-i18n="inicio.quick_beginner_title">Sou iniciante</strong><small data-i18n="inicio.quick_beginner_text">Comece pelos guias essenciais de progressão.</small></span>
@@ -3127,6 +3149,7 @@
             <span class="home-quick-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg></span>
             <span><strong data-i18n="inicio.quick_updates_title">Vídeos do DGO</strong><small data-i18n="inicio.quick_updates_text">Assista aos conteúdos publicados no canal do Digital Galaxy.</small></span>
           </button>
+          </div>
         </div>
       </div>
     </div>
