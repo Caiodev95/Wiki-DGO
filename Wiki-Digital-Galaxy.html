@@ -449,7 +449,7 @@
     }
     .dungeon-recommendation-card strong{ color:#fff3b2; font-size:.96rem; }
     .dungeon-boss-table-wrap{ width:100%; overflow-x:auto; }
-    .dungeon-boss-table{ width:100%; min-width:760px; border-collapse:collapse; margin-top:8px; }
+    .dungeon-boss-table{ width:100%; min-width:980px; border-collapse:collapse; margin-top:8px; }
     .dungeon-boss-table th,.dungeon-boss-table td{
       padding:8px 9px;
       border-bottom:1px solid rgba(255,255,255,.08);
@@ -458,6 +458,24 @@
     .dungeon-boss-table th{ color:#ffe27a; font-size:.78rem; }
     .dungeon-boss-table td:nth-child(2),.dungeon-boss-table td:nth-child(3){ white-space:nowrap; }
     .dungeon-boss-table small{ display:block; margin-top:2px; color:#9fb2c9; white-space:nowrap; }
+    .dungeon-ability-list{ display:flex; min-width:180px; flex-wrap:wrap; gap:5px; }
+    .dungeon-ability{
+      display:inline-flex;
+      align-items:center;
+      padding:3px 7px;
+      border:1px solid rgba(0,229,255,.28);
+      border-radius:999px;
+      color:#dcecff;
+      background:rgba(0,229,255,.07);
+      font-size:.74rem;
+      line-height:1.25;
+    }
+    .dungeon-ability.mechanic{
+      border-color:rgba(255,196,0,.42);
+      color:#ffe27a;
+      background:rgba(255,196,0,.08);
+    }
+    .dungeon-ability-empty{ color:#9fb2c9; font-size:.78rem; }
     .dungeon-encounter-section{ margin:14px 0 16px; }
     .dungeon-encounter-section h5{ margin:0 0 4px; color:#ffe27a; font-size:.9rem; }
     .dungeon-encounter-section p{ margin:0 0 8px; color:#c8d7e8; font-size:.86rem; }
@@ -8014,20 +8032,66 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
   const DUNGEON_COMBAT_UI = {
     pt: {
       title:'Dados de combate do DGO',
-      level:'Nível de referência', hp:'HP de referência', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nível', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Maior skill', bossSkills:'Skills',
-      advantage:'Melhores opções', finalBosses:'Bosses finais', royalKnights:'Royal Knights da primeira sala', royalKnightsInfo:'Em cada entrada, 3 dos 6 Royal Knights são escolhidos aleatoriamente. Os atributos variam conforme a ordem do confronto.', notDeclared:'Não declarada', noDamage:'Sem dano registrado'
+      level:'Nível de referência', hp:'HP de referência', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nível', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Maior skill', bossSkills:'Habilidades',
+      advantage:'Melhores opções', finalBosses:'Bosses finais', royalKnights:'Royal Knights da primeira sala', royalKnightsInfo:'Em cada entrada, 3 dos 6 Royal Knights são escolhidos aleatoriamente. Os atributos variam conforme a ordem do confronto.', summonAbility:'Invocação de inimigos', abilitiesUnavailable:'Não informadas nos arquivos', notDeclared:'Não declarada', noDamage:'Sem dano registrado'
     },
     en: {
       title:'DGO combat data',
-      level:'Reference level', hp:'Reference HP', de:'Minimum DE', bosses:'Bosses', boss:'Boss', bossLevel:'Level', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Highest skill', bossSkills:'Skills',
-      advantage:'Best options', finalBosses:'Final bosses', royalKnights:'First-room Royal Knights', royalKnightsInfo:'On each run, 3 of the 6 Royal Knights are selected at random. Their stats vary according to encounter order.', notDeclared:'Not declared', noDamage:'No damage registered'
+      level:'Reference level', hp:'Reference HP', de:'Minimum DE', bosses:'Bosses', boss:'Boss', bossLevel:'Level', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Highest skill', bossSkills:'Abilities',
+      advantage:'Best options', finalBosses:'Final bosses', royalKnights:'First-room Royal Knights', royalKnightsInfo:'On each run, 3 of the 6 Royal Knights are selected at random. Their stats vary according to encounter order.', summonAbility:'Summons enemies', abilitiesUnavailable:'Not listed in the files', notDeclared:'Not declared', noDamage:'No damage registered'
     },
     es: {
       title:'Datos de combate del DGO',
-      level:'Nivel de referencia', hp:'HP de referencia', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nivel', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Mayor skill', bossSkills:'Skills',
-      advantage:'Mejores opciones', finalBosses:'Bosses finales', royalKnights:'Royal Knights de la primera sala', royalKnightsInfo:'En cada entrada, 3 de los 6 Royal Knights son seleccionados al azar. Sus atributos cambian según el orden del enfrentamiento.', notDeclared:'No declarada', noDamage:'Sin daño registrado'
+      level:'Nivel de referencia', hp:'HP de referencia', de:'DE mínima', bosses:'Bosses', boss:'Boss', bossLevel:'Nivel', bossHp:'HP', bossAt:'AT', bossDe:'DE', bossSkill:'Mayor skill', bossSkills:'Habilidades',
+      advantage:'Mejores opciones', finalBosses:'Bosses finales', royalKnights:'Royal Knights de la primera sala', royalKnightsInfo:'En cada entrada, 3 de los 6 Royal Knights son seleccionados al azar. Sus atributos cambian según el orden del enfrentamiento.', summonAbility:'Invoca enemigos', abilitiesUnavailable:'No informadas en los archivos', notDeclared:'No declarada', noDamage:'Sin daño registrado'
     }
   };
+
+  // Golpes oficiais ligados ao ModelDigimon de cada boss em DigimonList.xml e Skill.xml.
+  const DUNGEON_BOSS_ABILITIES = Object.freeze({
+    'Antylamon':['Arm Bomber','Asipatravana','Bao Fu','Bunny Blades'],
+    'Baihumon':['Kongou','Tekkosou'],
+    'BanchouLeomon(Raid Boss)':['Flash Bancho Punch','King Lion'],
+    'Birdramon':['Fire Flap','Meteor Wing'],
+    'Blossomon':['Spiral Flower','Thorn Whip'],
+    'Calamaramon':['Nero Corso','Titanic Charge'],
+    'Chimairamon':['Heat Viper','Hybrid Arms'],
+    'Craniummon':['Power of Breath','Shock Ringer'],
+    'DarkDramon':['Dark Roar','Gigastic Lance'],
+    'Death-X-mon':['Process F','Process O'],
+    'Devimon':['Death Claw','Leather Wing'],
+    'DexDorugoramon':['Doru Diin','Metal Impulse'],
+    'Dynasmon':['Dragon Breath','Dragon Roar'],
+    'Etemon':['Concert Crush','Dark Network','Love Serenade'],
+    'Examon':['Dragonic Impact',"Pendragon's Glory"],
+    'Fanglongmon':['Fang of the Emperor','Oukai','Taikyoku'],
+    'Gankoomon':['Flipping Table In Anger','Quake! Blast! Fire! Father!','Striking With Fists'],
+    'Garudamon':['Eagle Claw','Shadow Wing'],
+    'Garummon':['Solar Laser','Speed Star'],
+    'Gigasmon':['Earth Quake','Hurricane Bomber'],
+    'Kaiser Leomon':['Schwarz Donner','Schwarz Gewehr'],
+    'Leomon':['Crushing Kick','Juugamaru','Juuouken'],
+    'LordKnightmon':['Fist of Fear','Spiral Splice'],
+    'Majiramon':['Asipatravana','Bao Fu'],
+    'Marin Devimon':['Guilty Black','Shimetsuke'],
+    'MegaSeadramon':['Crimson Lightning','Grisly Wing','Maelstrom','Thunder Javelin'],
+    'Mihiramon':['Asipatravana','Bao Fu'],
+    'Myotismon':['Crimson Lightning','Grisly Wing'],
+    'Nanomon':['Nano Crash','Plug Bomb'],
+    'Ogremon':['Bone Cudgel','Pummel Whack','Strong Maul'],
+    'Petaldramon':['Leaf Cyclone','Thousand Spike'],
+    'Phoenixmon':['Crimson Flame','Star-Light Explosion'],
+    'Qinglongmon':['BlueThunder','WTFE'],
+    'Sephirothmon':['Rumble Blend All Number','Rumble Blend Number (1~10)'],
+    'Sinduramon':['Bao Chu','Positron Pulse','Puyavaha'],
+    'SkullMeramon':['Heat Chain','Heavy Metal Fire'],
+    'Sleipmon':['Icy Breath','Inferno Frost'],
+    'UlforceVeedramon':['AlForce Saber','Shining V Force'],
+    'Venom vamdemon':['Chaos Flame','Maelstrom','Thunder Javelin','Venom Infusion'],
+    'Vritramon':['Corona Blaster','Flame Storm'],
+    'Xuanwumon':['Black Hail','Double Dragon Wave'],
+    'Zhuqiaomon':['Crimson Blaze','Pheonix Fire']
+  });
 
   const DUNGEON_COMBAT_DATA = {
     royalbase: {
@@ -8150,13 +8214,27 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     return min === max ? start : `${start} – ${formatDungeonNumber(max,lang)}`;
   }
 
+  function getDungeonBossAbilities(name) {
+    const baseName = name.replace(/\s+\(Crack of Devimon\)$/i,'');
+    return DUNGEON_BOSS_ABILITIES[name] || DUNGEON_BOSS_ABILITIES[baseName] || [];
+  }
+
+  function renderDungeonBossAbilities(name, summons = 0, lang = currentLanguage) {
+    const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
+    const abilities = getDungeonBossAbilities(name);
+    if (!abilities.length && !summons) return `<span class="dungeon-ability-empty">${ui.abilitiesUnavailable}</span>`;
+    const moves = abilities.map(ability => `<span class="dungeon-ability">${ability}</span>`);
+    if (summons) moves.push(`<span class="dungeon-ability mechanic">${ui.summonAbility}</span>`);
+    return `<div class="dungeon-ability-list">${moves.join('')}</div>`;
+  }
+
   function renderDungeonCombatAudit(id, lang = currentLanguage) {
     const data = DUNGEON_COMBAT_DATA[id];
     if (!data) return '';
     const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
     const modes = data.modes.map(mode => {
-      const encounterTable = mode.encounters.length ? `<section class="dungeon-encounter-section"><h5>${ui.royalKnights}</h5><p>${ui.royalKnightsInfo}</p><div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.encounters.map(encounter => `<tr><td><strong>${encounter.name}</strong><small>${encounter.attribute} · ${encounter.element}</small></td><td>${formatDungeonRange(encounter.hpMin,encounter.hpMax,lang)}</td><td>${formatDungeonRange(encounter.atMin,encounter.atMax,lang)}</td><td>${formatDungeonRange(encounter.deMin,encounter.deMax,lang)}</td><td>${encounter.maxSkill ? formatDungeonNumber(encounter.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div></section>` : '';
-      const bossTable = mode.bosses.length ? `${mode.encounters.length ? `<div class="dungeon-encounter-section"><h5>${ui.finalBosses}</h5></div>` : ''}<div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td><strong>${boss.name}</strong><small>${boss.attribute} · ${boss.element}</small></td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td><td>${formatDungeonNumber(boss.at,lang)}</td><td>${formatDungeonNumber(boss.de,lang)}</td><td>${boss.skills}</td><td>${boss.maxSkill ? formatDungeonNumber(boss.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div>` : '';
+      const encounterTable = mode.encounters.length ? `<section class="dungeon-encounter-section"><h5>${ui.royalKnights}</h5><p>${ui.royalKnightsInfo}</p><div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.encounters.map(encounter => `<tr><td><strong>${encounter.name}</strong><small>${encounter.attribute} · ${encounter.element}</small></td><td>${formatDungeonRange(encounter.hpMin,encounter.hpMax,lang)}</td><td>${formatDungeonRange(encounter.atMin,encounter.atMax,lang)}</td><td>${formatDungeonRange(encounter.deMin,encounter.deMax,lang)}</td><td>${renderDungeonBossAbilities(encounter.name,0,lang)}</td><td>${encounter.maxSkill ? formatDungeonNumber(encounter.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div></section>` : '';
+      const bossTable = mode.bosses.length ? `${mode.encounters.length ? `<div class="dungeon-encounter-section"><h5>${ui.finalBosses}</h5></div>` : ''}<div class="dungeon-boss-table-wrap"><table class="dungeon-boss-table"><thead><tr><th>${ui.boss}</th><th>${ui.bossLevel}</th><th>${ui.bossHp}</th><th>${ui.bossAt}</th><th>${ui.bossDe}</th><th>${ui.bossSkills}</th><th>${ui.bossSkill}</th></tr></thead><tbody>${mode.bosses.map(boss => `<tr><td><strong>${boss.name}</strong><small>${boss.attribute} · ${boss.element}</small></td><td>${boss.level}</td><td>${formatDungeonNumber(boss.hp,lang)}</td><td>${formatDungeonNumber(boss.at,lang)}</td><td>${formatDungeonNumber(boss.de,lang)}</td><td>${renderDungeonBossAbilities(boss.name,boss.summons,lang)}</td><td>${boss.maxSkill ? formatDungeonNumber(boss.maxSkill,lang) : ui.noDamage}</td></tr>`).join('')}</tbody></table></div>` : '';
       const hpFloor = mode.hpFloor ? `${formatDungeonNumber(mode.hpFloor + 1,lang)}+` : ui.notDeclared;
       return `<article class="dungeon-combat-mode"><h4>${localizedDungeonValue(mode.name,lang)}</h4><div class="dungeon-recommendation-grid"><div class="dungeon-recommendation-card"><span>${ui.level}</span><strong>${mode.level}+</strong></div><div class="dungeon-recommendation-card"><span>${ui.hp}</span><strong>${hpFloor}</strong></div><div class="dungeon-recommendation-card"><span>${ui.de}</span><strong>${ui.notDeclared}</strong></div><div class="dungeon-recommendation-card"><span>${mode.encounters.length ? ui.finalBosses : ui.bosses}</span><strong>${mode.bosses.length}</strong></div></div>${encounterTable}${bossTable}</article>`;
     }).join('');
@@ -8174,7 +8252,7 @@ En la mayoría de los casos, no hay reducción de daño ni forma de sobrevivir e
     const data = DUNGEON_COMBAT_DATA[id];
     if (!data) return '';
     const ui = DUNGEON_COMBAT_UI[lang] || DUNGEON_COMBAT_UI.pt;
-    const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.map} ${mode.level} ${mode.hpFloor} ${formatDungeonNumber(mode.hpFloor,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)} ${boss.at} ${boss.de} ${boss.maxSkill} ${boss.skills} ${boss.attribute} ${boss.element}`).join(' ')} ${mode.encounters.map(encounter => `${encounter.name} ${encounter.hpMin} ${encounter.hpMax} ${encounter.atMin} ${encounter.atMax} ${encounter.deMin} ${encounter.deMax} ${encounter.maxSkill} ${encounter.attribute} ${encounter.element}`).join(' ')}`).join(' ');
+    const modeText = data.modes.map(mode => `${localizedDungeonValue(mode.name,lang)} ${mode.map} ${mode.level} ${mode.hpFloor} ${formatDungeonNumber(mode.hpFloor,lang)} ${mode.bosses.map(boss => `${boss.name} ${boss.level} ${boss.hp} ${formatDungeonNumber(boss.hp,lang)} ${boss.at} ${boss.de} ${boss.maxSkill} ${boss.attribute} ${boss.element} ${getDungeonBossAbilities(boss.name).join(' ')} ${boss.summons ? ui.summonAbility : ''}`).join(' ')} ${mode.encounters.map(encounter => `${encounter.name} ${encounter.hpMin} ${encounter.hpMax} ${encounter.atMin} ${encounter.atMax} ${encounter.deMin} ${encounter.deMax} ${encounter.maxSkill} ${encounter.attribute} ${encounter.element} ${getDungeonBossAbilities(encounter.name).join(' ')}`).join(' ')}`).join(' ');
     return `${modeText} ${localizedDungeonValue(data.advantage,lang)}`;
   }
 
